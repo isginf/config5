@@ -1,7 +1,7 @@
 #!/bin/sh
 
 svn export https://svn.isg.inf.ethz.ch/svn/isg/config5/trunk tmp
-VERSION=`cat tmp/VERSION.txt`
+VERSION=`cat tmp/VERSION`
 mv tmp config5-$VERSION
 
 (
@@ -10,7 +10,7 @@ mv tmp config5-$VERSION
   do
     cd $dir
     name=`echo $dir | tr '[:upper:]' '[:lower:]'`
-    tar --exclude=.svn -cf - . | gzip -9 > ../../$name.tgz 
+    tar --exclude=.svn --exclude=.git -cf - . | gzip -9 > ../../$name.tgz 
     cd ..
   done
 
