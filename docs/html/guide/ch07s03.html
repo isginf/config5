@@ -1,0 +1,192 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>7.3. Settings Reference</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Config5"><link rel="up" href="ch07.html" title="Chapter 7. Customization"><link rel="prev" href="ch07s02.html" title="7.2. Custom Settings"><link rel="next" href="apa.html" title="Appendix A.  Man Pages"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">7.3. Settings Reference</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch07s02.html">Prev</a> </td><th width="60%" align="center">Chapter 7. Customization</th><td width="20%" align="right"> <a accesskey="n" href="apa.html">Next</a></td></tr></table><hr></div><div class="section" title="7.3. Settings Reference"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="cust.settings"></a>7.3. Settings Reference</h2></div></div></div>
+    
+
+    <p>The following reference lists the various settings. All examples
+    assume that <code class="code">$self</code> is defined and holds the reference to the
+    settings structure.</p>
+
+    <div class="section" title="7.3.1. General Settings"><div class="titlepage"><div><div><h3 class="title"><a name="cust.general"></a>7.3.1. General Settings</h3></div></div></div>
+      
+
+      <p>The following settings are of general nature:</p>
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col><col><col></colgroup><thead><tr><th align="left">Setting</th><th align="left">Default</th><th align="left">Description</th></tr></thead><tbody><tr><td class="nowrap"><code class="varname">$self-&gt;{disable}-&gt;{file}</code></td><td><code class="filename">/etc/config5-disabled</code></td><td>The path of the disable file. If this file is present
+              then <span class="command"><strong>config5</strong></span> will not run. Dry runs via dummy
+              mode are still possible.</td></tr><tr><td><code class="varname">$self-&gt;{lock}-&gt;{file}</code></td><td><code class="filename">/var/lock/config5</code></td><td>The path of the lock file used to prevent concurrent
+              execution of <span class="command"><strong>config5</strong></span>. <span class="emphasis"><em>This file
+              must be on the local file system and not on a network
+              share</em></span>.</td></tr><tr><td><code class="varname">$self-&gt;{lock}-&gt;{timeout}</code></td><td><code class="constant">5</code></td><td>The timeout after which <span class="command"><strong>config5</strong></span> will
+              abort if the lock file cannot be locked. A value of
+              <code class="constant">0</code> will block indefinitely until the lock
+              file can be locked.</td></tr><tr><td><code class="varname">$self-&gt;{features}-&gt;{name}</code></td><td><code class="filename">features</code></td><td>The directory name of the feature set.</td></tr><tr><td><code class="varname">$self-&gt;{spec}-&gt;{name}</code></td><td><code class="filename">spec</code></td><td>The name of the specification file in each feature
+              directory.</td></tr></tbody></table>
+      </div>
+    </div>
+
+    <div class="section" title="7.3.2. Operating System Settings"><div class="titlepage"><div><div><h3 class="title"><a name="cust.os"></a>7.3.2. Operating System Settings</h3></div></div></div>
+      
+
+      <p>The following settings control additional support for features of
+      the operating system:</p>
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col><col><col></colgroup><thead><tr><th align="left">Setting</th><th align="left">Default</th><th align="left">Description</th></tr></thead><tbody><tr><td><code class="varname">$self-&gt;{os}-&gt;{env}-&gt;{<em class="replaceable"><code>variable</code></em>}</code></td><td>undefine <code class="constant">LANG</code></td><td>Set environment variable to a given string. To undefine
+              an environment variable set it to
+              <code class="constant">undef</code>.</td></tr><tr><td><code class="varname">$self-&gt;{os}-&gt;{root}</code></td><td><code class="filename">/</code></td><td>The root directory.</td></tr><tr><td><code class="varname">$self-&gt;{os}-&gt;{selinux}-&gt;{enable}</code></td><td><code class="constant">0</code></td><td>Enables support for SELinux if set to
+              <code class="constant">1</code> and disables it if set to
+              <code class="constant">0</code>.</td></tr><tr><td><code class="varname">$self-&gt;{os}-&gt;{syslog}-&gt;{enable}</code></td><td><code class="constant">1</code></td><td>Enables logging via <code class="systemitem">syslog</code> if set to 1 and disables it
+              if set to <code class="constant">0</code>.</td></tr><tr><td><code class="varname">$self-&gt;{os}-&gt;{syslog}-&gt;{identifier}</code></td><td><code class="systemitem">config5</code></td><td>The identifier for log entries if logging via <code class="systemitem">syslog</code> is enabled.</td></tr><tr><td><code class="varname">$self-&gt;{os}-&gt;{syslog}-&gt;{facility}</code></td><td><code class="systemitem">local5</code></td><td>The facility for log entries if logging via <code class="systemitem">syslog</code> is enabled.</td></tr><tr><td><code class="varname">$self-&gt;{os}-&gt;{umask}</code></td><td><code class="constant">022</code></td><td>The file and directory creating mask for shell
+              commands.</td></tr></tbody></table>
+      </div>
+    </div>
+
+    <div class="section" title="7.3.3. System Information Settings"><div class="titlepage"><div><div><h3 class="title"><a name="cust.sysinfo"></a>7.3.3. System Information Settings</h3></div></div></div>
+      
+
+      <p>The following settings control the system information
+      collection.</p>
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col><col><col></colgroup><thead><tr><th align="left">Setting</th><th align="left">Default</th><th align="left">Description</th></tr></thead><tbody><tr><td><code class="varname">$self-&gt;{system}-&gt;{class}</code></td><td><code class="classname">Config5::System::LSB</code></td><td>The class that collects the system information.</td></tr><tr><td><code class="varname">$self-&gt;{system}-&gt;{items}-&gt;{<em class="replaceable"><code>item</code></em>}</code></td><td><code class="filename">see <a class="xref" href="ch06s02.html" title="6.2. System Information Items">Section 6.2, “System Information Items”</a></code></td><td>The known system information items.</td></tr><tr><td><code class="varname">$self-&gt;{system}-&gt;{properties}-&gt;{file}</code></td><td><code class="filename">/etc/config5-properties</code></td><td>The file name of the properties file.</td></tr><tr><td><code class="varname">$self-&gt;{system}-&gt;{variations_directory}</code></td><td><em class="replaceable"><code>undefined</code></em></td><td>Directory containing files variations of system
+              information (see <a class="xref" href="ch04s04.html" title="4.4. Verifying the Configuration">Section 4.4, “Verifying the Configuration”</a>).</td></tr></tbody></table>
+      </div>
+    </div>
+
+    <div class="section" title="7.3.4. Built-in Changes"><div class="titlepage"><div><div><h3 class="title"><a name="cust.changes"></a>7.3.4. Built-in Changes</h3></div></div></div>
+      
+
+      <p>The following settings control the behaviour of the built-in
+      changes.</p>
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col><col><col></colgroup><thead><tr><th align="left">Setting</th><th align="left">Default</th><th align="left">Description</th></tr></thead><tbody><tr><td><code class="varname">$self-&gt;{builtin}-&gt;{execute}-&gt;{allow_chroot}</code></td><td><code class="classname">0</code></td><td>Apply execute changes if root is not
+              <code class="filename">/</code>.</td></tr></tbody></table>
+      </div>
+    </div>
+
+    <div class="section" title="7.3.5. Verbosity"><div class="titlepage"><div><div><h3 class="title"><a name="cust.output"></a>7.3.5. Verbosity</h3></div></div></div>
+      
+
+      <p>The amount of information that is printed at which verbosity level
+      can be configured by changing the following settings.</p>
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col><col><col></colgroup><thead><tr><th align="left">Setting</th><th align="left">Default</th><th align="left">Description</th></tr></thead><tbody><tr><td><code class="varname">$self-&gt;{display}-&gt;{entities}-&gt;{system}</code></td><td><code class="constant">1</code></td><td>Print the system information.</td></tr><tr><td><code class="varname">$self-&gt;{display}-&gt;{entities}-&gt;{pass}</code></td><td><code class="constant">1</code></td><td>Print the pass numbers.</td></tr><tr><td><code class="varname">$self-&gt;{display}-&gt;{entities}-&gt;{status}</code></td><td><code class="constant">1</code></td><td>print the status.</td></tr></tbody></table>
+      </div>
+
+      <p>The default verbosity level is <code class="constant">1</code> which means
+      that by default all three items are printed.</p>
+    </div>
+
+    <div class="section" title="7.3.6. Stages"><div class="titlepage"><div><div><h3 class="title"><a name="idp988656"></a>7.3.6. Stages</h3></div></div></div>
+      
+
+      <p>The stages and the associated flags can be altered by defining
+      <code class="varname">$self-&gt;{stage}-&gt;{stages}</code> like this:</p>
+
+      <pre class="programlisting"># Stages of the target system
+$self-&gt;{stage}-&gt;{stages} =
+{
+   'installation' =&gt; 'I',
+   'startup' =&gt; 'S'
+   'production' =&gt; 'P'
+};</pre>
+
+      <p>The flags defined for the stages must not conflict with the
+      regular flags (see <a class="xref" href="ch02s04.html#conf.changes.flags" title="2.4.1. Flags">Section 2.4.1, “Flags”</a>).</p>
+    </div>
+
+    <div class="section" title="7.3.7. Change Keywords"><div class="titlepage"><div><div><h3 class="title"><a name="idp992160"></a>7.3.7. Change Keywords</h3></div></div></div>
+      
+
+      <p>The keywords for changes can be altered by modifying
+      <code class="varname">$self-&gt;{change}-&gt;{keywords}</code> like this:</p>
+
+      <pre class="programlisting"># Replace the keyword 'directory' by 'mkdir'
+delete $self-&gt;{change}-&gt;{keywords}-&gt;{directory};
+$self-&gt;{change}-&gt;{keywords}-&gt;{mkdir} = 'directory';
+
+# Add 'package' as keyword for 'yum'
+$self-&gt;{change}-&gt;{keywords}-&gt;{package} = 'yum';</pre>
+
+      <p>Similarily the identifier used for changes when displaying them
+      can be changed by modifying
+      <code class="varname">$self-&gt;{display}-&gt;{keywords}</code>:</p><pre class="programlisting"># Replace the keyword 'directory' by 'mkdir'
+$self-&gt;{display}-&gt;{keywords}-&gt;{directory} = 'mkdir';
+
+# Add 'package' as keyword for 'yum'
+$self-&gt;{display}-&gt;{keywords}-&gt;{yum} = 'package';</pre>
+
+      <p>The names for the core changes are:</p>
+
+      <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+          <p><code class="function">copy</code></p>
+        </li><li class="listitem">
+          <p><code class="function">truncate</code></p>
+        </li><li class="listitem">
+          <p><code class="function">append</code></p>
+        </li><li class="listitem">
+          <p><code class="function">directory</code></p>
+        </li><li class="listitem">
+          <p><code class="function">link</code></p>
+        </li><li class="listitem">
+          <p><code class="function">symlink</code></p>
+        </li><li class="listitem">
+          <p><code class="function">properties</code></p>
+        </li><li class="listitem">
+          <p><code class="function">remove</code></p>
+        </li><li class="listitem">
+          <p><code class="function">execute</code></p>
+        </li></ul></div>
+    </div>
+
+    <div class="section" title="7.3.8. Class Match Order"><div class="titlepage"><div><div><h3 class="title"><a name="cust.classes"></a>7.3.8. Class Match Order</h3></div></div></div>
+      
+
+      <p>The search order for the best class match in each feature can be
+      customized by modifying <code class="varname">the list referenced by
+      $self-&gt;{class}-&gt;{match}</code>. Each list entry is a string
+      containing placeholders of the form <em class="replaceable"><code>{item}</code></em>
+      which are replaced by the value of the respective system information
+      item.</p>
+
+      <p>The default search order is the following:</p>
+
+      <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+          <p><code class="classname">{host}_{os}_{release}_{arch}</code></p>
+        </li><li class="listitem">
+          <p><code class="classname">{host}_{os}_{release}</code></p>
+        </li><li class="listitem">
+          <p><code class="classname">{host}_{os}_{arch}</code></p>
+        </li><li class="listitem">
+          <p><code class="classname">{host}_{os}</code></p>
+        </li><li class="listitem">
+          <p><code class="classname">{host}_{arch}</code></p>
+        </li><li class="listitem">
+          <p><code class="classname">{host}</code></p>
+        </li><li class="listitem">
+          <p><code class="classname">{properties}_{os}_{release}_{arch}</code></p>
+        </li><li class="listitem">
+          <p><code class="classname">{properties}_{os}_{release}</code></p>
+        </li><li class="listitem">
+          <p><code class="classname">{properties}_{os}_{arch}</code></p>
+        </li><li class="listitem">
+          <p><code class="classname">{properties}_{os}</code></p>
+        </li><li class="listitem">
+          <p><code class="classname">{properties}_{arch}</code></p>
+        </li><li class="listitem">
+          <p><code class="classname">{properties}</code></p>
+        </li><li class="listitem">
+          <p><code class="classname">{os}_{release}_{arch}</code></p>
+        </li><li class="listitem">
+          <p><code class="classname">{os}_{release}</code></p>
+        </li><li class="listitem">
+          <p><code class="classname">{os}_{arch}</code></p>
+        </li><li class="listitem">
+          <p><code class="classname">{os}</code></p>
+        </li></ol></div>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch07s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch07.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="apa.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">7.2. Custom Settings </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Appendix A. 
+    Man Pages
+  </td></tr></table></div></body></html>

@@ -1,0 +1,17 @@
+# class: (referenced_class ...) (key=value ...)
+#   append (-b) file file (key=value ...)                : append to file
+#   augeas (-bntT) [set|remove|insert|replace] path ...  : Augeas extension
+#   copy (-bintT) file file user group mode (context) (key=value ...)  : copy
+#   directory (-ntT) dir user group mode (context)       : directory
+#   edit (-bntT) [add|remove|replace|modify] file ...    : Edit extension
+#   execute (-bntT) cmdline                              : execute shell line
+#   gconf (-bntT) [set|clear] path ...                   : GConf extension
+#   link (-ntT) file link                                : hard link
+#   package (-ntT) [install|uninstall] package           : Yum extension
+#   remove (-ntT) file                                   : remove
+#   sebool (-ntT) [set|clear] bool                       : SEBool extension
+#   service (-ntT) [add|remove|enable|disable|start|stop] svc  : Service ext.
+#   symlink (-ntT) value link user group (context)       : symbolic link
+#   truncate (-intT) file user group mode (context)      : truncate
+# -b: binary | -i: in-place | -t/T: class/feature triggered | -n: ignore errors
+# -[0-9]: pass | -I: kickstart stage | -P: production stage

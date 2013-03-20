@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter>
+<chapter version="5.0" xml:id="deploy" xml:lang="en_US"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/2000/svg"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Deployment</title>
+
+  <para>This chapter provides information and tips how to actually deploy
+  <productname>Config5</productname> in your organization.</para>
+
+  <para>Deploying <productname>Config5</productname> to a system is done in
+  two steps:</para>
+
+  <orderedlist>
+    <listitem>
+      <para>Distributing the <productname>Config5</productname> deployment kit
+      including the configuration data on the system</para>
+    </listitem>
+
+    <listitem>
+      <para>Running the <command>config5</command> script</para>
+    </listitem>
+  </orderedlist>
+
+  <para><productname>Config5</productname> is very flexible and allows for a
+  wide range of approaches for both.</para>
+
+  <section>
+    <title>Distribution of the Configuration</title>
+
+    <para>The <command>config5</command> script along with its settings and
+    libraries are typically distributed along with the feature set. This set
+    comprises the deployment kit (the <filename
+    class="directory">deploy</filename> folder in the distribution). Some
+    options for distributing the deployment kit include:</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>Network File system</term>
+
+        <listitem>
+          <para>The files of the deployment kit are exported via CIFS or NFS
+          and mounted read-only on the system to configure. If applicable the
+          authentication scheme of the network file system can be used to
+          restrict access.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Version Control System</term>
+
+        <listitem>
+          <para>A version control system such as Subversion or GIT can be used
+          as a distribution point. A system will check out the latest version
+          of the deployment kit.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Remote Copy</term>
+
+        <listitem>
+          <para>The deployment kit is pushed on a system via
+          <command>rsync</command>, <command>scp</command> or any other tool
+          that does the job.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>The right choice of the deployment method largely depends on your
+    work flow, policies and security requirements.</para>
+
+    <section>
+      <title>Integration with Subversion</title>
+
+      <para><productname>Config5</productname> integrates well with
+      <productname>Subversion</productname>. The configuration check function
+      of <command>config5</command> (see <xref linkend="run.verify"/>) can
+      easily be used in a pre-commit hook to guard against common errors such
+      as syntax errors and missing configuration files:</para>
+
+      <programlisting>#!/bin/sh
+
+REPOSITORY="$1"
+TRANSACTION="$2"
+
+TEMPDIR=`/bin/mktemp -d`
+export-commit "$REPOSITORY" "$TRANSACTION" trunk "$TEMPDIR" 1&gt;&amp;2
+
+"$TEMPDIR/trunk/bin/config5" --check 1&gt;&amp;2
+
+RC=$?
+rm -rf "$TEMPDIR"
+exit $RC
+</programlisting>
+
+      <para>This script relies on an additional script
+      <command>export-commit</command> which performs an export of the
+      repository <emphasis>including the pending commit</emphasis>:</para>
+
+      <programlisting>#!/bin/sh
+
+REPOSITORY="$1"
+TRANSACTION="$2"
+SUBDIR="$3"
+DIRECTORY="$4"
+
+svnlook tree --full-paths "$REPOSITORY" -t "$TRANSACTION" "$SUBDIR" | while read path
+do
+   if [[ $path =~ "\/$" ]]
+   then
+      mkdir -p "$DIRECTORY/$path"
+   else
+      svnlook cat "$REPOSITORY" -t "$TRANSACTION" "$path" &gt; "$DIRECTORY/$path";
+      chmod 755 "$DIRECTORY/$path"
+   fi
+done
+</programlisting>
+
+      <para>Both scripts can be found in the directory <filename
+      class="directory">examples/svn</filename> in the distribution.</para>
+    </section>
+  </section>
+
+  <section>
+    <title>Running <command>config5</command></title>
+
+    <para>Running the <command>config5</command> script at the right time is
+    an important decision for a successful deployment and depends on several
+    factors such as the operating system, work flows, policies, etc. Below is
+    a non-conclusive list of possible places from where to run
+    <command>config5</command>:</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>cron</term>
+
+        <listitem>
+          <para>Running <command>config5</command> periodically via
+          <command>cron</command> is the simplest way to make sure that all
+          running systems receive a new configuration.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>anacron</term>
+
+        <listitem>
+          <para>Configuring <command>anacron</command> on systems such as
+          laptops and desktops that may be put in sleep mode or hibernation
+          can be a meaningful complement to <command>cron</command>. If cron
+          runs config5 often (like, every hour) this may not be
+          necessary.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>on boot</term>
+
+        <listitem>
+          <para>After the operating system has booted it is usually best to
+          run <command>config5</command> once to get the latest configuration
+          updates immediately, possibly before the services it configures
+          start up.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>after package updates</term>
+
+        <listitem>
+          <para>After packages are updated it may be required to overwrite
+          configuration files by running <command>config5</command>
+          immediately afterward.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>When <command>config5</command> is running it uses a lock file to
+    make sure that only one instance of <command>config5</command> is running
+    at a time. It is therefore save to run <command>config5</command> from
+    different places without additional synchronization means.</para>
+
+    <section>
+      <title>Random Delay</title>
+
+      <para>If many system are likely to update their configuration at the
+      same time, it may be meaningful to add a random delay before running
+      <command>config5</command>. This is usually the case if
+      <command>config5</command> is run via <command>cron</command> on managed
+      systems. If the deployment kit is on a network file system then all
+      managed systems will otherwise access the file server at the same time.
+      Depending on the file server and file system this may cause all kinds of
+      errors.</para>
+
+      <para>The following <command>bash</command> code will perform a random
+      five minute delay before running <command>config5</command>:</para>
+
+      <example>
+        <title>Random Delay with bash</title>
+
+        <programlisting>RND=$RANDOM ; let "RND\%=300" ; sleep $RND; /usr/config5/bin/config5</programlisting>
+      </example>
+
+      <para>If the deployment kit is pulled from a central repository via
+      download or checkout the delay should be placed before the download or
+      checkout commands for similar reasons.</para>
+    </section>
+  </section>
+</chapter>

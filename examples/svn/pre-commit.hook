@@ -1,0 +1,14 @@
+#!/bin/sh
+
+REPOSITORY="$1"
+TRANSACTION="$2"
+
+TEMPDIR=`/bin/mktemp -d`
+export-commit "$REPOSITORY" "$TRANSACTION" trunk "$TEMPDIR" 1>&2
+
+"$TEMPDIR/trunk/bin/config5" --check 1>&2
+RC=$?
+
+rm -rf "$TEMPDIR"
+
+exit $RC

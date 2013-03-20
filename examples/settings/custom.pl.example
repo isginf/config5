@@ -1,0 +1,53 @@
+# This is an example custom settings file. Copy this file to
+# deploy/etc/custom.d/custom.pl and change the copy by commenting
+# out and changing the appropriate lines.
+
+my $self = $_;
+
+#$self->{os}->{umask} = 022;
+#$self->{os}->{selinux}->{enable} = 0;
+#$self->{os}->{syslog}->{enable} = 1;
+#$self->{os}->{syslog}->{identifier} = 'config5';
+#$self->{os}->{syslog}->{facility} = 'local5';
+#$self->{disable}->{file} = '/etc/config5-disabled';
+#$self->{lock}->{file} = '/var/lock/config5';
+#$self->{lock}->{timeout} = 30;
+#$self->{features}->{name} = 'features';
+#$self->{spec}->{name} = 'spec';
+#$self->{system}->{class} = 'Config5::System::LSB';
+#$self->{system}->{properties}->{file} = '/etc/config5-properties';
+#$self->{system}->{lsb}->{append_code} = 0;
+
+#$self->{system}->{items}->{ou} = [ 25, 1, 0, 0, 'OU' ];
+#delete $self->{system}->{items}->{ip6};
+
+#$self->{change}->{keywords}->{mkdir} = 'directory';
+#delete $self->{change}->{keywords}->{dir};
+#$self->{display}->{keywords}->{directory} = 'mkdir';
+
+#$self->{display}->{entities}->{system} = 1;
+#$self->{display}->{entities}->{pass} = 1;
+#$self->{display}->{entities}->{status} = 1;
+
+#$self->{class}->{match} =
+#[
+#   '{host}_{os}_{release}_{arch}',
+#   '{host}_{os}_{release}',
+#   '{host}_{os}_{arch}',
+#   '{host}_{os}',
+#   '{host}_{arch}',
+#   '{host}',
+#   '{properties}_{os}_{release}_{arch}',
+#   '{properties}_{os}_{release}',
+#   '{properties}_{os}_{arch}',
+#   '{properties}_{os}',
+#   '{properties}_{arch}',
+#   '{properties}',
+#   '{os}_{release}_{arch}',
+#   '{os}_{release}',
+#   '{os}_{arch}',
+#   '{os}',
+#];
+
+1;
+

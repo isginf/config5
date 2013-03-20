@@ -1,0 +1,61 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>5.2. Running config5</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Config5"><link rel="up" href="ch05.html" title="Chapter 5. Deployment"><link rel="prev" href="ch05.html" title="Chapter 5. Deployment"><link rel="next" href="ch06.html" title="Chapter 6. System Information"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.2. Running <span class="command"><strong>config5</strong></span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch05.html">Prev</a> </td><th width="60%" align="center">Chapter 5. Deployment</th><td width="20%" align="right"> <a accesskey="n" href="ch06.html">Next</a></td></tr></table><hr></div><div class="section" title="5.2. Running config5"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp719648"></a>5.2. Running <span class="command"><strong>config5</strong></span></h2></div></div></div>
+    
+
+    <p>Running the <span class="command"><strong>config5</strong></span> script at the right time is
+    an important decision for a successful deployment and depends on several
+    factors such as the operating system, work flows, policies, etc. Below is
+    a non-conclusive list of possible places from where to run
+    <span class="command"><strong>config5</strong></span>:</p>
+
+    <div class="variablelist"><dl><dt><span class="term">cron</span></dt><dd>
+          <p>Running <span class="command"><strong>config5</strong></span> periodically via
+          <span class="command"><strong>cron</strong></span> is the simplest way to make sure that all
+          running systems receive a new configuration.</p>
+        </dd><dt><span class="term">anacron</span></dt><dd>
+          <p>Configuring <span class="command"><strong>anacron</strong></span> on systems such as
+          laptops and desktops that may be put in sleep mode or hibernation
+          can be a meaningful complement to <span class="command"><strong>cron</strong></span>. If cron
+          runs config5 often (like, every hour) this may not be
+          necessary.</p>
+        </dd><dt><span class="term">on boot</span></dt><dd>
+          <p>After the operating system has booted it is usually best to
+          run <span class="command"><strong>config5</strong></span> once to get the latest configuration
+          updates immediately, possibly before the services it configures
+          start up.</p>
+        </dd><dt><span class="term">after package updates</span></dt><dd>
+          <p>After packages are updated it may be required to overwrite
+          configuration files by running <span class="command"><strong>config5</strong></span>
+          immediately afterward.</p>
+        </dd></dl></div>
+
+    <p>When <span class="command"><strong>config5</strong></span> is running it uses a lock file to
+    make sure that only one instance of <span class="command"><strong>config5</strong></span> is running
+    at a time. It is therefore save to run <span class="command"><strong>config5</strong></span> from
+    different places without additional synchronization means.</p>
+
+    <div class="section" title="5.2.1. Random Delay"><div class="titlepage"><div><div><h3 class="title"><a name="idp735472"></a>5.2.1. Random Delay</h3></div></div></div>
+      
+
+      <p>If many system are likely to update their configuration at the
+      same time, it may be meaningful to add a random delay before running
+      <span class="command"><strong>config5</strong></span>. This is usually the case if
+      <span class="command"><strong>config5</strong></span> is run via <span class="command"><strong>cron</strong></span> on managed
+      systems. If the deployment kit is on a network file system then all
+      managed systems will otherwise access the file server at the same time.
+      Depending on the file server and file system this may cause all kinds of
+      errors.</p>
+
+      <p>The following <span class="command"><strong>bash</strong></span> code will perform a random
+      five minute delay before running <span class="command"><strong>config5</strong></span>:</p>
+
+      <div class="example"><a name="idp740128"></a><p class="title"><b>Example 5.1. Random Delay with bash</b></p><div class="example-contents">
+        
+
+        <pre class="programlisting">RND=$RANDOM ; let "RND\%=300" ; sleep $RND; /usr/config5/bin/config5</pre>
+      </div></div><br class="example-break">
+
+      <p>If the deployment kit is pulled from a central repository via
+      download or checkout the delay should be placed before the download or
+      checkout commands for similar reasons.</p>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch05.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch05.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 5. Deployment </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 6. System Information</td></tr></table></div></body></html>

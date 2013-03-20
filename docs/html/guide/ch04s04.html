@@ -1,0 +1,44 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>4.4. Verifying the Configuration</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Config5"><link rel="up" href="ch04.html" title="Chapter 4. The config5 Script"><link rel="prev" href="ch04s03.html" title="4.3. Applying the Configuration"><link rel="next" href="ch04s05.html" title="4.5. Reports"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4.4. Verifying the Configuration</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch04s03.html">Prev</a> </td><th width="60%" align="center">Chapter 4. The <span class="command"><strong>config5 Script</strong></span></th><td width="20%" align="right"> <a accesskey="n" href="ch04s05.html">Next</a></td></tr></table><hr></div><div class="section" title="4.4. Verifying the Configuration"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="run.verify"></a>4.4. Verifying the Configuration</h2></div></div></div>
+    
+
+    <p>With the <code class="option">--check</code> command line option the
+    configuration will only be checked for correctness. Currently the
+    following static checks are performed:</p>
+
+    <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+        <p>Syntax errors in the <code class="filename">spec</code> files or missing
+        spec files.</p>
+      </li><li class="listitem">
+        <p>Missing source files for copy or append.</p>
+      </li><li class="listitem">
+        <p>File or directory modified in more than one feature.</p>
+      </li><li class="listitem">
+        <p>Missing referenced class.</p>
+      </li><li class="listitem">
+        <p>Missing <code class="function">copy</code> or
+        <code class="function">truncate</code> change for <code class="function">append</code>
+        changes.</p>
+      </li><li class="listitem">
+        <p>Duplicate classes in a feature.</p>
+      </li></ul></div>
+
+    <p>Ensuring that every append change has a corresponding copy or
+    truncate change cannot be verified statically. To enable this check do the
+    following:</p>
+
+    <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+        <p>Collect the output of <span class="command"><strong>config5 --report
+        rawsystem</strong></span> from all systems the configuration will be applied
+        to and store each output in an individual file in some directory,
+        typically a network share. The directory must be readable from where
+        you will run config5 --check (if you integrate config5 with
+        <span class="productname">Subversion</span> such as described in <a class="xref" href="ch05.html" title="Chapter 5. Deployment">Chapter 5, <i>Deployment</i></a> then the directory must also be accessible on your
+        <span class="productname">Subversion </span>server). The best is to do this
+        periodically.</p>
+      </li><li class="listitem">
+        <p>Set the setting
+        <code class="varname">$self-&gt;{system}-&gt;{variations_directory}</code> (see
+        <a class="xref" href="ch07s03.html#cust.sysinfo" title="7.3.3. System Information Settings">Section 7.3.3, “System Information Settings”</a>) to the directory containing the above
+        files.</p>
+      </li></ol></div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch04s03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch04.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch04s05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">4.3. Applying the Configuration </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4.5. Reports</td></tr></table></div></body></html>

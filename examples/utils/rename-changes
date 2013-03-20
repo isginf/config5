@@ -1,0 +1,51 @@
+#!/usr/bin/perl
+
+#
+# rename-changes  - Rename change keywords in spec files
+#
+# Usage:
+#
+#   rename-changes c=copy t=truncate features/*/spec
+#
+# $Id: rename-changes 190 2013-03-18 08:47:37Z walteste $
+# $HeadURL: https://svn.isg.inf.ethz.ch/svn/isg/config5/trunk/examples/utils/rename-changes $
+#
+
+use strict;
+use warnings;
+
+use File::Slurp;
+
+
+my @files;
+my %map;
+map { /=/ ? $map{$`} = $' : push(@files,$_) } @ARGV;
+
+foreach my $file (@files)
+{
+   next unless -f $file;
+
+   print "$file\n";
+   my (@out, $flag, $n);
+   foreach $_ (read_file $file)
+   {
+      $n++;   
+      push(@out, $_), next if /^\s*$/ or /^\s*#/ or /^(\S+)\s*:\s*(.*)/;
+      die "Unparsable line in '$file', line $n" unless /^\s+(\S+)\s+(.*)/;
+
+      my ($change, $rest) = ($1, $2);
+      if ($map{$change})
+      {
+         $change = $map{$change};
+         $flag = 1;
+         print "  $n: $1 -> $change\n"
+      }
+
+      while (length($change) < 11) { $change .= ' ' }
+
+      push @out, "   $change $rest\n"; 
+   }
+
+   write_file $file, @out if $flag;
+}
+

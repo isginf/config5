@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter>
+<chapter version="5.0" xml:lang="en_US" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/2000/svg"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Customization</title>
+
+  <para><productname>Config5</productname> ships with a reasonable set of
+  default settings for the <command>config5</command> script for a normal
+  deployment using the core features.</para>
+
+  <para>Systems administrators with special needs or policies can tweak many
+  settings that affect the file system structure or behavior of
+  <productname>Config5</productname>.</para>
+
+  <section>
+    <title>Files</title>
+
+    <para>All files are located under the directory <filename
+    class="directory">etc</filename> next to the <filename>bin</filename>
+    directory containing the <command>config5</command> script. In the
+    official distribution the files are in <filename
+    class="directory">deploy/etc</filename>:</para>
+
+    <screen>$ ls deploy/etc
+custom.d  extensions.d  settings.pl</screen>
+
+    <para>All configuration files are basically perl code that modifies the
+    settings data structure which is passed in <varname>$_</varname> by
+    reference.</para>
+
+    <section>
+      <title>Order of Processing</title>
+
+      <para>The various files are processed in the following order:</para>
+
+      <orderedlist>
+        <listitem>
+          <para>The main settings file
+          <filename>settings.pl</filename>.</para>
+        </listitem>
+
+        <listitem>
+          <para>All files ending in <filename class="extension">.pl</filename>
+          in <filename class="directory">extensions.d</filename> in
+          alphabetical order.</para>
+        </listitem>
+
+        <listitem>
+          <para>All files ending in <filename class="extension">.pl</filename>
+          in <filename class="directory">custom.d</filename> in alphabetical
+          order.</para>
+        </listitem>
+      </orderedlist>
+
+      <para>Settings in one file can be removed, replaced or extended by files
+      that are loaded afterward.</para>
+    </section>
+  </section>
+
+  <section>
+    <title>Custom Settings</title>
+
+    <para>Custom settings should be placed in a file ending in
+    <filename>.pl</filename> in the directory <filename
+    class="directory">etc/custom.d</filename>. A custom settings file should
+    start with the following code:</para>
+
+    <programlisting>my $self = $_;</programlisting>
+
+    <para>This is not absolutely necessary but the other settings file all use
+    <varname>$self</varname> and settings can be customized easier using
+    copy-paste.</para>
+
+    <para>Each file should also end with the following line:</para>
+
+    <programlisting>1;</programlisting>
+
+    <para>The file <filename>examples/settings/custom.pl.example</filename> in
+    the distribution of <productname>Config5</productname> can be used as
+    template for a custom configuration file.</para>
+  </section>
+
+  <section xml:id="cust.settings">
+    <title>Settings Reference</title>
+
+    <para>The following reference lists the various settings. All examples
+    assume that <code>$self</code> is defined and holds the reference to the
+    settings structure.</para>
+
+    <section xml:id="cust.general">
+      <title>General Settings</title>
+
+      <para>The following settings are of general nature:</para>
+
+      <informaltable>
+        <tgroup cols="3">
+          <thead>
+            <row>
+              <entry align="left">Setting</entry>
+
+              <entry align="left">Default</entry>
+
+              <entry align="left">Description</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry
+              role="nowrap"><varname>$self-&gt;{disable}-&gt;{file}</varname></entry>
+
+              <entry><filename>/etc/config5-disabled</filename></entry>
+
+              <entry>The path of the disable file. If this file is present
+              then <command>config5</command> will not run. Dry runs via dummy
+              mode are still possible.</entry>
+            </row>
+
+            <row>
+              <entry><varname>$self-&gt;{lock}-&gt;{file}</varname></entry>
+
+              <entry><filename>/var/lock/config5</filename></entry>
+
+              <entry>The path of the lock file used to prevent concurrent
+              execution of <command>config5</command>. <emphasis>This file
+              must be on the local file system and not on a network
+              share</emphasis>.</entry>
+            </row>
+
+            <row>
+              <entry><varname>$self-&gt;{lock}-&gt;{timeout}</varname></entry>
+
+              <entry><constant>5</constant></entry>
+
+              <entry>The timeout after which <command>config5</command> will
+              abort if the lock file cannot be locked. A value of
+              <constant>0</constant> will block indefinitely until the lock
+              file can be locked.</entry>
+            </row>
+
+            <row>
+              <entry><varname>$self-&gt;{features}-&gt;{name}</varname></entry>
+
+              <entry><filename>features</filename></entry>
+
+              <entry>The directory name of the feature set.</entry>
+            </row>
+
+            <row>
+              <entry><varname>$self-&gt;{spec}-&gt;{name}</varname></entry>
+
+              <entry><filename>spec</filename></entry>
+
+              <entry>The name of the specification file in each feature
+              directory.</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </section>
+
+    <section xml:id="cust.os">
+      <title>Operating System Settings</title>
+
+      <para>The following settings control additional support for features of
+      the operating system:</para>
+
+      <informaltable>
+        <tgroup cols="3">
+          <thead>
+            <row>
+              <entry align="left">Setting</entry>
+
+              <entry align="left">Default</entry>
+
+              <entry align="left">Description</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry><varname>$self-&gt;{os}-&gt;{env}-&gt;{<replaceable>variable</replaceable>}</varname></entry>
+
+              <entry>undefine <constant>LANG</constant></entry>
+
+              <entry>Set environment variable to a given string. To undefine
+              an environment variable set it to
+              <constant>undef</constant>.</entry>
+            </row>
+
+            <row>
+              <entry><varname>$self-&gt;{os}-&gt;{root}</varname></entry>
+
+              <entry><filename>/</filename></entry>
+
+              <entry>The root directory.</entry>
+            </row>
+
+            <row>
+              <entry><varname>$self-&gt;{os}-&gt;{selinux}-&gt;{enable}</varname></entry>
+
+              <entry><constant>0</constant></entry>
+
+              <entry>Enables support for SELinux if set to
+              <constant>1</constant> and disables it if set to
+              <constant>0</constant>.</entry>
+            </row>
+
+            <row>
+              <entry><varname>$self-&gt;{os}-&gt;{syslog}-&gt;{enable}</varname></entry>
+
+              <entry><constant>1</constant></entry>
+
+              <entry>Enables logging via <systemitem
+              class="daemon">syslog</systemitem> if set to 1 and disables it
+              if set to <constant>0</constant>.</entry>
+            </row>
+
+            <row>
+              <entry><varname>$self-&gt;{os}-&gt;{syslog}-&gt;{identifier}</varname></entry>
+
+              <entry><systemitem class="service">config5</systemitem></entry>
+
+              <entry>The identifier for log entries if logging via <systemitem
+              class="daemon">syslog</systemitem> is enabled.</entry>
+            </row>
+
+            <row>
+              <entry><varname>$self-&gt;{os}-&gt;{syslog}-&gt;{facility}</varname></entry>
+
+              <entry><systemitem class="service">local5</systemitem></entry>
+
+              <entry>The facility for log entries if logging via <systemitem
+              class="daemon">syslog</systemitem> is enabled.</entry>
+            </row>
+
+            <row>
+              <entry><varname>$self-&gt;{os}-&gt;{umask}</varname></entry>
+
+              <entry><constant>022</constant></entry>
+
+              <entry>The file and directory creating mask for shell
+              commands.</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </section>
+
+    <section xml:id="cust.sysinfo">
+      <title>System Information Settings</title>
+
+      <para>The following settings control the system information
+      collection.</para>
+
+      <informaltable>
+        <tgroup cols="3">
+          <thead>
+            <row>
+              <entry align="left">Setting</entry>
+
+              <entry align="left">Default</entry>
+
+              <entry align="left">Description</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry><varname>$self-&gt;{system}-&gt;{class}</varname></entry>
+
+              <entry><classname>Config5::System::LSB</classname></entry>
+
+              <entry>The class that collects the system information.</entry>
+            </row>
+
+            <row>
+              <entry><varname>$self-&gt;{system}-&gt;{items}-&gt;{<replaceable>item</replaceable>}</varname></entry>
+
+              <entry><filename>see <xref
+              linkend="sysinfo.items"/></filename></entry>
+
+              <entry>The known system information items.</entry>
+            </row>
+
+            <row>
+              <entry><varname>$self-&gt;{system}-&gt;{properties}-&gt;{file}</varname></entry>
+
+              <entry><filename>/etc/config5-properties</filename></entry>
+
+              <entry>The file name of the properties file.</entry>
+            </row>
+
+            <row>
+              <entry><varname>$self-&gt;{system}-&gt;{variations_directory}</varname></entry>
+
+              <entry><replaceable>undefined</replaceable></entry>
+
+              <entry>Directory containing files variations of system
+              information (see <xref linkend="run.verify"/>).</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </section>
+
+    <section xml:id="cust.changes">
+      <title>Built-in Changes</title>
+
+      <para>The following settings control the behaviour of the built-in
+      changes.</para>
+
+      <informaltable>
+        <tgroup cols="3">
+          <thead>
+            <row>
+              <entry align="left">Setting</entry>
+
+              <entry align="left">Default</entry>
+
+              <entry align="left">Description</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry><varname>$self-&gt;{builtin}-&gt;{execute}-&gt;{allow_chroot}</varname></entry>
+
+              <entry><classname>0</classname></entry>
+
+              <entry>Apply execute changes if root is not
+              <filename>/</filename>.</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </section>
+
+    <section xml:id="cust.output">
+      <title>Verbosity</title>
+
+      <para>The amount of information that is printed at which verbosity level
+      can be configured by changing the following settings.</para>
+
+      <informaltable>
+        <tgroup cols="3">
+          <thead>
+            <row>
+              <entry align="left">Setting</entry>
+
+              <entry align="left">Default</entry>
+
+              <entry align="left">Description</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry><varname>$self-&gt;{display}-&gt;{entities}-&gt;{system}</varname></entry>
+
+              <entry><constant>1</constant></entry>
+
+              <entry>Print the system information.</entry>
+            </row>
+
+            <row>
+              <entry><varname>$self-&gt;{display}-&gt;{entities}-&gt;{pass}</varname></entry>
+
+              <entry><constant>1</constant></entry>
+
+              <entry>Print the pass numbers.</entry>
+            </row>
+
+            <row>
+              <entry><varname>$self-&gt;{display}-&gt;{entities}-&gt;{status}</varname></entry>
+
+              <entry><constant>1</constant></entry>
+
+              <entry>print the status.</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+
+      <para>The default verbosity level is <constant>1</constant> which means
+      that by default all three items are printed.</para>
+    </section>
+
+    <section>
+      <title>Stages</title>
+
+      <para>The stages and the associated flags can be altered by defining
+      <varname>$self-&gt;{stage}-&gt;{stages}</varname> like this:</para>
+
+      <programlisting># Stages of the target system
+$self-&gt;{stage}-&gt;{stages} =
+{
+   'installation' =&gt; 'I',
+   'startup' =&gt; 'S'
+   'production' =&gt; 'P'
+};</programlisting>
+
+      <para>The flags defined for the stages must not conflict with the
+      regular flags (see <xref linkend="conf.changes.flags"/>).</para>
+    </section>
+
+    <section>
+      <title>Change Keywords</title>
+
+      <para>The keywords for changes can be altered by modifying
+      <varname>$self-&gt;{change}-&gt;{keywords}</varname> like this:</para>
+
+      <programlisting># Replace the keyword 'directory' by 'mkdir'
+delete $self-&gt;{change}-&gt;{keywords}-&gt;{directory};
+$self-&gt;{change}-&gt;{keywords}-&gt;{mkdir} = 'directory';
+
+# Add 'package' as keyword for 'yum'
+$self-&gt;{change}-&gt;{keywords}-&gt;{package} = 'yum';</programlisting>
+
+      <para>Similarily the identifier used for changes when displaying them
+      can be changed by modifying
+      <varname>$self-&gt;{display}-&gt;{keywords}</varname>:<programlisting># Replace the keyword 'directory' by 'mkdir'
+$self-&gt;{display}-&gt;{keywords}-&gt;{directory} = 'mkdir';
+
+# Add 'package' as keyword for 'yum'
+$self-&gt;{display}-&gt;{keywords}-&gt;{yum} = 'package';</programlisting></para>
+
+      <para>The names for the core changes are:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para><function>copy</function></para>
+        </listitem>
+
+        <listitem>
+          <para><function>truncate</function></para>
+        </listitem>
+
+        <listitem>
+          <para><function>append</function></para>
+        </listitem>
+
+        <listitem>
+          <para><function>directory</function></para>
+        </listitem>
+
+        <listitem>
+          <para><function>link</function></para>
+        </listitem>
+
+        <listitem>
+          <para><function>symlink</function></para>
+        </listitem>
+
+        <listitem>
+          <para><function>properties</function></para>
+        </listitem>
+
+        <listitem>
+          <para><function>remove</function></para>
+        </listitem>
+
+        <listitem>
+          <para><function>execute</function></para>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section xml:id="cust.classes">
+      <title>Class Match Order</title>
+
+      <para>The search order for the best class match in each feature can be
+      customized by modifying <varname>the list referenced by
+      $self-&gt;{class}-&gt;{match}</varname>. Each list entry is a string
+      containing placeholders of the form <replaceable>{item}</replaceable>
+      which are replaced by the value of the respective system information
+      item.</para>
+
+      <para>The default search order is the following:</para>
+
+      <orderedlist>
+        <listitem>
+          <para><classname>{host}_{os}_{release}_{arch}</classname></para>
+        </listitem>
+
+        <listitem>
+          <para><classname>{host}_{os}_{release}</classname></para>
+        </listitem>
+
+        <listitem>
+          <para><classname>{host}_{os}_{arch}</classname></para>
+        </listitem>
+
+        <listitem>
+          <para><classname>{host}_{os}</classname></para>
+        </listitem>
+
+        <listitem>
+          <para><classname>{host}_{arch}</classname></para>
+        </listitem>
+
+        <listitem>
+          <para><classname>{host}</classname></para>
+        </listitem>
+
+        <listitem>
+          <para><classname>{properties}_{os}_{release}_{arch}</classname></para>
+        </listitem>
+
+        <listitem>
+          <para><classname>{properties}_{os}_{release}</classname></para>
+        </listitem>
+
+        <listitem>
+          <para><classname>{properties}_{os}_{arch}</classname></para>
+        </listitem>
+
+        <listitem>
+          <para><classname>{properties}_{os}</classname></para>
+        </listitem>
+
+        <listitem>
+          <para><classname>{properties}_{arch}</classname></para>
+        </listitem>
+
+        <listitem>
+          <para><classname>{properties}</classname></para>
+        </listitem>
+
+        <listitem>
+          <para><classname>{os}_{release}_{arch}</classname></para>
+        </listitem>
+
+        <listitem>
+          <para><classname>{os}_{release}</classname></para>
+        </listitem>
+
+        <listitem>
+          <para><classname>{os}_{arch}</classname></para>
+        </listitem>
+
+        <listitem>
+          <para><classname>{os}</classname></para>
+        </listitem>
+      </orderedlist>
+    </section>
+  </section>
+</chapter>

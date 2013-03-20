@@ -1,0 +1,159 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Chapter 1. Introduction</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Config5"><link rel="up" href="index.html" title="Config5"><link rel="prev" href="pr01s03.html" title="3. Acknowledgments"><link rel="next" href="ch01s02.html" title="1.2. Examples"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 1. Introduction</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="pr01s03.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch01s02.html">Next</a></td></tr></table><hr></div><div lang="en_US" class="chapter" title="Chapter 1. Introduction"><div class="titlepage"><div><div><h2 class="title"><a name="idp64144"></a>Chapter 1. Introduction</h2></div></div></div>
+  
+
+  <p>In this chapter you will get a quick overview of how
+  <span class="productname">Config5</span> works and how it is used.</p>
+
+  <div class="section" title="1.1. Overview"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp66128"></a>1.1. Overview</h2></div></div></div>
+    
+
+    <p>Configuration data that is managed and deployed with
+    <span class="productname">Config5</span> is maintained in a simple directory
+    structure. A main directory (the <span class="emphasis"><em>feature set</em></span>)
+    contains a set of sub directories (<span class="emphasis"><em>features</em></span>), each of
+    which contains configuration files and a specification (the
+    <span class="emphasis"><em>spec</em></span> file) that contains instructions.</p>
+
+    <p>By default the main directory is named <code class="filename">features</code> and located in the directory
+    <code class="filename">deploy</code> of the
+    <span class="productname">Config5</span> distribution:</p>
+
+    <pre class="screen">$ ls
+deploy  doc  example
+$ ls deploy
+bin  etc  features  lib</pre>
+
+    <p>A feature must at least contain the specification file which is by
+    default named <code class="filename">spec</code>. A fictive feature named
+    <code class="filename">test</code> would look like this:</p>
+
+    <pre class="screen">$ ls deploy/features
+test
+$ ls deploy/features/test
+spec</pre>
+
+    <div class="section" title="1.1.1. The spec File"><div class="titlepage"><div><div><h3 class="title"><a name="idp74064"></a>1.1.1. The spec File</h3></div></div></div>
+      
+
+      <p>The spec file describes the changes to do by grouping them in
+      <span class="emphasis"><em>classes</em></span> and is processed from top to bottom.
+      Classes start at the beginning of a line and are followed by a colon.
+      <span class="emphasis"><em>Changes</em></span> are identified by a unique keyword with
+      leading whitespace. Each change belongs to the most recent class
+      declaration:</p>
+
+      <pre class="programlisting"># This is a comment
+
+class1: …
+  change1 …
+  change2 …
+  change3 …
+
+class2: …
+  change1 …</pre>
+    </div>
+
+    <div class="section" title="1.1.2. Changes"><div class="titlepage"><div><div><h3 class="title"><a name="idp76848"></a>1.1.2. Changes</h3></div></div></div>
+      
+
+      <p><span class="productname">Config5</span> has nine core changes built in:
+      <code class="function">copy</code>, <code class="function">truncate</code>,
+      <code class="function">append</code>, <code class="function">directory</code>,
+      <code class="function">link</code>, <code class="function">symlink</code>,
+      <code class="function">properties</code>, <code class="function">remove</code> and
+      <code class="function">execute</code>. Additional changes can be added with
+      extensions.</p>
+
+      <p>Each change supports a number of optional flags right after the
+      keyword which modify the behaviour of the change. The arguments after
+      each keyword vary:</p>
+
+      <pre class="programlisting">  copy       [-bintT] src path user group mode [context] [key=value...]
+  truncate   [-intT]  path user group mode [context]
+  append     [-b]     src path [key=value...]
+  directory  [-ntT]   path user group mode [context]
+  link       [-ntT]   src_path dest_path
+  symlink    [-bntT]  value path user group [context]
+  properties [-ntT]   path user group mode [context]
+  remove     [-ntT]   path
+  execute    [-bntT]  shell_line</pre>
+
+      <p>Changes are only applied on the <span class="emphasis"><em>target system</em></span>
+      (the computer on which <span class="productname">Config5</span> is executed)
+      if necessary. The only exceptions is the <code class="function">execute</code>
+      change which is always applied.</p>
+
+      <p>For each change <span class="productname">Config5</span> will check if
+      applying the change would actually modify the state of the target system
+      and skip it if does not.</p>
+    </div>
+
+    <div class="section" title="1.1.3. Classes"><div class="titlepage"><div><div><h3 class="title"><a name="idp86464"></a>1.1.3. Classes</h3></div></div></div>
+      
+
+      <p>A class may be a host name, an operating system identifier or some
+      other property. A target system that configures itself with
+      <span class="productname">Config5</span> will use the available information
+      about itself (the <span class="emphasis"><em>system information</em></span>) to choose the
+      best matching class and perform the changes of this class:</p>
+
+      <pre class="programlisting">foobar:
+  copy hosts.allow.foobar /etc/hosts.allow root root 644
+  copy hosts.deny /etc/hosts.deny root root 644
+
+RedHatEnterpriseServer:
+  copy hosts.allow /etc/hosts.allow root root 644
+  copy hosts.deny /etc/hosts.deny root root 644
+
+RedHatEnterpriseWorkstation_6.1:
+  copy hosts.allow.61 /etc/hosts.allow root root 644
+  copy hosts.deny /etc/hosts.deny root root 644</pre>
+
+      <p>Identifying the best matching class is customizable but generally
+      the class that matches the target system in the most specific way is
+      used. For example, if there is a class for the operating system
+      identifier and one for the host name of the target system, the later is
+      chosen.</p>
+
+      <p>Classes can also include other classes and override changes to
+      files done in the included classes:</p>
+
+      <pre class="programlisting">foobar: RedHatEnterpriseServer
+  copy hosts.allow.foobar /etc/hosts.allow root root 644
+
+RedHatEnterpriseServer:
+  copy hosts.allow /etc/hosts.allow root root 644
+  copy hosts.deny /etc/hosts.deny root root 644
+
+RedHatEnterpriseWorkstation_6.1: RedHatEnterpriseServer
+  copy hosts.allow.61 /etc/hosts.allow root root 644</pre>
+    </div>
+
+    <div class="section" title="1.1.4. File Generation"><div class="titlepage"><div><div><h3 class="title"><a name="idp91296"></a>1.1.4. File Generation</h3></div></div></div>
+      
+
+      <p>Files can be constructed from fragments using the
+      <code class="function">append</code> change which can be distributed over
+      multiple features.</p>
+
+      <p>All files that are copied and all fragments that are appended are
+      by default processed with <span class="productname">Template Toolkit</span>
+      <a class="xref" href="bi01.html#bib.templatetoolkit">[5]</a>. Using
+      <span class="emphasis"><em>substitution</em></span> (replacing parts of the template with
+      generated content) it is then very easy to generate customized
+      configuration files for a set of system from one template. The
+      substitutions can be specified in the class declaration or per change.
+      Substitutions in the class declaration are passed down to all included
+      classes and all changes of the class. Substitutions that are passed down
+      override substitutions with the same name in included classes and
+      changes:</p>
+
+      <pre class="programlisting">foobar: RedHatEnterpriseServer ACCESS=snafu
+
+RedHatEnterpriseServer:
+  copy hosts.allow /etc/hosts.allow root root 644 ACCESS=ALL</pre>
+    </div>
+  </div>
+
+  
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="pr01s03.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ch01s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3. Acknowledgments </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 1.2. Examples</td></tr></table></div></body></html>

@@ -1,0 +1,37 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>6.3. System Information Modules</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Config5"><link rel="up" href="ch06.html" title="Chapter 6. System Information"><link rel="prev" href="ch06s02.html" title="6.2. System Information Items"><link rel="next" href="ch07.html" title="Chapter 7. Customization"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.3. System Information Modules</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06s02.html">Prev</a> </td><th width="60%" align="center">Chapter 6. System Information</th><td width="20%" align="right"> <a accesskey="n" href="ch07.html">Next</a></td></tr></table><hr></div><div class="section" title="6.3. System Information Modules"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp750464"></a>6.3. System Information Modules</h2></div></div></div>
+    
+
+    <p>The system information module to use can be changed in the settings
+    (see <a class="xref" href="ch07s03.html#cust.sysinfo" title="7.3.3. System Information Settings">Section 7.3.3, “System Information Settings”</a>).</p>
+
+    <div class="section" title="6.3.1. LSB"><div class="titlepage"><div><div><h3 class="title"><a name="idp857232"></a>6.3.1. LSB</h3></div></div></div>
+      
+
+      <p>The <code class="systemitem">LSB</code> module can
+      determine the OS name and release using
+      <span class="command"><strong>lsb_release</strong></span>.</p>
+
+      <p>The following settings can be used to control the information
+      gathering:</p>
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col><col><col></colgroup><thead><tr><th align="left">Setting</th><th align="left">Default</th><th align="left">Description</th></tr></thead><tbody><tr><td><code class="varname">$self-&gt;{system}-&gt;{lsb}-&gt;{append_code}</code></td><td><code class="constant">0</code></td><td>Append the OS code name to the OS id with an underscore
+              in between.</td></tr></tbody></table>
+      </div>
+    </div>
+
+    <div class="section" title="6.3.2. Hardwired"><div class="titlepage"><div><div><h3 class="title"><a name="sysinfo.mod.hardwired"></a>6.3.2. Hardwired</h3></div></div></div>
+      
+
+      <p>The <code class="systemitem">Hardwired</code> module can
+      read constants for the active system information items from the
+      <span class="productname">Config5</span> settings. Supplied constants overload
+      the automatically determined information (architecture, host name,
+      etc.):</p>
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col><col><col></colgroup><thead><tr><th align="left">Setting</th><th align="left">Default</th><th align="left">Description</th></tr></thead><tbody><tr><td><code class="varname">$self-&gt;{system}-&gt;{hardwired}-&gt;{<em class="replaceable"><code>item</code></em>}</code></td><td><code class="constant"><em class="replaceable"><code>undefined</code></em></code></td><td>Set the constant value for system information item
+              <em class="replaceable"><code>'item</code></em>'.</td></tr></tbody></table>
+      </div>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch06s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch06.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch07.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.2. System Information Items </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 7. Customization</td></tr></table></div></body></html>

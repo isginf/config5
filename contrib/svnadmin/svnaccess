@@ -1,0 +1,7 @@
+#[groups]
+#mygroup=myuser,myseconduser
+
+[config5:/trunk/contrib]
+biglerr=rw
+bonaccos=rw
+

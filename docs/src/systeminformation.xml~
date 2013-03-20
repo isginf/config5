@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter>
+<chapter version="5.0" xml:id="sysinfo" xml:lang="en_US"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/2000/svg"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>System Information</title>
+
+  <para><productname>Config5</productname> uses an approach where the
+  configuration is selected on the system that is being configured. This
+  chapter explains the mechanism by which <command>config5</command> discovers
+  information about the system it runs on.</para>
+
+  <section>
+    <title>The System Information Module</title>
+
+    <para>The module used for gathering the system information is
+    exchangeable. <productname>Config5</productname> ships with two modules
+    for immediate productive use: <systemitem class="library">LSB</systemitem>
+    (the default) and <systemitem
+    class="library">Hardwired</systemitem>.</para>
+
+    <para>Custom modules can also be added. A sample module (the one that we
+    at <emphasis>isginf</emphasis> use in our productive environment) can be
+    found in <filename>examples/modules/System/SystemInfo.pm</filename> in the
+    distribution.</para>
+  </section>
+
+  <section xml:id="sysinfo.items">
+    <title>System Information Items</title>
+
+    <para>The system information is organized in <emphasis>items</emphasis>.
+    Each item is determined somehow by the system information module and can
+    be used in the class matching process and is available as a variable for
+    substitution.</para>
+
+    <para>Each item has a unique name and the following relevant information
+    associated with it:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Priority for displaying the system information summary (low
+        priority means display first).</para>
+      </listitem>
+
+      <listitem>
+        <para>Whether or not the item is optional (<constant>0</constant>) or
+        mandatory (<constant>1</constant>).</para>
+      </listitem>
+
+      <listitem>
+        <para>The type of the system information item (<constant>0</constant>
+        for scalar, <constant>1</constant> for ordered list).</para>
+      </listitem>
+
+      <listitem>
+        <para>A conversion method for the gathered value of the item (see
+        below).</para>
+      </listitem>
+
+      <listitem>
+        <para>The human readable description displayed in the system
+        information summary.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>The conversion is useful to modify the raw value gathered by the
+    module. No conversions are used in the default configuration. The
+    following conversions are supported:</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>none</term>
+
+        <listitem>
+          <para>No conversion.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>toupper</term>
+
+        <listitem>
+          <para>Convert all characters to upper case.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>tolower</term>
+
+        <listitem>
+          <para>Convert all characters to lower case.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>nows</term>
+
+        <listitem>
+          <para>Strip all white space characters.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>wstounderscore</term>
+
+        <listitem>
+          <para>Convert all white space characters to underscore.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>The available system information items are configured via settings
+    (see <xref linkend="cust.sysinfo"/>). The following items are configured
+    by default:</para>
+
+    <informaltable>
+      <tgroup cols="6">
+        <thead>
+          <row>
+            <entry align="left">Item</entry>
+
+            <entry align="left">Priority</entry>
+
+            <entry align="left">Mandatory</entry>
+
+            <entry align="left">Type</entry>
+
+            <entry align="left">Conversion</entry>
+
+            <entry align="left">Description</entry>
+          </row>
+        </thead>
+
+        <tbody>
+          <row>
+            <entry><varname>date</varname></entry>
+
+            <entry><constant>10</constant></entry>
+
+            <entry>no</entry>
+
+            <entry>scalar</entry>
+
+            <entry align="left">none</entry>
+
+            <entry>Architecture</entry>
+          </row>
+
+          <row>
+            <entry><varname>host</varname></entry>
+
+            <entry><constant>20</constant></entry>
+
+            <entry>yes</entry>
+
+            <entry>scalar</entry>
+
+            <entry align="left">none</entry>
+
+            <entry>Host name</entry>
+          </row>
+
+          <row>
+            <entry><varname>arch</varname></entry>
+
+            <entry><constant>30</constant></entry>
+
+            <entry>yes</entry>
+
+            <entry>scalar</entry>
+
+            <entry align="left">none</entry>
+
+            <entry>Architecture</entry>
+          </row>
+
+          <row>
+            <entry><varname>os</varname></entry>
+
+            <entry><constant>40</constant></entry>
+
+            <entry>yes</entry>
+
+            <entry>scalar</entry>
+
+            <entry>none</entry>
+
+            <entry>OS</entry>
+          </row>
+
+          <row>
+            <entry><varname>release</varname></entry>
+
+            <entry><constant>50</constant></entry>
+
+            <entry>yes</entry>
+
+            <entry>scalar</entry>
+
+            <entry align="left">none</entry>
+
+            <entry>Release</entry>
+          </row>
+
+          <row>
+            <entry><varname>ip</varname></entry>
+
+            <entry><constant>60</constant></entry>
+
+            <entry>no</entry>
+
+            <entry>scalar</entry>
+
+            <entry align="left">none</entry>
+
+            <entry>IP</entry>
+          </row>
+
+          <row>
+            <entry><varname>ip6</varname></entry>
+
+            <entry><constant>70</constant></entry>
+
+            <entry>no</entry>
+
+            <entry>scalar</entry>
+
+            <entry align="left">none</entry>
+
+            <entry>IP6</entry>
+          </row>
+
+          <row>
+            <entry><varname>fqhn</varname></entry>
+
+            <entry><constant>80</constant></entry>
+
+            <entry>no</entry>
+
+            <entry>scalar</entry>
+
+            <entry align="left">none</entry>
+
+            <entry>Fully qualified host name</entry>
+          </row>
+
+          <row>
+            <entry><varname>fqdn</varname></entry>
+
+            <entry><constant>90</constant></entry>
+
+            <entry>no</entry>
+
+            <entry>scalar</entry>
+
+            <entry align="left">none</entry>
+
+            <entry>Fully qualified domain name</entry>
+          </row>
+
+          <row>
+            <entry><varname>properties</varname></entry>
+
+            <entry><constant>100</constant></entry>
+
+            <entry>no</entry>
+
+            <entry>list</entry>
+
+            <entry align="left">none</entry>
+
+            <entry>Properties</entry>
+          </row>
+
+          <row>
+            <entry><varname>root</varname></entry>
+
+            <entry><constant>110</constant></entry>
+
+            <entry>yes</entry>
+
+            <entry>scalar</entry>
+
+            <entry align="left">none</entry>
+
+            <entry>Root directory</entry>
+          </row>
+
+          <row>
+            <entry><varname>stage</varname></entry>
+
+            <entry><constant>120</constant></entry>
+
+            <entry>yes</entry>
+
+            <entry>scalar</entry>
+
+            <entry align="left">none</entry>
+
+            <entry>Stage</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <section>
+      <title>Common System Information Items</title>
+
+      <para>The following system information items are determined independent
+      of the chosen module and are always available and are determined from
+      the running operating system:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para><varname>arch</varname></para>
+        </listitem>
+
+        <listitem>
+          <para><varname>host</varname></para>
+        </listitem>
+
+        <listitem>
+          <para><varname>ip</varname> (if configured)</para>
+        </listitem>
+
+        <listitem>
+          <para><varname>ip6</varname> (if configured)</para>
+        </listitem>
+
+        <listitem>
+          <para><varname>properties</varname></para>
+        </listitem>
+
+        <listitem>
+          <para><varname>root</varname></para>
+        </listitem>
+
+        <listitem>
+          <para><varname>stage</varname></para>
+        </listitem>
+      </itemizedlist>
+
+      <para>If the root directory is changed (see <xref linkend="app.root"/>)
+      then only the following items are determined.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para><varname>properties</varname></para>
+        </listitem>
+
+        <listitem>
+          <para><varname>root</varname></para>
+        </listitem>
+
+        <listitem>
+          <para><varname>stage</varname></para>
+        </listitem>
+      </itemizedlist>
+
+      <para>The remaining mandatory modules must be provided by command line
+      argument or by an alternative system information module such as the
+      <systemitem class="library">Hardwired</systemitem> module (see <xref
+      linkend="sysinfo.mod.hardwired"/>).</para>
+    </section>
+
+    <section>
+      <title>Properties</title>
+
+      <para>The properties are read from a file that contains space- or
+      comma-separated words. This file can be provisioned during
+      installation.</para>
+    </section>
+
+    <section xml:id="sysinfo.items.root">
+      <title>Root</title>
+
+      <para>The root directory (see <xref linkend="app.root"/>) can be
+      modified with the <option>--set</option> command line option when
+      running <command>config5</command>. Changing the root directory only
+      makes sense when the configuration is applied to something other than
+      the system where <command>config5</command> is run, for instance a
+      diskless client image on the file server that serves it.</para>
+
+      <para>The path of the root directory can be changed with the following
+      setting:</para>
+
+      <informaltable>
+        <tgroup cols="3">
+          <thead>
+            <row>
+              <entry align="left">Setting</entry>
+
+              <entry align="left">Default</entry>
+
+              <entry align="left">Description</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry><varname>$self-&gt;{system}-&gt;{defaults}-&gt;{root}</varname></entry>
+
+              <entry><filename>/</filename></entry>
+
+              <entry>The default root directory.</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </section>
+
+    <section>
+      <title>Stage</title>
+
+      <para>The stage (see <xref linkend="app.root"/>) can be modified with
+      the <option>--set</option> command line option when running
+      <command>config5</command>.</para>
+
+      <para>The default change can be changed with the following
+      setting:</para>
+
+      <informaltable>
+        <tgroup cols="3">
+          <thead>
+            <row>
+              <entry align="left">Setting</entry>
+
+              <entry align="left">Default</entry>
+
+              <entry align="left">Description</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry><varname>$self-&gt;{system}-&gt;{defaults}-&gt;{stage}</varname></entry>
+
+              <entry><filename>production</filename></entry>
+
+              <entry>The default stage.</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </section>
+  </section>
+
+  <section>
+    <title>System Information Modules</title>
+
+    <para>The system information module to use can be changed in the settings
+    (see <xref linkend="cust.sysinfo"/>).</para>
+
+    <section>
+      <title>LSB</title>
+
+      <para>The <systemitem class="library">LSB</systemitem> module can
+      determine the OS name and release using
+      <command>lsb_release</command>.</para>
+
+      <para>The following settings can be used to control the information
+      gathering:</para>
+
+      <informaltable>
+        <tgroup cols="3">
+          <thead>
+            <row>
+              <entry align="left">Setting</entry>
+
+              <entry align="left">Default</entry>
+
+              <entry align="left">Description</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry><varname>$self-&gt;{system}-&gt;{lsb}-&gt;{append_code}</varname></entry>
+
+              <entry><constant>0</constant></entry>
+
+              <entry>Append the OS code name to the OS id with an underscore
+              in between.</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </section>
+
+    <section xml:id="sysinfo.mod.hardwired">
+      <title>Hardwired</title>
+
+      <para>The <systemitem class="library">Hardwired</systemitem> module can
+      read constants for the active system information items from the
+      <productname>Config5</productname> settings. Supplied constants overload
+      the automatically determined information (architecture, host name,
+      etc.):</para>
+
+      <informaltable>
+        <tgroup cols="3">
+          <thead>
+            <row>
+              <entry align="left">Setting</entry>
+
+              <entry align="left">Default</entry>
+
+              <entry align="left">Description</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry><varname>$self-&gt;{system}-&gt;{hardwired}-&gt;{<replaceable>item</replaceable>}</varname></entry>
+
+              <entry><constant><replaceable>undefined</replaceable></constant></entry>
+
+              <entry>Set the constant value for system information item
+              <replaceable>'item</replaceable>'.</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </section>
+  </section>
+</chapter>

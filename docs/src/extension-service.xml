@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book>
+<book version="5.0" xml:lang="en_US" xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:ns5="http://www.w3.org/2000/svg"
+      xmlns:ns4="http://www.w3.org/1999/xhtml"
+      xmlns:ns3="http://www.w3.org/1998/Math/MathML"
+      xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Service Extension for Config5</title>
+
+  <info>
+    <author>
+      <personname><firstname>Stefan</firstname>
+      <surname>Walter</surname></personname>
+
+      <email>stefan.walter@inf.ethz.ch</email>
+    </author>
+
+    <revhistory>
+      <revision>
+        <date>August 2012</date>
+
+        <revremark>First Revision.</revremark>
+      </revision>
+    </revhistory>
+
+    <pubdate>August 2012</pubdate>
+
+    <copyright>
+      <year>2012</year>
+
+      <holder>ETH Zurich, ISGINF</holder>
+    </copyright>
+
+    <legalnotice>
+      <para>Permission is granted to copy, distribute and/or modify this
+      document under the terms of the GNU Free Documentation License, Version
+      1.3 or any later version published by the Free Software Foundation; with
+      no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A
+      copy of the license is included in the section entitled "GNU Free
+      Documentation License" of the "Config5 Systems Administrator's
+      Guide".</para>
+    </legalnotice>
+  </info>
+
+  <chapter>
+    <title>Introduction</title>
+
+    <section>
+      <title>Overview</title>
+
+      <para>The <productname>Service Extension</productname> is a simple
+      wrapper around the <command>service</command> and
+      <command>chkconfig</command> commands. It provides the
+      <function>service</function> change to efficiently control system
+      services with <productname>Config5</productname>.</para>
+    </section>
+
+    <section>
+      <title>Examples</title>
+
+      <para>Services can be added and removed, enabled and disabled on reboot
+      and started and stopped as shown in the following example spec
+      file:</para>
+
+      <screen>RedHatEnterpriseServer:
+  service add otrs
+  service remove NetworkManager
+  service enable network
+  service disable httpd
+  service start mysqld
+  service stop httpd</screen>
+    </section>
+  </chapter>
+
+  <chapter>
+    <title>Installation and Customization</title>
+
+    <section>
+      <title>Installation</title>
+
+      <para>This extension is contained in the archive
+      <filename>extensions/service.tgz</filename> which is part of the
+      <productname>Config5</productname> distribution. Simply extract this
+      archive in the <filename>deploy</filename> directory.</para>
+
+      <section>
+        <title>Files</title>
+
+        <para>The following files are included in the archive:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para><filename>etc/extensions.d/service.pl</filename></para>
+          </listitem>
+        </itemizedlist>
+
+        <itemizedlist>
+          <listitem>
+            <para><filename>lib/perl/Config5/Change/Extensions/Service.pm</filename></para>
+          </listitem>
+        </itemizedlist>
+
+        <itemizedlist>
+          <listitem>
+            <para><filename>lib/perl/Config5/Action/Extensions/Service.pm</filename></para>
+          </listitem>
+        </itemizedlist>
+      </section>
+    </section>
+
+    <section>
+      <title>Settings</title>
+
+      <para>This extension does not have any configurable settings.</para>
+    </section>
+  </chapter>
+
+  <chapter>
+    <title>Changes</title>
+
+    <section>
+      <title>Changes</title>
+
+      <para>This extension provides the <function>service</function> change
+      which can manipulate system services:</para>
+
+      <para><informaltable>
+          <tgroup cols="2">
+            <tbody>
+              <row>
+                <entry>Synopsis</entry>
+
+                <entry><function>service</function>
+                [<userinput><option>-ntT</option></userinput>]
+                <function>action</function>
+                <function>service</function></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>The parameter service specifies the name of the
+      service to manipulate. The parameter action specifies what to do:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>add</term>
+
+          <listitem>
+            <para>Add the service to the list of existing services.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>remove</term>
+
+          <listitem>
+            <para>Remove the service from the list of existing
+            services.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>enable</term>
+
+          <listitem>
+            <para>Set the service to automatically start when the system
+            starts.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>disable</term>
+
+          <listitem>
+            <para>Set the service to remain stopped when the system
+            starts.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>start</term>
+
+          <listitem>
+            <para>Immediately start the service if it is not running
+            already.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>stop</term>
+
+          <listitem>
+            <para>Immediately stop the service if it is running.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <example>
+        <title>Service Manipulation</title>
+
+        <programlisting>sample:
+  service add httpd
+  service enable httpd
+  service start httpd</programlisting>
+      </example>
+    </section>
+
+    <section>
+      <title>Configuration Application</title>
+
+      <section>
+        <title>Phase</title>
+
+        <para>The service changes are applied in the
+        <constant>configure</constant> phase.</para>
+      </section>
+
+      <section>
+        <title>Order and Application</title>
+
+        <para>All <function>service</function> changes of a pass are applied
+        in the order the changes are encountered during the parsing of the
+        <filename>spec</filename> files.</para>
+
+        <para>The extension caches service status information. Mixing
+        <function>service</function> and <function>execute</function> changes
+        to manipulate services is not supported.</para>
+      </section>
+
+      <section>
+        <title>Trigger Flag</title>
+
+        <para>The the trigger flag for triggered changes is set when a service
+        is effectively added, removed, enabled, disabled, started or
+        stopped.</para>
+      </section>
+
+      <section>
+        <title>Root Directory</title>
+
+        <para>Changes of this extension are only applied if the root system
+        information item is equal to <filename>/</filename>.</para>
+      </section>
+    </section>
+  </chapter>
+
+  <appendix>
+    <title>Error Messages</title>
+
+    <section>
+      <title>System Errors</title>
+
+      <para>System errors are fatal, no changes will be done to the
+      system.</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Cannot get list of services</term>
+
+          <listitem>
+            <para>The list of enabled services could not be determined by
+            running <command>chkconfig -L</command>.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+
+    <section>
+      <title>Configuration Data Errors</title>
+
+      <para>Configuration data errors are fatal, no changes will be done to
+      the system.</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Invalid action '…' in …</term>
+
+          <listitem>
+            <para>The action must be <constant>add</constant>,
+            <constant>remove</constant>, <constant>enable</constant>,
+            <constant>disable</constant>, <constant>start</constant> or
+            <constant>stop</constant>.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+
+    <section>
+      <title>Configuration Application Errors</title>
+
+      <para>The following errors are reported for changes as they are applied
+      but do not interrupt the application of other changes.</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Failed to … service
+          '<replaceable>service</replaceable>'</term>
+
+          <listitem>
+            <para>The named service could not be added, removed, enabled,
+            disabled, started or stopped.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+  </appendix>
+</book>

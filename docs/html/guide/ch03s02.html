@@ -1,0 +1,39 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>3.2. Environment</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Config5"><link rel="up" href="ch03.html" title="Chapter 3. Configuration Application"><link rel="prev" href="ch03.html" title="Chapter 3. Configuration Application"><link rel="next" href="ch03s03.html" title="3.3. Configuration Application"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3.2. Environment</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch03.html">Prev</a> </td><th width="60%" align="center">Chapter 3. Configuration Application</th><td width="20%" align="right"> <a accesskey="n" href="ch03s03.html">Next</a></td></tr></table><hr></div><div class="section" title="3.2. Environment"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="app.env"></a>3.2. Environment</h2></div></div></div>
+    
+
+    <div class="section" title="3.2.1. Root Directory"><div class="titlepage"><div><div><h3 class="title"><a name="app.root"></a>3.2.1. Root Directory</h3></div></div></div>
+      
+
+      <p>The root directory that is used when Config5 applies the
+      configuration on a target system is typically /. The root directory can
+      be changed by setting the root system information item, for instance
+      using the <code class="option">--set</code> command line option of
+      <span class="command"><strong>config5</strong></span>.</p>
+
+      <p>All core changes support a different root directory. All changes
+      except the execute change will automatically prepend the root directory
+      to all absolute source or destination paths. The execute change is
+      executed but requires the use of substitution by inserting
+      <em class="replaceable"><code>[% info_root %]</code></em> where needed.</p>
+    </div>
+
+    <div class="section" title="3.2.2. Stages"><div class="titlepage"><div><div><h3 class="title"><a name="app.stage"></a>3.2.2. Stages</h3></div></div></div>
+      
+
+      <p>A target system may require different configurations throughout
+      its life cycle. <span class="productname">Config5</span> supports this in a
+      generic fashion by defining a set of <em class="firstterm">stages</em>. The
+      default configuration defines the following two stages:</p>
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col><col><col></colgroup><thead><tr><th align="left">Stage</th><th align="left">Flag</th><th align="left">Description</th></tr></thead><tbody><tr><td><code class="constant">installation</code></td><td><code class="option">-I</code></td><td>System is being installed.</td></tr><tr><td><code class="constant">production</code></td><td><code class="option">-P</code></td><td>System is up and running (default).</td></tr></tbody></table>
+      </div>
+
+      <p>Individual changes can be selectively enabled for only some stages
+      by specifying the stages as flags (see <a class="xref" href="ch02s04.html#conf.changes.flags" title="2.4.1. Flags">Section 2.4.1, “Flags”</a>). If no stage is specified this means
+      that the change is applied in any stage.</p>
+
+      <p>The stage can be set using the <code class="option">--set</code> command line
+      option of <span class="command"><strong>config5</strong></span>.</p>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch03.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch03s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 3. Configuration Application </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 3.3. Configuration Application</td></tr></table></div></body></html>

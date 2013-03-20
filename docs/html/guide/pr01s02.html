@@ -1,0 +1,91 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>2. Motivation</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Config5"><link rel="up" href="pr01.html" title="Preface"><link rel="prev" href="pr01.html" title="Preface"><link rel="next" href="pr01s03.html" title="3. Acknowledgments"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2. Motivation</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="pr01.html">Prev</a> </td><th width="60%" align="center">Preface</th><td width="20%" align="right"> <a accesskey="n" href="pr01s03.html">Next</a></td></tr></table><hr></div><div class="section" title="2. Motivation"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp34496"></a>2. Motivation</h2></div></div></div>
+    
+
+    <p>Having a way to provision computer systems with configuration data
+    over the whole life cycle is important to any systems administrator who
+    manages two computers or more.</p>
+
+    <p>Some enterprise operating systems provide a way to provision a
+    configuration during the initial installation but usually provide none to
+    update the configuration later. Many programs exist to fill in this gap.
+    Utilities like <span class="productname">Bcfg2</span> <a class="xref" href="bi01.html#bib.bcfg2">[1]</a>, <span class="productname">Cfengine</span> <a class="xref" href="bi01.html#bib.cfengine">[2]</a>, <span class="productname">LCFG</span> <a class="xref" href="bi01.html#bib.lcfg">[3]</a>, <span class="productname">Puppet</span> <a class="xref" href="bi01.html#bib.puppet">[4]</a> and many others were all developed to solve one
+    problem: To consistently manage the configuration of many computers. Each
+    of them has a different philosophy, different design requirements and
+    different strengths and weaknesses. A systems administrator can already
+    now pick the one that fits his or her needs, policies or work flow
+    best.</p>
+
+    <p>At the end of 2010 <span class="emphasis"><em>isginf</em></span> was preparing to roll
+    out <span class="productname">Red Hat Enterprise Linux</span>
+    <span class="productnumber">6</span>. Because of some important missing
+    functionality and other problems with our previous configuration
+    management utilities we once more looked for alternatives. Unfortunately
+    none of the existing utilities were suitable for our requirements and we
+    developed <span class="productname">Config5</span>.</p>
+
+    <div class="section" title="2.1. Requirements"><div class="titlepage"><div><div><h3 class="title"><a name="idp43568"></a>2.1. Requirements</h3></div></div></div>
+      
+
+      <p>The way IT is organized for us (in an educational institution with
+      thirty-odd research groups) defines an interesting set of general
+      conditions:</p>
+
+      <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+          <p>Our people are free to use our service but are not required
+          to. As a consequence we never know for sure what machines are
+          around. A system that we install today may be reinstalled by its
+          owner with his favorite distro the next day. Workstations are
+          generally installed with both Windows and Linux and either of them
+          may not be booted into for months. The difference between a
+          reinstalled system and one that is always booted in the other
+          operating system is difficult to track.</p>
+        </li><li class="listitem">
+          <p>We provide installations on laptops too. These may be outside
+          the organization for weeks but must be able to update themselves
+          without access to our infrastructure.</p>
+        </li><li class="listitem">
+          <p>Every research group has its own set of configuration data
+          that is unique to it. Configured printers, authentication settings,
+          firewall rules are typically all different.</p>
+
+          <p>Total uniformity of the deployed systems even within a
+          research group is difficult to enforce. There are always exceptions
+          or special configurations requested for a project. Such exceptions
+          must be tracked and documented.</p>
+        </li><li class="listitem">
+          <p>We are organized as a team with individual responsibilities.
+          Parts of the configuration may be changed by several team members at
+          the same time.</p>
+        </li></ul></div>
+
+      <p>Based on the above and a few lessons learned we defined the
+      following set of requirements for a suitable configuration management
+      utility:</p>
+
+      <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+          <p>The configuration must be pulled by client systems rather than
+          pushed on by a server.</p>
+        </li><li class="listitem">
+          <p>The configuration must be selected using information that may
+          be only known to the client system but is not maintained in a
+          central database. This implies that the client system selects the
+          configuration that it needs rather than having a server unilaterally
+          decide what it has to have.</p>
+        </li><li class="listitem">
+          <p>Configuration files must be constructible from templates and
+          fragments.</p>
+        </li><li class="listitem">
+          <p>The deployment should be fast and scalable. The configuration
+          may be applied often and on many systems.</p>
+        </li><li class="listitem">
+          <p>Changes to the configuration must be traceable and revertible.
+          This can usually be achieved with a version control management
+          system.</p>
+        </li><li class="listitem">
+          <p>The system should be resilient to human error as much as
+          possible. In combination with a version control management system it
+          should prevent invalid, conflicting or incomplete configuration
+          data.</p>
+        </li></ul></div>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="pr01.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="pr01.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="pr01s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Preface </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 3. Acknowledgments</td></tr></table></div></body></html>

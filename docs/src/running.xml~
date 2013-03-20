@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter>
+<chapter version="5.0" xml:id="run" xml:lang="en_US"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/2000/svg"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>The <command>config5 Script</command></title>
+
+  <para>This chapter describes the <command>config5</command> script and how
+  to use it for configuration verification, application and various management
+  tasks.</para>
+
+  <section>
+    <title>Requirements</title>
+
+    <para>The <command>config5</command> script is written in
+    <productname>Perl</productname> and therefore requires a
+    <productname>Perl</productname> installation with the core modules as well
+    as a number of additional modules.</para>
+
+    <section>
+      <title>Perl Modules</title>
+
+      <para>The following non-core <productname>Perl</productname> modules are
+      required to run <command>config5</command>:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para><systemitem class="library">Module::Load</systemitem></para>
+        </listitem>
+
+        <listitem>
+          <para><systemitem
+          class="library">Module::Load::Conditional</systemitem></para>
+        </listitem>
+
+        <listitem>
+          <para><systemitem class="library">Template</systemitem></para>
+        </listitem>
+      </itemizedlist>
+
+      <para>The following modules are only required if a given feature is
+      enabled:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term><systemitem class="library">File::ExtAttr</systemitem></term>
+
+          <listitem>
+            <para>Required for SELinux support (see <xref
+            linkend="cust.os"/>).</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><systemitem class="library">Socket6</systemitem></term>
+
+          <listitem>
+            <para>Required for IPv6 support if the IP6 address is a mandatory
+            system information item (see <xref
+            linkend="cust.sysinfo"/>).</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+
+    <section>
+      <title>Other Requirements</title>
+
+      <para>These external programs are required if a given feature or
+      component of <command>config5</command> is used:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term><command>lsb_release</command></term>
+
+          <listitem>
+            <para>Required for the LSB system information module.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+  </section>
+
+  <section>
+    <title>Running <command>config5</command></title>
+
+    <para>The <command>config5</command> script will determine its location
+    and automatically find settings, libraries and the feature set relative to
+    its path.</para>
+
+    <para>The libraries and settings are expected to be found in the
+    directories <filename class="directory">../lib</filename> and <filename
+    class="directory">../etc</filename> respectively. The feature set is
+    expected in <filename class="directory">../features</filename> unless the
+    path of the feature set is explicitly set using the
+    <option>--features</option> command line option.</para>
+
+    <section>
+      <title>Arguments</title>
+
+      <para>The arguments to <command>config5</command> are a list of
+      features. Only the features listed on the command line are processed in
+      alphabetical order.</para>
+
+      <para>If no features are specified then all features of the feature set
+      are processed.</para>
+    </section>
+  </section>
+
+  <section>
+    <title>Applying the Configuration</title>
+
+    <para>The configuration is applied by running the config5 script with the
+    <option>--apply</option> command line option.</para>
+
+    <screen># /usr/config5/bin/config5 --apply</screen>
+
+    <para>This is also the default action (the other two are
+    <option>--check</option> and <option>--report</option>) so the option can
+    be omitted:</para>
+
+    <screen># /usr/config5/bin/config5</screen>
+
+    <para>While the configuration is applied config5 will use a lock file to
+    make sure that no other instance of config5 is running at the same time.
+    The file is relative to the root directory system item (see <xref
+    linkend="sysinfo.items.root"/>), the default path for the file is
+    <filename>/var/lock/config5</filename> but can be changed (see <xref
+    linkend="cust.general"/>).</para>
+
+    <section>
+      <title>Changing System Information Items</title>
+
+      <para>The <option>--set</option> command line options can be used to
+      override the system information items that are automatically determined.
+      The argument to <option>--set</option> is of the form
+      <option>key=value</option> where <option>key</option> is the identifier
+      of the system information item and <option>value</option> is the value
+      to set:</para>
+
+      <screen># /usr/config5/bin/config5 --set host=foobar</screen>
+
+      <para>The list of identifiers of all configured system information items
+      can be displayed using <option>--report systemitems</option>.</para>
+    </section>
+
+    <section>
+      <title>SELinux Support</title>
+
+      <para>SELinux support is a built-in feature and typically configured via
+      the global configuration (see <xref linkend="cust.os"/>). In some
+      situations, such as when running <command>config5</command> on diskless
+      clients, it may be required to override this setting via command line.
+      SELinux support is also automatically disabled when the root directory
+      is not <filename>/</filename> but the command line options take
+      precedence.</para>
+
+      <para>The <option>--selinux</option> command line option enables SELinux
+      support, the <option>--no-selinux</option> command line option disables
+      it:</para>
+
+      <screen># /usr/config5/bin/config5 --no-selinux</screen>
+    </section>
+
+    <section>
+      <title>Dry Run</title>
+
+      <para>The <option>--dummy</option> command line options will force
+      <command>config5</command> to simulate configuration application:</para>
+
+      <screen># /usr/config5/bin/config5 --apply --dummy</screen>
+
+      <para>No changes to the system will be done. The changes that would be
+      done are printed.</para>
+
+      <important>
+        <para>The dry run uses the current system state for the simulation
+        which may not be enough to reflect the changes that would really be
+        done.</para>
+
+        <para>For instance a <function>service start</function> change that
+        follows a <function>service stop</function> change for a service would
+        usually be executed but in dry run mode the current state is not the
+        same as after the <function>service stop</function> change was
+        executed.</para>
+      </important>
+    </section>
+
+    <section xml:id="run.disable">
+      <title>Disable Configuration Application</title>
+
+      <para>The configuration application for a single system can be disabled
+      by creating an empty <emphasis>disable file</emphasis>. This is usually
+      helpful when manual maintenance is done on a system and running
+      <command>config5</command> would interfere. The file is relative to the
+      root directory system item (see <xref
+      linkend="sysinfo.items.root"/>).</para>
+
+      <para>The default path for the file is
+      <filename>/etc/config5-disabled</filename> but can be changed (see <xref
+      linkend="cust.general"/>).</para>
+    </section>
+  </section>
+
+  <section xml:id="run.verify">
+    <title>Verifying the Configuration</title>
+
+    <para>With the <option>--check</option> command line option the
+    configuration will only be checked for correctness. Currently the
+    following static checks are performed:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Syntax errors in the <filename>spec</filename> files or missing
+        spec files.</para>
+      </listitem>
+
+      <listitem>
+        <para>Missing source files for copy or append.</para>
+      </listitem>
+
+      <listitem>
+        <para>File or directory modified in more than one feature.</para>
+      </listitem>
+
+      <listitem>
+        <para>Missing referenced class.</para>
+      </listitem>
+
+      <listitem>
+        <para>Missing <function>copy</function> or
+        <function>truncate</function> change for <function>append</function>
+        changes.</para>
+      </listitem>
+
+      <listitem>
+        <para>Duplicate classes in a feature.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Ensuring that every append change has a corresponding copy or
+    truncate change cannot be verified statically. To enable this check do the
+    following:</para>
+
+    <orderedlist>
+      <listitem>
+        <para>Collect the output of <command>config5 --report
+        rawsystem</command> from all systems the configuration will be applied
+        to and store each output in an individual file in some directory,
+        typically a network share. The directory must be readable from where
+        you will run config5 --check (if you integrate config5 with
+        <productname>Subversion</productname> such as described in <xref
+        linkend="deploy"/> then the directory must also be accessible on your
+        <productname>Subversion </productname>server). The best is to do this
+        periodically.</para>
+      </listitem>
+
+      <listitem>
+        <para>Set the setting
+        <varname>$self-&gt;{system}-&gt;{variations_directory}</varname> (see
+        <xref linkend="cust.sysinfo"/>) to the directory containing the above
+        files.</para>
+      </listitem>
+    </orderedlist>
+  </section>
+
+  <section xml:id="run.reports">
+    <title xml:id="ref.running">Reports</title>
+
+    <para>The <option>--report</option> command line option can be used to
+    produce a variety of reports. The argument to <option>--report</option> is
+    a report type:</para>
+
+    <variablelist>
+      <varlistentry>
+        <term><systemitem class="library">changes</systemitem></term>
+
+        <listitem>
+          <para>Report the keywords of all changes.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><systemitem class="library">classes</systemitem></term>
+
+        <listitem>
+          <para>Report all classes of all features.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><systemitem class="library">features</systemitem></term>
+
+        <listitem>
+          <para>Produce a normalized output of all changes, classes and
+          features.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><systemitem class="library">files</systemitem></term>
+
+        <listitem>
+          <para>Report all files that are copied or truncated in all classes
+          of all features. This information can be used to manage
+          configuration file upgrades when a new release of an operating
+          system is available.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><systemitem class="library">matches</systemitem></term>
+
+        <listitem>
+          <para>Report the matching class for each feature based on the
+          available system information.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><systemitem class="library">rawsystem</systemitem></term>
+
+        <listitem>
+          <para>Report the current values for all system information items for
+          the system in a form that can be parsed by a shell or used for
+          configuration verification.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><systemitem class="library">stages</systemitem></term>
+
+        <listitem>
+          <para>Report all configured stages.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><systemitem class="library">system</systemitem></term>
+
+        <listitem>
+          <para>Report the current values for all system information items for
+          the system. This is also printed first when applying the
+          configuration.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><systemitem class="library">systemitems</systemitem></term>
+
+        <listitem>
+          <para>Report all configured system information items.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </section>
+</chapter>

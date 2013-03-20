@@ -1,0 +1,138 @@
+NAME
+    config5 - 5th Generation Unix Configuration Management Utility
+
+SYNOPSIS
+    config5 [-vqdnhmV] [--selinux|--no-selinux] [--set *key=value*]
+    [--apply|--check|--report *type*] [--features dir] [feature...]
+
+DESCRIPTION
+    config5 is the main script of the *Config5* Unix Configuration
+    Management Kit. It can apply a configuration (feature set), check
+    configuration metadata for consistency and give various reports on the
+    configuration and the system it is run on.
+
+    When run without arguments it will perform all operations with the full
+    set of features. Otherwise it will only process the features specified.
+    The feature set location defaults to 'features' in the *Config5* base
+    directory and can be altered with the --features otion.
+
+    Information about the system a configuration is appled to is collected
+    from data on the system where config5 is run. The collected values can
+    be altered using the --set option.
+
+    For detailed documentation consult the "Config5 Systems Administrator's
+    Guide".
+
+OPTIONS
+    --apply
+        Apply the configuration. Either the entire feature set or only the
+        features specified on the command line are applied.
+
+    --check
+        Perform consistency checks of the entire configuration. Checks
+        include syntax checks of the specification files in all features,
+        checks for references to missing files and more.
+
+    --report *type*
+        Print various reports. The report *type* can be one of:
+
+        *changes*
+            Report the keywords for all changes.
+
+        *classes*
+            Report all classes in alphabetical order.
+
+        *classorder*
+            Report the classes used to match the best class in each feature.
+            The classes are reported in the order they are checked and are
+            generated using the gathered system information and the values
+            set using --set.
+
+        *features*
+            Report all classes and changes for all features in a normalized
+            form.
+
+        *files*
+            Report all files that are modified by any class of all features.
+
+        *matches*
+            Report the matching class for each feature using the gathered
+            system information and the values set using --set.
+
+        *stages*
+            Report all defined target system stages.
+
+        *system*
+            Show the various values of the system information.
+
+        *rawsystem*
+            Show the various values of the system information as parsable
+            output. The output can be sourced by a shell.
+
+        *systemitems*
+            Report all configured system information items with description,
+            identifier and other meta information.
+
+        For all reports relating to features the report comprises either all
+        features or only the features specified on the command line.
+
+    --set *key=value*
+        Change the value of one of the system information items.
+
+    --features dir
+        Sets the directory containing the feature set.
+
+    --set *key=value*
+        Change the value of one of the system information items.
+
+    --selinux or --no-selinux
+        Activates or deactivates SELinux support, overrides the
+        configuration in the settings.
+
+    --help, -h
+        Print a brief help message and exit.
+
+    --man, -m
+        Print this manual page and exit.
+
+    --version, -V
+        Print the version number of the script and exit.
+
+    --verbose, -v
+        Enable verbose messages on the process. Can be specified multiple
+        times to increase verbosity.
+
+    --quiet, -q
+        Only print errors and warning. This option overrides --verbose.
+
+    --debug, -d
+        Enable debugging output. Can be specified multiple times to increase
+        the debug level.
+
+    --dummy, -n
+        Activate dummy mode where no actual changes are made.
+
+EXIT VALUES
+    If there were no errors the program exists with return code 0. Otherwise
+    the return code is 1.
+
+EXAMPLES
+    "config5"
+        Apply the entire configuration.
+
+    "config5 --set root=/var/diskless/host1 --set host=host1"
+        Apply the configuration for a diskless client on the server.
+
+    "config5 --report info"
+        Report information about the system.
+
+    "config5 --dummy"
+        Simulate application of the configuration.
+
+    "config5 --check"
+        Check the feature set for consistency and syntax errors.
+
+    "config5 --set host=sample --report matches cifs nfs"
+        Report the matching class of features 'nfs' and 'cifs' for host
+        'sample'.
+

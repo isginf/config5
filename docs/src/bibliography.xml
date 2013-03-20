@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE bibliography>
+<bibliography version="5.0" xml:lang="en_US"
+              xmlns="http://docbook.org/ns/docbook"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlns:xi="http://www.w3.org/2001/XInclude"
+              xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+              xmlns:ns4="http://www.w3.org/2000/svg"
+              xmlns:ns3="http://www.w3.org/1999/xhtml"
+              xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Bibliography</title>
+
+  <bibliodiv>
+    <title>Web Resources</title>
+
+    <biblioentry xml:id="bib.bcfg2">
+      <biblioset relation="name">
+        <title><productname>Bcfg2</productname> Project Website</title>
+      </biblioset>
+
+      <biblioset relation="url">
+        <title><link
+        xlink:href="http://trac.mcs.anl.gov/projects/bcfg2"><citetitle>http://trac.mcs.anl.gov/projects/bcfg2</citetitle></link></title>
+      </biblioset>
+    </biblioentry>
+
+    <biblioentry xml:id="bib.cfengine">
+      <biblioset relation="name">
+        <title><productname>Cfengine</productname> Product Website</title>
+      </biblioset>
+
+      <biblioset relation="url">
+        <title><link
+        xlink:href="http://www.cfengine.org/"><citetitle>http://www.cfengine.org/</citetitle></link></title>
+      </biblioset>
+    </biblioentry>
+
+    <biblioentry xml:id="bib.lcfg">
+      <biblioset relation="name">
+        <title><productname>LCFG</productname> Product Website</title>
+      </biblioset>
+
+      <biblioset relation="url">
+        <title><link
+        xlink:href="http://www.lcfg.org/"><citetitle>http://www.lcfg.org/</citetitle></link></title>
+      </biblioset>
+    </biblioentry>
+
+    <biblioentry xml:id="bib.puppet">
+      <biblioset relation="name">
+        <title><productname>Puppet</productname> Product Website</title>
+      </biblioset>
+
+      <biblioset relation="url">
+        <title><link
+        xlink:href="http://www.puppetlabs.com/"><citetitle>http://www.puppetlabs.com/</citetitle></link></title>
+      </biblioset>
+    </biblioentry>
+
+    <biblioentry xml:id="bib.templatetoolkit">
+      <biblioset relation="name">
+        <title><productname>Template Toolkit</productname> Home Page</title>
+      </biblioset>
+
+      <biblioset relation="url">
+        <title><link
+        xlink:href="http://template-toolkit.org/"><citetitle>http://template-toolkit.org/</citetitle></link></title>
+      </biblioset>
+    </biblioentry>
+  </bibliodiv>
+
+  <bibliodiv>
+    <title>Papers</title>
+
+    <biblioentry xml:id="bib.tetre2">
+      <biblioset relation="name">
+        <title>TemplateTree II: The Post-Installation Setup Tool</title>
+
+        <author>
+          <personname><surname>Oetiker</surname><firstname>Tobias</firstname></personname>
+        </author>
+
+        <copyright>
+          <year>2001</year>
+        </copyright>
+
+        <pagenums>179-185 of the Proceedings of LISA ’01: Fifteenth Large
+        Installation Systems Administration Conference</pagenums>
+      </biblioset>
+    </biblioentry>
+  </bibliodiv>
+</bibliography>

@@ -1,0 +1,32 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Chapter 3. Configuration Application</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Config5"><link rel="up" href="index.html" title="Config5"><link rel="prev" href="ch02s04.html" title="2.4. Changes"><link rel="next" href="ch03s02.html" title="3.2. Environment"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 3. Configuration Application</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch02s04.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch03s02.html">Next</a></td></tr></table><hr></div><div lang="en_US" class="chapter" title="Chapter 3. Configuration Application"><div class="titlepage"><div><div><h2 class="title"><a name="idp308640"></a>Chapter 3. Configuration Application</h2></div></div></div>
+  
+
+  <p>Understanding how the configuration is applied to a system is
+  essential and outlined in this chapter.</p>
+
+  <div class="section" title="3.1. Configuration Processing"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="app.proc"></a>3.1. Configuration Processing</h2></div></div></div>
+    
+
+    <p>The information in the feature set is processed in a well defined
+    order:</p>
+
+    <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+        <p>All features are processed in alphabetical order.</p>
+      </li><li class="listitem">
+        <p>Starting with the class that matches best in each feature (if
+        there is any, see <a class="xref" href="ch02s03.html#cust.class.match" title="2.3.2. Best Match">Section 2.3.2, “Best Match”</a>) the referenced
+        classes are processed first from left to right. Classes are processed
+        once every time they are referenced which may be more than
+        once.</p>
+      </li><li class="listitem">
+        <p>In each class that is processed the changes are processed from
+        top to bottom.</p>
+      </li></ul></div>
+
+    <p>Some changes are applied in the order they are processed (see <a class="xref" href="ch03s03.html#app.changes" title="3.3.3. Changes">Section 3.3.3, “Changes”</a>).</p>
+  </div>
+
+  
+
+  
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch02s04.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ch03s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2.4. Changes </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 3.2. Environment</td></tr></table></div></body></html>

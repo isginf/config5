@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE appendix>
+<appendix version="5.0" xml:id="app.err" xml:lang="en_US"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+          xmlns:ns4="http://www.w3.org/2000/svg"
+          xmlns:ns3="http://www.w3.org/1999/xhtml"
+          xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Error Messages</title>
+
+  <section>
+    <title>Runtime Errors</title>
+
+    <variablelist>
+      <varlistentry>
+        <term>Disabled via '<replaceable>file</replaceable>'</term>
+
+        <listitem>
+          <para>Configuration application is disabled because the named
+          disable file is present (see <xref linkend="run.disable"/>).</para>
+
+          <para>Remove the file to enable configuration application.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Unable to lock 'file'</term>
+
+        <listitem>
+          <para>A lock could not be obtained for the lock file.</para>
+
+          <para>Verify that the lock file can be createdm, is writable and on
+          a local file system. Increase the wait time for obtaining the lock
+          (see <xref linkend="cust.general"/>).</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </section>
+
+  <section>
+    <title>System Errors</title>
+
+    <para>System errors are fatal, no changes will be done to the
+    system.</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>Cannot run 'lsb_release -…' to determine …</term>
+
+        <listitem>
+          <para>The <command>lsb_release</command> command could not be
+          run.</para>
+
+          <para>Install or deploy the package containing the
+          <command>lsb_release</command> command on all systems where
+          <command>config5</command> is run with the same settings.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Perl module '<replaceable>module</replaceable>' is not installed
+        …</term>
+
+        <listitem>
+          <para>The named perl module is not installed but either generally
+          required or required because of an optional functionality that is
+          enabled.</para>
+
+          <para>Install or deploy the named module on all systems where
+          <command>config5</command> is run with the same settings.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </section>
+
+  <section>
+    <title>Setting Errors</title>
+
+    <para>Setting errors are fatal, no changes will be done to the
+    system.</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>Cannot load module '<replaceable>module</replaceable>' for
+        keyword in …</term>
+
+        <listitem>
+          <para>The module of the handling class for the change failed to
+          load.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Cannot read feature list in
+        '<replaceable>directory</replaceable>'</term>
+
+        <listitem>
+          <para>The features directory could not be read.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Mandatory system information item
+        '<replaceable>item</replaceable>' could not be determined</term>
+
+        <listitem>
+          <para>The settings list the system information item as mandatory but
+          the system information module did not set a value for it.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>No handling class for keyword '<emphasis>keyword</emphasis>' in
+        …</term>
+
+        <listitem>
+          <para>The settings do not specify a class to handle changes with
+          this keyword.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Undefined system information item
+        '<replaceable>item</replaceable>'</term>
+
+        <listitem>
+          <para>An undefined system information item was used in the class
+          match list (see <xref linkend="cust.classes"/>.)</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </section>
+
+  <section>
+    <title>Configuration Data Errors</title>
+
+    <para>Configuration data errors are fatal, no changes will be done to the
+    system.</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>Change '<replaceable>change</replaceable>' in feature
+        '<replaceable>feature</replaceable>' without class</term>
+
+        <listitem>
+          <para>A change was correctly parsed but no class was
+          declared.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Conflict for '<replaceable>file</replaceable>' between …</term>
+
+        <listitem>
+          <para>The same file or directory is configured in different
+          features.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Duplicate class '<replaceable>class</replaceable>' in feature
+        '<replaceable>feature</replaceable>'</term>
+
+        <listitem>
+          <para>The feature contains two declarations of the same
+          class.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Feature '<replaceable>feature</replaceable>' does not contain a
+        '…' file</term>
+
+        <listitem>
+          <para>The feature does not contain a spec file.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>'<replaceable>file</replaceable>' is of the wrong type for
+        …</term>
+
+        <listitem>
+          <para>An <function>append</function> change was used for a path that
+          is not a plain file.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>'<replaceable>file</replaceable>' needs to be created for
+        …</term>
+
+        <listitem>
+          <para>An <function>append</function> change for a file was found for
+          which there is no matching <function>touch</function> or
+          <function>copy</function> change in the same pass.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Garbage '…' in …</term>
+
+        <listitem>
+          <para>Unexpected arguments were found in a change.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Insufficient arguments in …</term>
+
+        <listitem>
+          <para>The change requires more arguments.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Invalid flag '<replaceable>flag</replaceable>' for …</term>
+
+        <listitem>
+          <para>The flag is invalid for the change.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Invalid mode '<replaceable>mode</replaceable>' in …</term>
+
+        <listitem>
+          <para>The mode is invalid. See <xref linkend="conf.chg.param"/> for
+          a description of the mode parameter.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Invalid SELinux context '<replaceable>context</replaceable>' in
+        …</term>
+
+        <listitem>
+          <para>The SELinux context is invalid. See <xref
+          linkend="conf.chg.param.selinux"/> for a list of supported context
+          formats.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Invalid substitution '<replaceable>substitution</replaceable>'
+        in …</term>
+
+        <listitem>
+          <para>The substitution is invalid.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>No file '<replaceable>file</replaceable>' in …</term>
+
+        <listitem>
+          <para>The file could not be found in the filesystem of the target
+          system or in the feature.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Path '<replaceable>path</replaceable>' is not absolute in
+        …</term>
+
+        <listitem>
+          <para>The path of the file or directory is not absolute.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Problem with template …</term>
+
+        <listitem>
+          <para><productname>Template Toolkit</productname> failed to process
+          the content of the source file.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Recursive reference to class '<replaceable>class</replaceable>'
+        in class '<emphasis>parent</emphasis>'</term>
+
+        <listitem>
+          <para>A class declaration references an undefined class.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Reference to undefined class '<replaceable>class</replaceable>'
+        in class '<replaceable>class</replaceable>' in feature
+        '<replaceable>feature</replaceable>'</term>
+
+        <listitem>
+          <para>A class declaration references an undefined class.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Unable to append data in '<replaceable>source</replaceable>' to
+        '<replaceable>file</replaceable>'</term>
+
+        <listitem>
+          <para>The data from the source file could not be read. Verify that
+          the source file exists and is readable.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Unknown change keyword '<replaceable>keyword</replaceable>' in
+        …</term>
+
+        <listitem>
+          <para>The change with this keyword is unknown.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Unknown group '<replaceable>group</replaceable>' in …</term>
+
+        <listitem>
+          <para>The group is unknown or invalue. See <xref
+          linkend="conf.chg.param"/> for a description of the group
+          parameter.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Unknown user '<replaceable>user</replaceable>' in …</term>
+
+        <listitem>
+          <para>The user is unknown or invalid. See <xref
+          linkend="conf.chg.param"/> for a description of the user
+          parameter.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Unparsable line <replaceable>number</replaceable> in '…' file
+        for feature '<replaceable>feature</replaceable>': …</term>
+
+        <listitem>
+          <para>The line is not a valid class declaration or change.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </section>
+
+  <section>
+    <title>Configuration Application Errors</title>
+
+    <para>The following errors are reported for changes as they are applied
+    but do not interrupt the application of other changes.</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>Command '<replaceable>command</replaceable>' returned
+        <replaceable>error</replaceable> in …</term>
+
+        <listitem>
+          <para>The command returned a non-zero return value. Increase the
+          verbosity level to see the output and error messages of the
+          command.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Failed to correctly apply change in …</term>
+
+        <listitem>
+          <para>The change could not be correctly applied.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Unable to chcon '<replaceable>path</replaceable>' to
+        <replaceable>context</replaceable> in …</term>
+
+        <listitem>
+          <para>The SELinux context of the file or directory could not be set.
+          Verify that the given path is on a file system that has SELinux
+          support.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Unable to chmod '<replaceable>file</replaceable>' to mode
+        <replaceable>mode</replaceable> in …</term>
+
+        <listitem>
+          <para>The mode bits of the file or directory could not be
+          set.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Unable to chown '<replaceable>path</replaceable>' to
+        <replaceable>uid</replaceable>:<replaceable>gid</replaceable> in
+        …</term>
+
+        <listitem>
+          <para>The user and group of the file or directory could not be
+          set.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Unable to create directory
+        '<replaceable>directory</replaceable>' in …</term>
+
+        <listitem>
+          <para>The directory could not be created. Verify that the directory
+          containing the file exists and that it is in a local, writable file
+          system.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Unable to create link '<replaceable>link</replaceable>' to
+        '<replaceable>source</replaceable>' in …</term>
+
+        <listitem>
+          <para>The link to the source path could not be created. Verify that
+          the source file exists and is in the same file system as the link.
+          Verify that the directory containing the link exists and that it is
+          in a local, writable file system.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Unable to create symbolic link 'link' in …</term>
+
+        <listitem>
+          <para>The symbolic link could not be created. Verify that the
+          directory containing the symbolic link exists and that it is in a
+          local, writable file system.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Unable to get properties of '<replaceable>file</replaceable>' in
+        …</term>
+
+        <listitem>
+          <para>The properties of an existing file could not be read.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Unable to open '<replaceable>file</replaceable>' for writing in
+        …</term>
+
+        <listitem>
+          <para>The file could not be opened for writing. Verify that the
+          directory containing the file exists and that it is in a local,
+          writable file system.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Unable to remove 'path' in …</term>
+
+        <listitem>
+          <para>The file or directory could not be removed Verify that the
+          file or directory is in a local, writable file system. When a
+          directory is removed it must be empty.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Unable to rename temporary to '<replaceable>file</replaceable>'
+        in …</term>
+
+        <listitem>
+          <para>The temporary file could not be renamed to the file.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Unable to write to '<replaceable>file</replaceable>' in …</term>
+
+        <listitem>
+          <para>An error occured while writing data to the file. Verify that
+          the file system containing the file has enough free space.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </section>
+</appendix>

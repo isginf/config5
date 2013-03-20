@@ -1,0 +1,188 @@
+#!/usr/bin/perl
+
+# Copyright 2011 ETH Zurich, ISGINF
+#
+# This file is part of Config5.
+#
+# Config5 is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Config5 is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Config5.  If not, see <http://www.gnu.org/licenses/>.
+
+# unused-classes - Find unused classes using 'config5 --report matches' output
+#
+# $Id: config5 647 2011-08-04 08:42:35Z walteste $
+# $HeadURL: https://svn.isg.inf.ethz.ch/svn/isg/config5-rhel6/trunk/bin/config5 $
+
+use strict;
+use warnings;
+ 
+sub reference($$);
+
+# Add library path relative to script
+use Cwd qw(abs_path);
+use FindBin;
+use lib abs_path("$FindBin::Bin/../lib/perl");
+
+use Getopt::Constrainted;
+use Config5::Util qw(fail slurp tokenize);
+use Config5::Settings;
+use Config5::Feature;
+
+use vars qw($opt_prefix $opt_features);
+use vars qw($opt_h $opt_m);
+
+# Before all else load and apply settings
+my $base = abs_path("$FindBin::Bin/../");
+our $SETTINGS = new Config5::Settings($base);
+
+# Command line options and constraints
+my %options = 
+(
+   'prefix=s' => \$opt_prefix,
+   'features=s' => \$opt_features,
+
+   'help|h' => \$opt_h,
+   'man|m' => \$opt_m,
+);
+
+my %constraints =
+(
+   defaults => [
+      [ 'features', "$base/" . $SETTINGS->{features}->{name} ],
+   ],
+
+   unconstrainted => [ 'help', 'man', 'prefix', 'features' ],
+);
+
+# Get and apply command line options
+GetOptions(%options, %constraints);
+
+my @list = @ARGV;
+undef @ARGV;
+
+unless (@list)
+{
+   opendir my $dh, $opt_features or fail "Cannot read feature list in '$opt_features'";
+   map { push @list, $_ unless /^\./ } sort readdir $dh;
+   closedir $dh;
+}
+
+our $tree;
+our $referenced;
+
+foreach my $name (@list)
+{
+   my $path = "$opt_features/$name/" . $::SETTINGS->{spec}->{name};
+   next unless -r $path;
+  
+   my $last;
+   foreach $_ (slurp $path)
+   {
+      $_ = $last . $_, $last = undef if defined $last;
+      $last = $1, next if /^(.*)\\$/;
+
+      next if /^\s*$/;
+      next if /^\s*#/;
+      next if /^\s+(\S+)\s+/;
+
+      if (/^(\S+)\s*:\s*(.*)/)
+      {
+         my ($class, $sub) = ($1, $2);
+         $tree->{$name}->{$class} = {};
+
+         foreach my $token (tokenize $sub)
+         {
+            $tree->{$name}->{$class}->{$token} = 1
+               if ($token !~ /^([^=]+)=(.+)/) && ($token ne '');
+         }
+
+         next;
+      }
+   }
+}
+  
+while(<>)
+{
+   next unless /^([^\:]+)\:\s+(.+)/;
+   next if $2 eq '(no match)';
+
+   reference($1, $2);
+}
+
+foreach my $name (sort keys %$tree)
+{
+   foreach my $class (sort keys %{$tree->{$name}})
+   {
+      next if defined $opt_prefix && (substr($class, 0, length($opt_prefix)) eq $opt_prefix);
+      print "$name: $class\n"
+         unless $referenced->{$name}->{$class};
+   }
+}
+
+
+sub reference($$)
+{
+   my ($name, $class) = @_;
+
+   return unless $tree->{$name}->{$class};
+   $referenced->{$name}->{$class} = 1;
+   map { reference $name, $_ } keys %{$tree->{$name}->{$class}};
+}
+
+
+__END__
+
+=head1 NAME
+
+unused-classes - Find unused classes using 'config5 --report matches' output
+
+=head1 SYNOPSIS
+
+B<unused-classes> [B<-hm>] [B<--prefix> I<prefix>] [B<--features> F<dir>] [feature...]
+
+=head1 DESCRIPTION
+
+B<unused-classes> can be used to locate unreferenced classes in a feature set.
+The collective output of 'config5 --report matches' is read from the standard input and all classes that occur are marked as used, including all classes referenced by these classes. All classes that were not marked as used are reported in the same format as the input.
+
+When run without arguments it will perform all operations with the full set
+of features. Otherwise it will only process the features specified. The feature set location defaults to 'F<features>' in the I<Config5> base directory and
+can be altered with the B<--features> otion.
+
+A prefix can be supplied with the B<--prefix> option. All classes that have this prefix are not reported.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--prefix> I<prefix>
+
+Sets the prefix for classes that should not be reported.
+
+=item B<--features> F<dir>
+
+Sets the directory containing the feature set.
+
+=item B<--help>, B<-h>
+
+Print a brief help message and exit.
+
+=item B<--man>, B<-m>
+
+Print this manual page and exit.
+
+=back
+
+=cut
+
+
+

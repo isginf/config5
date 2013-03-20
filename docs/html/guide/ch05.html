@@ -1,0 +1,98 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Chapter 5. Deployment</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Config5"><link rel="up" href="index.html" title="Config5"><link rel="prev" href="ch04s05.html" title="4.5. Reports"><link rel="next" href="ch05s02.html" title="5.2. Running config5"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 5. Deployment</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch04s05.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch05s02.html">Next</a></td></tr></table><hr></div><div lang="en_US" class="chapter" title="Chapter 5. Deployment"><div class="titlepage"><div><div><h2 class="title"><a name="deploy"></a>Chapter 5. Deployment</h2></div></div></div>
+  
+
+  <p>This chapter provides information and tips how to actually deploy
+  <span class="productname">Config5</span> in your organization.</p>
+
+  <p>Deploying <span class="productname">Config5</span> to a system is done in
+  two steps:</p>
+
+  <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+      <p>Distributing the <span class="productname">Config5</span> deployment kit
+      including the configuration data on the system</p>
+    </li><li class="listitem">
+      <p>Running the <span class="command"><strong>config5</strong></span> script</p>
+    </li></ol></div>
+
+  <p><span class="productname">Config5</span> is very flexible and allows for a
+  wide range of approaches for both.</p>
+
+  <div class="section" title="5.1. Distribution of the Configuration"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp701776"></a>5.1. Distribution of the Configuration</h2></div></div></div>
+    
+
+    <p>The <span class="command"><strong>config5</strong></span> script along with its settings and
+    libraries are typically distributed along with the feature set. This set
+    comprises the deployment kit (the <code class="filename">deploy</code> folder in the distribution). Some
+    options for distributing the deployment kit include:</p>
+
+    <div class="variablelist"><dl><dt><span class="term">Network File system</span></dt><dd>
+          <p>The files of the deployment kit are exported via CIFS or NFS
+          and mounted read-only on the system to configure. If applicable the
+          authentication scheme of the network file system can be used to
+          restrict access.</p>
+        </dd><dt><span class="term">Version Control System</span></dt><dd>
+          <p>A version control system such as Subversion or GIT can be used
+          as a distribution point. A system will check out the latest version
+          of the deployment kit.</p>
+        </dd><dt><span class="term">Remote Copy</span></dt><dd>
+          <p>The deployment kit is pushed on a system via
+          <span class="command"><strong>rsync</strong></span>, <span class="command"><strong>scp</strong></span> or any other tool
+          that does the job.</p>
+        </dd></dl></div>
+
+    <p>The right choice of the deployment method largely depends on your
+    work flow, policies and security requirements.</p>
+
+    <div class="section" title="5.1.1. Integration with Subversion"><div class="titlepage"><div><div><h3 class="title"><a name="idp712880"></a>5.1.1. Integration with Subversion</h3></div></div></div>
+      
+
+      <p><span class="productname">Config5</span> integrates well with
+      <span class="productname">Subversion</span>. The configuration check function
+      of <span class="command"><strong>config5</strong></span> (see <a class="xref" href="ch04s04.html" title="4.4. Verifying the Configuration">Section 4.4, “Verifying the Configuration”</a>) can
+      easily be used in a pre-commit hook to guard against common errors such
+      as syntax errors and missing configuration files:</p>
+
+      <pre class="programlisting">#!/bin/sh
+
+REPOSITORY="$1"
+TRANSACTION="$2"
+
+TEMPDIR=`/bin/mktemp -d`
+export-commit "$REPOSITORY" "$TRANSACTION" trunk "$TEMPDIR" 1&gt;&amp;2
+
+"$TEMPDIR/trunk/bin/config5" --check 1&gt;&amp;2
+
+RC=$?
+rm -rf "$TEMPDIR"
+exit $RC
+</pre>
+
+      <p>This script relies on an additional script
+      <span class="command"><strong>export-commit</strong></span> which performs an export of the
+      repository <span class="emphasis"><em>including the pending commit</em></span>:</p>
+
+      <pre class="programlisting">#!/bin/sh
+
+REPOSITORY="$1"
+TRANSACTION="$2"
+SUBDIR="$3"
+DIRECTORY="$4"
+
+svnlook tree --full-paths "$REPOSITORY" -t "$TRANSACTION" "$SUBDIR" | while read path
+do
+   if [[ $path =~ "\/$" ]]
+   then
+      mkdir -p "$DIRECTORY/$path"
+   else
+      svnlook cat "$REPOSITORY" -t "$TRANSACTION" "$path" &gt; "$DIRECTORY/$path";
+      chmod 755 "$DIRECTORY/$path"
+   fi
+done
+</pre>
+
+      <p>Both scripts can be found in the directory <code class="filename">examples/svn</code> in the distribution.</p>
+    </div>
+  </div>
+
+  
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch04s05.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ch05s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">4.5. Reports </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5.2. Running <span class="command"><strong>config5</strong></span></td></tr></table></div></body></html>

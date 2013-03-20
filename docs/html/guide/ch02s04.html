@@ -1,0 +1,439 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>2.4. Changes</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Config5"><link rel="up" href="ch02.html" title="Chapter 2. Configuration Data"><link rel="prev" href="ch02s03.html" title="2.3. Classes"><link rel="next" href="ch03.html" title="Chapter 3. Configuration Application"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2.4. Changes</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch02s03.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Configuration Data</th><td width="20%" align="right"> <a accesskey="n" href="ch03.html">Next</a></td></tr></table><hr></div><div class="section" title="2.4. Changes"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="conf.changes"></a>2.4. Changes</h2></div></div></div>
+    
+
+    <p>The <span class="emphasis"><em><em class="firstterm">changes</em></em></span> specify
+    individual changes to the system. Each change is identified by a keyword,
+    usually a verb or noun and followed by parameters.</p>
+
+    <p>Extensions can define additional changes with other keywords.</p>
+
+    <div class="section" title="2.4.1. Flags"><div class="titlepage"><div><div><h3 class="title"><a name="conf.changes.flags"></a>2.4.1. Flags</h3></div></div></div>
+      
+
+      <p>Some aspects of a change can be modified using a set of
+      <em class="firstterm">flags</em>. Flags are indicated using a leading minus
+      sign. The flags are optional but if present must be directly after the
+      keyword.</p>
+
+      <p>The following common flags are handled the same way for all
+      changes, both core changes and changes from extensions:</p>
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col><col></colgroup><thead><tr><th align="center">Flag</th><th align="center">Description</th></tr></thead><tbody><tr><td><code class="option">-0</code> to <code class="option">-9</code></td><td>Sets the pass in which the change is applied</td></tr><tr><td><code class="option">-b</code></td><td>Data is binary and should not be processed with the
+              <span class="productname">Template Toolkit</span></td></tr><tr><td><code class="option">-i</code></td><td>Files are changed in-place</td></tr><tr><td><code class="option">-n</code></td><td>All errors are ignored</td></tr><tr><td><code class="option">-t</code></td><td>Change is only performed if another change in the same
+              class was applied</td></tr><tr><td><code class="option">-T</code></td><td>Change is only performed if another change in the same
+              feature was applied</td></tr></tbody></table>
+      </div>
+
+      <p>Stages (see <a class="xref" href="ch03s02.html#app.stage" title="3.2.2. Stages">Section 3.2.2, “Stages”</a>) are also specified as
+      flags.</p>
+    </div>
+
+    <div class="section" title="2.4.2. Parameters"><div class="titlepage"><div><div><h3 class="title"><a name="conf.chg.param"></a>2.4.2. Parameters</h3></div></div></div>
+      
+
+      <p>Every change has its own set of mandatory and optional parameters.
+      The core changes share some common parameters.</p>
+
+      <p>The following subsections describe common parameters that are
+      handled the same way for all changes, both core changes and changes from
+      extension.</p>
+
+      <div class="section" title="2.4.2.1. Source File"><div class="titlepage"><div><div><h4 class="title"><a name="idp275680"></a>2.4.2.1. Source File</h4></div></div></div>
+        
+
+        <p>The <em class="parameter"><code>source</code></em> file may be specified as path
+        relative to the feature directory or an absolute path on the target
+        system.</p>
+      </div>
+
+      <div class="section" title="2.4.2.2. Destination Path"><div class="titlepage"><div><div><h4 class="title"><a name="idp277360"></a>2.4.2.2. Destination Path</h4></div></div></div>
+        
+
+        <p>The <em class="parameter"><code>destination</code></em> path for changes related
+        to the file system must always be absolute.</p>
+      </div>
+
+      <div class="section" title="2.4.2.3. User"><div class="titlepage"><div><div><h4 class="title"><a name="idp278256"></a>2.4.2.3. User</h4></div></div></div>
+        
+
+        <p>The <em class="parameter"><code>user</code></em> for a file (symbolic link, etc.)
+        or directory can be specified as a <code class="systemitem">uname</code> or a numeric <code class="systemitem">uid</code>.</p>
+
+        <p>For an existing file or directory it is possible to use a minus
+        sign as user in which case the current <code class="systemitem">user</code> of the file is unchanged. If the
+        file does not exist the <code class="systemitem">user</code>
+        of the file is set to <code class="systemitem">root</code>
+        (<code class="systemitem">uid</code>
+        <code class="constant">0</code>).</p>
+      </div>
+
+      <div class="section" title="2.4.2.4. Group"><div class="titlepage"><div><div><h4 class="title"><a name="idp286672"></a>2.4.2.4. Group</h4></div></div></div>
+        
+
+        <p>The <em class="parameter"><code>group</code></em> for a file (symbolic link,
+        etc.) or directory can be specified as a group name or a numeric
+        <code class="systemitem">gid</code>.</p>
+
+        <p>For an existing file or directory it is possible to use a minus
+        sign as <code class="systemitem">group</code> in which case
+        the current <code class="systemitem">group</code> of the
+        file is unchanged. If the file does not exist the <code class="systemitem">group</code> of the file is set to <code class="systemitem">root</code> (<code class="systemitem">gid</code> <code class="constant">0</code>).</p>
+      </div>
+
+      <div class="section" title="2.4.2.5. Mode"><div class="titlepage"><div><div><h4 class="title"><a name="idp293920"></a>2.4.2.5. Mode</h4></div></div></div>
+        
+
+        <p>The <em class="parameter"><code>mode</code></em> for a file or directory is
+        specified as an octal number.</p>
+
+        <p>If a minus sign is used as mode then the current mode of the
+        file is unchanged. If the file does not exist then the mode is set to
+        <code class="constant">0644</code>.</p>
+      </div>
+
+      <div class="section" title="2.4.2.6. SELinux Context"><div class="titlepage"><div><div><h4 class="title"><a name="conf.chg.param.selinux"></a>2.4.2.6. SELinux Context</h4></div></div></div>
+        
+
+        <p>For files (directories, symbolic links, etc.) the core changes
+        accept an optional SELinux context if SELinux support is activated
+        (see <a class="xref" href="ch07s03.html" title="7.3. Settings Reference">Section 7.3, “Settings Reference”</a>). A context can be specified in
+        three formats:</p>
+
+        <div class="variablelist"><dl><dt><span class="term">type</span></dt><dd>
+              <p>SELinux type, expands to
+              <code class="constant">system_u:object_r:</code><em class="replaceable"><code>type</code></em><code class="constant">:s0</code>.</p>
+            </dd><dt><span class="term">user:role:type</span></dt><dd>
+              <p>SELinux user, role and type, expands to
+              <code class="constant"><em class="replaceable"><code>user</code></em>:<em class="replaceable"><code>role</code></em>:</code><em class="replaceable"><code>type</code></em><code class="constant">:s0</code>.</p>
+            </dd><dt><span class="term">user:role:type:range</span></dt><dd>
+              <p>Complete SELinux context.</p>
+            </dd></dl></div>
+
+        <p>The core changes that accept an optional SELinux context will
+        keep the current context of an existing file. If a file is created
+        then the context is defined by the SELinux policy.</p>
+      </div>
+    </div>
+
+    <div class="section" title="2.4.3. Core Changes"><div class="titlepage"><div><div><h3 class="title"><a name="idp298160"></a>2.4.3. Core Changes</h3></div></div></div>
+      
+
+      <p>The following subsections explain the core changes that are
+      natively supported by <span class="productname">Config5</span>, i.e., are not
+      provided by an extension.</p>
+
+      <div class="section" title="2.4.3.1. Copy File"><div class="titlepage"><div><div><h4 class="title"><a name="idp310240"></a>2.4.3.1. Copy File</h4></div></div></div>
+        
+
+        <p>The <em class="firstterm">copy</em> change is used to copy a regular
+        file.</p>
+
+        <div class="informaltable">
+          <table border="1"><colgroup><col><col></colgroup><tbody><tr><td>Synopsis</td><td><code class="function">copy</code> [<code class="option">-bintT</code>]
+                <em class="parameter"><code>source</code></em>
+                <em class="parameter"><code>destination</code></em> <em class="parameter"><code>user</code></em>
+                <em class="parameter"><code>group</code></em> <em class="parameter"><code>mode</code></em>
+                [<em class="parameter"><code>context</code></em>]
+                [<em class="parameter"><code>key=value</code></em>…]</td></tr></tbody></table>
+        </div>
+
+        <p>The parameters <em class="parameter"><code>source</code></em>,
+        <em class="parameter"><code>destination</code></em>, <em class="parameter"><code>user</code></em>,
+        <em class="parameter"><code>group</code></em>, <em class="parameter"><code>mode</code></em> and
+        <em class="parameter"><code>context</code></em> are common parameters (see <a class="xref" href="ch02s04.html#conf.chg.param" title="2.4.2. Parameters">Section 2.4.2, “Parameters”</a>).</p>
+
+        <p>One or more substitutions can be appended as
+        <em class="parameter"><code>key=value</code></em> pairs (see <a class="xref" href="ch02s03.html#conf.class.subst" title="2.3.1. Substitutions">Section 2.3.1, “Substitutions”</a>). If the <code class="option">-b</code> flag is used
+        the file is treated as binary and no substitutions are done.</p>
+
+        <p>The content of a file (after applying all
+        <code class="function">append</code> changes for the same file),
+        <em class="parameter"><code>user</code></em>, <em class="parameter"><code>group</code></em>,
+        <em class="parameter"><code>mode</code></em> and <em class="parameter"><code>context</code></em> are
+        individually compared to the destination file and copied or set when
+        different.</p>
+
+        <p>If <em class="parameter"><code>destination</code></em> exists and is not a file
+        then it will be deleted before creating the file.</p>
+
+        <div class="example"><a name="idp328992"></a><p class="title"><b>Example 2.2. Copy File</b></p><div class="example-contents">
+          
+
+          <pre class="programlisting">sample:
+  copy sshd_config /etc/sshd/sshd_config root root 600 permitroot=1
+  copy authorised_keys /root/.ssh/authorized_keys root root 644 ssh_home_t</pre>
+        </div></div><br class="example-break">
+      </div>
+
+      <div class="section" title="2.4.3.2. Truncate File"><div class="titlepage"><div><div><h4 class="title"><a name="conf.chg.truncate"></a>2.4.3.2. Truncate File</h4></div></div></div>
+        
+
+        <p>The <em class="firstterm">truncate</em> change is used to create a
+        empty file.</p>
+
+        <div class="informaltable">
+          <table border="1"><colgroup><col><col></colgroup><tbody><tr><td>Synopsis</td><td><code class="function">truncate</code> [<code class="option">-intT</code>]
+                <em class="parameter"><code>destination</code></em> <em class="parameter"><code>user</code></em>
+                <em class="parameter"><code>group</code></em> <em class="parameter"><code>mode</code></em>
+                [<em class="parameter"><code>context</code></em>]</td></tr></tbody></table>
+        </div>
+
+        <p>The parameters <em class="parameter"><code>source</code></em>,
+        <em class="parameter"><code>destination</code></em>, <em class="parameter"><code>user</code></em>,
+        <em class="parameter"><code>group</code></em>, <em class="parameter"><code>mode</code></em> and
+        <em class="parameter"><code>context</code></em> are common parameters (see <a class="xref" href="ch02s04.html#conf.chg.param" title="2.4.2. Parameters">Section 2.4.2, “Parameters”</a>).</p>
+
+        <p>The content of a file (after applying all
+        <code class="function">append</code> changes for the same file),
+        <em class="parameter"><code>user</code></em>, <em class="parameter"><code>group</code></em>,
+        <em class="parameter"><code>mode</code></em> and <em class="parameter"><code>context</code></em> are
+        individually compared to the destination file and copied or set when
+        different.</p>
+
+        <p>If <em class="parameter"><code>destination</code></em> exists and is not a file
+        then it will be deleted before creating the file.</p>
+
+        <div class="example"><a name="idp346864"></a><p class="title"><b>Example 2.3. Truncate File</b></p><div class="example-contents">
+          
+
+          <pre class="programlisting">sample:
+  truncate /etc/rc.d/rc.local root root 755</pre>
+        </div></div><br class="example-break">
+      </div>
+
+      <div class="section" title="2.4.3.3. Append to File"><div class="titlepage"><div><div><h4 class="title"><a name="conf.chg.append"></a>2.4.3.3. Append to File</h4></div></div></div>
+        
+
+        <p>The <em class="firstterm">append</em> change is used to append data
+        to a file.</p>
+
+        <div class="informaltable">
+          <table border="1"><colgroup><col><col></colgroup><tbody><tr><td>Synopsis</td><td><code class="function">append</code> [<code class="option">-b</code>]
+                <em class="parameter"><code>source</code></em>
+                <em class="parameter"><code>destination</code></em>
+                [<em class="parameter"><code>key=value</code></em>…]</td></tr></tbody></table>
+        </div>
+
+        <p>The parameters <em class="parameter"><code>source</code></em> and
+        <em class="parameter"><code>destination</code></em> are common parameters (see <a class="xref" href="ch02s04.html#conf.chg.param" title="2.4.2. Parameters">Section 2.4.2, “Parameters”</a>).</p>
+
+        <p>One or more substitutions can be appended as
+        <em class="parameter"><code>key=value</code></em> pairs (see <a class="xref" href="ch02s03.html#conf.class.subst" title="2.3.1. Substitutions">Section 2.3.1, “Substitutions”</a>). If the <code class="option">-b</code> flag is used
+        the appended data is treated as binary and no substitutions are
+        done.</p>
+
+        <div class="important" title="Important" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Important</h3>
+          <p>To append to a file it must be copied or truncated. A
+          corresponding copy or truncate change must be present in exactly one
+          of the features.</p>
+        </div>
+
+        <div class="example"><a name="idp360960"></a><p class="title"><b>Example 2.4. Append to File</b></p><div class="example-contents">
+          
+
+          <pre class="programlisting">sample:
+  append rc.local /etc/rc.d/rc.local </pre>
+        </div></div><br class="example-break">
+      </div>
+
+      <div class="section" title="2.4.3.4. Create Directory"><div class="titlepage"><div><div><h4 class="title"><a name="conf.chg.directory"></a>2.4.3.4. Create Directory</h4></div></div></div>
+        
+
+        <p>The <em class="firstterm">directory</em> change is used to create a
+        directory.</p>
+
+        <div class="informaltable">
+          <table border="1"><colgroup><col><col></colgroup><tbody><tr><td>Synopsis</td><td><code class="function">directory</code> [<code class="option">-ntT</code>]
+                <em class="parameter"><code>destination</code></em> <em class="parameter"><code>user</code></em>
+                <em class="parameter"><code>group</code></em> <em class="parameter"><code>mode</code></em>
+                [<em class="parameter"><code>context</code></em>]</td></tr></tbody></table>
+        </div>
+
+        <p>The parameters <em class="parameter"><code>source</code></em>,
+        <em class="parameter"><code>destination</code></em>, <em class="parameter"><code>user</code></em>,
+        <em class="parameter"><code>group</code></em>, <em class="parameter"><code>mode</code></em> and
+        <em class="parameter"><code>context</code></em> are common parameters (see <a class="xref" href="ch02s04.html#conf.chg.param" title="2.4.2. Parameters">Section 2.4.2, “Parameters”</a>).</p>
+
+        <p>The <em class="parameter"><code>user</code></em>, <em class="parameter"><code>group</code></em>,
+        <em class="parameter"><code>mode</code></em> and <em class="parameter"><code>context</code></em> are
+        individually compared to the destination path and copied or set when
+        different.</p>
+
+        <p>If <em class="parameter"><code>destination</code></em> exists and is not a
+        directory then it will be deleted before creating the file.</p>
+
+        <div class="example"><a name="idp377920"></a><p class="title"><b>Example 2.5. Create Directory</b></p><div class="example-contents">
+          
+
+          <pre class="programlisting">sample:
+  directory /local root root 1777</pre>
+        </div></div><br class="example-break">
+      </div>
+
+      <div class="section" title="2.4.3.5. Create Link"><div class="titlepage"><div><div><h4 class="title"><a name="conf.chg.link"></a>2.4.3.5. Create Link</h4></div></div></div>
+        
+
+        <p>The <em class="firstterm">link</em> change is used to create a
+        (hard) link.</p>
+
+        <div class="informaltable">
+          <table border="1"><colgroup><col><col></colgroup><tbody><tr><td>Synopsis</td><td><code class="function">link</code> [<code class="option">-ntT</code>]
+                <em class="parameter"><code>source</code></em>
+                <em class="parameter"><code>destination</code></em></td></tr></tbody></table>
+        </div>
+
+        <p>The parameter <em class="parameter"><code>destination</code></em> is a common
+        parameter (see <a class="xref" href="ch02s04.html#conf.chg.param" title="2.4.2. Parameters">Section 2.4.2, “Parameters”</a>). The
+        <em class="parameter"><code>source</code></em> parameter is like the
+        <em class="parameter"><code>destination</code></em> parameter an absolute path in the
+        file system of the target system.</p>
+
+        <p>If <em class="parameter"><code>destination</code></em> exists and its inode or
+        device id is different then it will be deleted before creating the
+        link.</p>
+
+        <div class="example"><a name="idp389408"></a><p class="title"><b>Example 2.6. Create Link</b></p><div class="example-contents">
+          
+
+          <pre class="programlisting">sample:
+  link /tmp/a /tmp/b</pre>
+        </div></div><br class="example-break">
+      </div>
+
+      <div class="section" title="2.4.3.6. Create Symbolic Link"><div class="titlepage"><div><div><h4 class="title"><a name="conf.chg.symlink"></a>2.4.3.6. Create Symbolic Link</h4></div></div></div>
+        
+
+        <p>The <em class="firstterm">symlink</em> change is used to create a
+        symbolic link.</p>
+
+        <div class="informaltable">
+          <table border="1"><colgroup><col><col></colgroup><tbody><tr><td>Synopsis</td><td><code class="function">symlink</code> [<code class="option">-bntT</code>]
+                <em class="parameter"><code>value</code></em>
+                <em class="parameter"><code>destination</code></em> <em class="parameter"><code>user</code></em>
+                <em class="parameter"><code>group</code></em>
+                [<em class="parameter"><code>context</code></em>]</td></tr></tbody></table>
+        </div>
+
+        <p>The parameters <em class="parameter"><code>destination</code></em>,
+        <em class="parameter"><code>user</code></em>, <em class="parameter"><code>group</code></em> and
+        <em class="parameter"><code>context</code></em> are common parameters (see <a class="xref" href="ch02s04.html#conf.chg.param" title="2.4.2. Parameters">Section 2.4.2, “Parameters”</a>). The parameter <code class="filename">value</code>
+        is usually a path but may be set to any string.</p>
+
+        <p>The substitutions defined for the class or inherited from
+        including classes are applied to <code class="filename">value</code> unless the
+        <code class="option">-b</code> flag is used.</p>
+
+        <p>The content of the symbolic link, <em class="parameter"><code>user</code></em>,
+        <em class="parameter"><code>group</code></em> and <em class="parameter"><code>context</code></em> are
+        individually compared to the destination path and set when
+        different.</p>
+
+        <p>If <em class="parameter"><code>destination</code></em> exists and is not a
+        symbolic link then it will be deleted before creating the symbolic
+        link.</p>
+
+        <div class="example"><a name="idp404656"></a><p class="title"><b>Example 2.7. Create Symbolic Link</b></p><div class="example-contents">
+          
+
+          <pre class="programlisting">sample:
+  copy ca.pem /etc/openldap/cacerts/ca.pem root root 644
+  symlink ca.pem /etc/openldap/cacerts/12345678.0 root root</pre>
+        </div></div><br class="example-break">
+      </div>
+
+      <div class="section" title="2.4.3.7. Change Properties"><div class="titlepage"><div><div><h4 class="title"><a name="idp406256"></a>2.4.3.7. Change Properties</h4></div></div></div>
+        
+
+        <p>The <em class="firstterm">properties</em> change is used to change
+        the properties of an existing file.</p>
+
+        <div class="informaltable">
+          <table border="1"><colgroup><col><col></colgroup><tbody><tr><td>Synopsis</td><td><code class="function">properties</code> [<code class="option">-ntT</code>]
+                <em class="parameter"><code>destination</code></em> <em class="parameter"><code>user</code></em>
+                <em class="parameter"><code>group</code></em> <em class="parameter"><code>mode</code></em>
+                [<em class="parameter"><code>context</code></em>]
+                [<em class="parameter"><code>key=value</code></em>…]</td></tr></tbody></table>
+        </div>
+
+        <p>The parameters <em class="parameter"><code>destination</code></em>,
+        <em class="parameter"><code>user</code></em>, <em class="parameter"><code>group</code></em>,
+        <em class="parameter"><code>mode</code></em> and <em class="parameter"><code>context</code></em> are
+        common parameters (see <a class="xref" href="ch02s04.html#conf.chg.param" title="2.4.2. Parameters">Section 2.4.2, “Parameters”</a>).</p>
+
+        <p>The <em class="parameter"><code>user</code></em>, <em class="parameter"><code>group</code></em>,
+        <em class="parameter"><code>mode</code></em> and <em class="parameter"><code>context</code></em> are
+        individually compared to the destination file and set when
+        different.</p>
+
+        <div class="example"><a name="idp420016"></a><p class="title"><b>Example 2.8. Change Properties</b></p><div class="example-contents">
+          
+
+          <pre class="programlisting">sample:
+  properties /var/log/messages - - 644</pre>
+        </div></div><br class="example-break">
+      </div>
+
+      <div class="section" title="2.4.3.8. Remove"><div class="titlepage"><div><div><h4 class="title"><a name="conf.chg.remove"></a>2.4.3.8. Remove</h4></div></div></div>
+        
+
+        <p>The <em class="firstterm">remove</em> change is used to delete a
+        file, directory, symbolic link, link or special file.</p>
+
+        <div class="informaltable">
+          <table border="1"><colgroup><col><col></colgroup><tbody><tr><td>Synopsis</td><td><code class="function">remove</code> [<code class="option">-ntT</code>]
+                <em class="parameter"><code>destination</code></em></td></tr></tbody></table>
+        </div>
+
+        <p>The parameters <em class="parameter"><code>destination</code></em> is a common
+        parameter (see <a class="xref" href="ch02s04.html#conf.chg.param" title="2.4.2. Parameters">Section 2.4.2, “Parameters”</a>).</p>
+
+        <div class="important" title="Important" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Important</h3>
+          <p>It is currently not possible to recursively remove a directory
+          with the <code class="function">remove</code> change. Run <span class="command"><strong>rm
+          -rf</strong></span> using the <code class="function">execute</code> change instead
+          (see <a class="xref" href="ch02s04.html#conf.chg.execute" title="2.4.3.9. Execute Shell Command Line">Section 2.4.3.9, “Execute Shell Command Line”</a>).</p>
+        </div>
+
+        <div class="example"><a name="idp432096"></a><p class="title"><b>Example 2.9. Remove</b></p><div class="example-contents">
+          
+
+          <pre class="programlisting">sample:
+  remove /etc/openldap/cacerts/ca.pem
+  remove /etc/openldap/cacerts/12345678.0
+  remove /etc/openldap/cacerts</pre>
+        </div></div><br class="example-break">
+      </div>
+
+      <div class="section" title="2.4.3.9. Execute Shell Command Line"><div class="titlepage"><div><div><h4 class="title"><a name="conf.chg.execute"></a>2.4.3.9. Execute Shell Command Line</h4></div></div></div>
+        
+
+        <p>The <em class="firstterm">execute</em> change is used to execute a
+        shell command line.</p>
+
+        <div class="informaltable">
+          <table border="1"><colgroup><col><col></colgroup><tbody><tr><td>Synopsis</td><td><code class="function">execute</code> [<code class="option">-bntT</code>]
+                …</td></tr></tbody></table>
+        </div>
+
+        <p>The entire rest of the line is executed as a shell command line.
+        The line is executed as the user and group of the running
+        <span class="command"><strong>config5</strong></span> process which is usually both <code class="systemitem">root</code>.</p>
+
+        <p>The substitutions defined for the class or inherited from
+        including classes are applied to the command line before executing it
+        unless the <code class="option">-b</code> flag is used.</p>
+
+        <p>The execute change is always performed unless the
+        <code class="option">-t</code> or <code class="option">-T</code> flag is used but no earlier
+        change triggers it.</p>
+
+        <div class="example"><a name="idp443536"></a><p class="title"><b>Example 2.10. Execute Shell Command Line</b></p><div class="example-contents">
+          
+
+          <pre class="programlisting">sample:
+  execute service sssd stop ; rm -f rm -f /var/lib/sss/db/* ; service sssd start</pre>
+        </div></div><br class="example-break">
+      </div>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch02s03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2.3. Classes </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 3. Configuration Application</td></tr></table></div></body></html>

@@ -1,0 +1,26 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Chapter 6. System Information</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Config5"><link rel="up" href="index.html" title="Config5"><link rel="prev" href="ch05s02.html" title="5.2. Running config5"><link rel="next" href="ch06s02.html" title="6.2. System Information Items"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 6. System Information</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch05s02.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch06s02.html">Next</a></td></tr></table><hr></div><div lang="en_US" class="chapter" title="Chapter 6. System Information"><div class="titlepage"><div><div><h2 class="title"><a name="sysinfo"></a>Chapter 6. System Information</h2></div></div></div>
+  
+
+  <p><span class="productname">Config5</span> uses an approach where the
+  configuration is selected on the system that is being configured. This
+  chapter explains the mechanism by which <span class="command"><strong>config5</strong></span> discovers
+  information about the system it runs on.</p>
+
+  <div class="section" title="6.1. The System Information Module"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp745088"></a>6.1. The System Information Module</h2></div></div></div>
+    
+
+    <p>The module used for gathering the system information is
+    exchangeable. <span class="productname">Config5</span> ships with two modules
+    for immediate productive use: <code class="systemitem">LSB</code>
+    (the default) and <code class="systemitem">Hardwired</code>.</p>
+
+    <p>Custom modules can also be added. A sample module (the one that we
+    at <span class="emphasis"><em>isginf</em></span> use in our productive environment) can be
+    found in <code class="filename">examples/modules/System/SystemInfo.pm</code> in the
+    distribution.</p>
+  </div>
+
+  
+
+  
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch05s02.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ch06s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.2. Running <span class="command"><strong>config5</strong></span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 6.2. System Information Items</td></tr></table></div></body></html>

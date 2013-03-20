@@ -1,0 +1,17 @@
+#!/bin/sh
+
+REPOSITORY="$1"
+TRANSACTION="$2"
+SUBDIR="$3"
+DIRECTORY="$4"
+
+svnlook tree --full-paths "$REPOSITORY" -t "$TRANSACTION" "$SUBDIR" | while read path
+do
+   if [[ $path =~ "\/$" ]]
+   then
+      mkdir -p "$DIRECTORY/$path"
+   else
+      svnlook cat "$REPOSITORY" -t "$TRANSACTION" "$path" > "$DIRECTORY/$path";
+      chmod 755 "$DIRECTORY/$path"
+   fi
+done

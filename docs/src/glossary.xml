@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE glossary>
+<glossary version="5.0" xml:lang="en_US" xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+          xmlns:ns4="http://www.w3.org/2000/svg"
+          xmlns:ns3="http://www.w3.org/1999/xhtml"
+          xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Glossary</title>
+
+  <glossdiv>
+    <title><productname>Config5</productname> Concepts</title>
+
+    <glossentry xml:id="g.change">
+      <glossterm>Change</glossterm>
+
+      <glossdef>
+        <para>A change defines a single modification to the configuration.
+        Changes always belong to a class.</para>
+
+        <glossseealso otherterm="g.class"/>
+      </glossdef>
+    </glossentry>
+
+    <glossentry xml:id="g.class">
+      <glossterm>Class</glossterm>
+
+      <glossdef>
+        <para>A class is part of a feature and defines a set of changes. When
+        applying the configuration <productname>Config5</productname> searches
+        for the best matching class in each feature.</para>
+
+        <para>A class can include other classes of the same feature.
+        Substitutions for files defined at class level are available in all
+        changes of the class or any included class.</para>
+
+        <glossseealso otherterm="g.feature"/>
+
+        <glossseealso otherterm="g.change"/>
+      </glossdef>
+    </glossentry>
+
+    <glossentry xml:id="g.dk">
+      <glossterm>Deployment Kit</glossterm>
+
+      <glossdef>
+        <para>The deployment kit is that part of the Config5 distribution that
+        needs to be present on all managed systems. By default this is
+        everyting in the <filename class="directory">deploy</filename> folder
+        in the distribution and contains scripts, library files, settings and
+        the feature set.</para>
+      </glossdef>
+    </glossentry>
+
+    <glossentry xml:id="g.feature">
+      <glossterm>Feature</glossterm>
+
+      <glossdef>
+        <para>A feature groups together changes that belong together according
+        to some criteria, including all files needed for these changes.
+        Features are structured into classes.</para>
+
+        <glossseealso otherterm="g.class"/>
+
+        <glossseealso otherterm="g.change"/>
+      </glossdef>
+    </glossentry>
+
+    <glossentry xml:id="g.featureset">
+      <glossterm>Feature Set</glossterm>
+
+      <glossdef>
+        <para>The feature set groups together all features of a deployable
+        configuration.</para>
+
+        <glossseealso otherterm="g.feature"/>
+      </glossdef>
+    </glossentry>
+
+    <glossentry xml:id="g.pass">
+      <glossterm>Pass</glossterm>
+
+      <glossdef>
+        <para>The configuration is applied in ten passes, in each pass all
+        phases are performed once. Changes are flagged to run in a given pass.
+        </para>
+
+        <glossseealso otherterm="g.feature"/>
+
+        <glossseealso otherterm="g.feature"/>
+      </glossdef>
+    </glossentry>
+
+    <glossentry xml:id="g.phase">
+      <glossterm>Phase</glossterm>
+
+      <glossdef>
+        <para>The application of the configuration of one pass is structured
+        into phases. Each phase groups all changes that affect a given
+        configurable aspect of a system such as files, packages, services,
+        etc.</para>
+
+        <glossseealso otherterm="g.pass"/>
+      </glossdef>
+    </glossentry>
+
+    <glossentry xml:id="g.spec">
+      <glossterm>Specification File</glossterm>
+
+      <glossdef>
+        <para>The specification file is part of a feature and contains the
+        classed and changes.</para>
+
+        <glossseealso otherterm="g.feature"/>
+      </glossdef>
+    </glossentry>
+
+    <glossentry xml:id="g.stage">
+      <glossterm>Stage</glossterm>
+
+      <glossdef>
+        <para>The stage defines the state a target system is currently in when
+        the configuration is applied. Only the changes that are intended to be
+        applied at this stage are applied.</para>
+
+        <glossseealso otherterm="g.change"/>
+      </glossdef>
+    </glossentry>
+
+    <glossentry xml:id="g.substitution">
+      <glossterm>Substitution</glossterm>
+
+      <glossdef>
+        <para>Substitutions are keywords that are substituted by a value using
+        <productname>Template Toolkit</productname>. They are specified in
+        class definitions and in changes that support it.</para>
+
+        <glossseealso otherterm="g.class"/>
+
+        <glossseealso otherterm="g.change"/>
+      </glossdef>
+    </glossentry>
+  </glossdiv>
+</glossary>

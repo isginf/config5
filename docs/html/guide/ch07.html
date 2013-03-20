@@ -1,0 +1,52 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Chapter 7. Customization</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Config5"><link rel="up" href="index.html" title="Config5"><link rel="prev" href="ch06s03.html" title="6.3. System Information Modules"><link rel="next" href="ch07s02.html" title="7.2. Custom Settings"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 7. Customization</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06s03.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch07s02.html">Next</a></td></tr></table><hr></div><div lang="en_US" class="chapter" title="Chapter 7. Customization"><div class="titlepage"><div><div><h2 class="title"><a name="idp878816"></a>Chapter 7. Customization</h2></div></div></div>
+  
+
+  <p><span class="productname">Config5</span> ships with a reasonable set of
+  default settings for the <span class="command"><strong>config5</strong></span> script for a normal
+  deployment using the core features.</p>
+
+  <p>Systems administrators with special needs or policies can tweak many
+  settings that affect the file system structure or behavior of
+  <span class="productname">Config5</span>.</p>
+
+  <div class="section" title="7.1. Files"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp882384"></a>7.1. Files</h2></div></div></div>
+    
+
+    <p>All files are located under the directory <code class="filename">etc</code> next to the <code class="filename">bin</code>
+    directory containing the <span class="command"><strong>config5</strong></span> script. In the
+    official distribution the files are in <code class="filename">deploy/etc</code>:</p>
+
+    <pre class="screen">$ ls deploy/etc
+custom.d  extensions.d  settings.pl</pre>
+
+    <p>All configuration files are basically perl code that modifies the
+    settings data structure which is passed in <code class="varname">$_</code> by
+    reference.</p>
+
+    <div class="section" title="7.1.1. Order of Processing"><div class="titlepage"><div><div><h3 class="title"><a name="idp887760"></a>7.1.1. Order of Processing</h3></div></div></div>
+      
+
+      <p>The various files are processed in the following order:</p>
+
+      <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+          <p>The main settings file
+          <code class="filename">settings.pl</code>.</p>
+        </li><li class="listitem">
+          <p>All files ending in <code class="filename">.pl</code>
+          in <code class="filename">extensions.d</code> in
+          alphabetical order.</p>
+        </li><li class="listitem">
+          <p>All files ending in <code class="filename">.pl</code>
+          in <code class="filename">custom.d</code> in alphabetical
+          order.</p>
+        </li></ol></div>
+
+      <p>Settings in one file can be removed, replaced or extended by files
+      that are loaded afterward.</p>
+    </div>
+  </div>
+
+  
+
+  
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch06s03.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ch07s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.3. System Information Modules </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 7.2. Custom Settings</td></tr></table></div></body></html>

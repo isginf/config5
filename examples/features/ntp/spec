@@ -1,0 +1,20 @@
+RedHatEnterpriseWorkstation: _ntp server=ts2.example.com
+RedHatEnterpriseServer: _ntp server=ts1.example.com
+
+_ntp:
+  copy ntp.conf /etc/ntp.conf root root 644
+  execute -tP root root service ntpd restart
+  service enable ntpd
+  service -P start ntpd
+
+RedHatEnterpriseWorkstation_x86_64: _ntpdate server=ts1.example.com
+RedHatEnterpriseServer_x86_64: _ntpdate server=ts2.example.com
+
+_ntpdate:
+  service -P stop ntpd
+  service disable ntpd
+  execute ntpdate [% server %]
+
+foobar: RedHatEnterpriseWorkstation
+snafu: RedHatEnterpriseWorkstation server=ts2.example.com
+snafu_x86_64: RedHatEnterpriseWorkstation_x86_64 server=ts2.example.com

@@ -1,0 +1,100 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>2.3. Classes</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Config5"><link rel="up" href="ch02.html" title="Chapter 2. Configuration Data"><link rel="prev" href="ch02s02.html" title="2.2. Features"><link rel="next" href="ch02s04.html" title="2.4. Changes"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2.3. Classes</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch02s02.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Configuration Data</th><td width="20%" align="right"> <a accesskey="n" href="ch02s04.html">Next</a></td></tr></table><hr></div><div class="section" title="2.3. Classes"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="conf.classes"></a>2.3. Classes</h2></div></div></div>
+    
+
+    <p><em class="firstterm">Classes</em> group together individual the <a class="link" href="ch02.html#conf.featureset" title="2.1. Feature Set">changes</a> (see <a class="xref" href="ch02s04.html" title="2.4. Changes">Section 2.4, “Changes”</a>). The general syntax is the following:</p>
+
+    <pre class="programlisting">class: [referenced_class…] [key=value…]</pre>
+
+    <p>Any string of character excluding white space is suitable as a class
+    name. Classes that are not intended to match (see <a class="xref" href="ch07s03.html#cust.classes" title="7.3.8. Class Match Order">Section 7.3.8, “Class Match Order”</a>) can still be referenced by other classes.
+    Typically these classes have a naming convention that distinguishes them
+    from classes that can be selected as best match, for instance by prefixing
+    them with an underscore.</p>
+
+    <div class="section" title="2.3.1. Substitutions"><div class="titlepage"><div><div><h3 class="title"><a name="conf.class.subst"></a>2.3.1. Substitutions</h3></div></div></div>
+      
+
+      <p>One of the strengths of <span class="productname">Config5</span> is its
+      capability to create config files from templates using the
+      <span class="productname">Template Toolkit</span> <a class="xref" href="bi01.html#bib.templatetoolkit">[5]</a>. Command lines run by the
+      <code class="function">execute</code> change are also processed using Template
+      Toolkit.</p>
+
+      <p>Substitutions are always specified as <code class="code">key=value</code> pair.
+      If <code class="code">value</code> contains spaces the pair must be quoted.
+      Substitutions can be specified in two places:</p>
+
+      <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+          <p>In class definitions. Substitutions are passed to all changes
+          of the class and all included classes.</p>
+        </li><li class="listitem">
+          <p>In <code class="function">copy</code> or <code class="function">append</code>
+          changes.</p>
+        </li></ul></div>
+
+      <p>Substitutions that are passed down override substitutions in
+      changes or included classes. Each substitution is a variable in
+      <span class="productname">Template Toolkit</span> with the name
+      <code class="code">key</code> and <code class="code">value</code> as value.</p>
+
+      <div class="example"><a name="idp223248"></a><p class="title"><b>Example 2.1. Substitution Specification</b></p><div class="example-contents">
+        
+
+        <pre class="programlisting">RedHatEnterpriseServer: _sshd permitroot=1
+RedHatEnterpriseWorkstation: _sshd permitroot=0
+
+_sshd:
+  copy sshd_config /etc/sshd/sshd_config root root 600
+
+sample:
+  copy sshd_config.test /etc/sshd/sshd_config root root 600 permitroot=1</pre>
+      </div></div><br class="example-break">
+
+      <div class="section" title="2.3.1.1. Predefined Substitutions"><div class="titlepage"><div><div><h4 class="title"><a name="idp224736"></a>2.3.1.1. Predefined Substitutions</h4></div></div></div>
+        
+
+        <p>A set of substitutions are predefined and relate to information
+        about the target system and the configuration:</p>
+
+        <div class="informaltable">
+          <table border="1"><colgroup><col><col></colgroup><thead><tr><th align="center">Variable</th><th align="center">Description</th></tr></thead><tbody><tr><td><code class="varname">auto_base</code></td><td>The base directory of
+                <span class="productname">Config5</span> (parent directory of the
+                directory containing the running <span class="command"><strong>config5</strong></span>
+                script)</td></tr><tr><td><code class="varname">auto_class</code></td><td>The name of the matching class of the
+                <code class="function">copy</code> or <code class="function">append</code>
+                change</td></tr><tr><td><code class="varname">auto_class_lc</code></td><td>Same as <code class="varname">auto_class</code> but all lower
+                case</td></tr><tr><td><code class="varname">auto_feature</code></td><td>The name of the feature of the
+                <code class="function">copy</code> or <code class="function">append</code>
+                change</td></tr><tr><td><code class="varname">auto_dynamic_rnd</code></td><td>32 bit random number (changes every time
+                <span class="command"><strong>config5</strong></span> is run)</td></tr><tr><td><code class="varname">auto_static_rnd</code></td><td>32 bit random number (changed only when the
+                <code class="varname">host</code> system item changes)</td></tr><tr><td><code class="varname">auto_program_version</code></td><td>The version of the
+                <span class="productname">Config5</span></td></tr></tbody></table>
+        </div>
+
+        <p>Additionally the value of all system information items (see
+        <a class="xref" href="ch06s02.html" title="6.2. System Information Items">Section 6.2, “System Information Items”</a>) is available as
+        <code class="varname">info_<em class="replaceable"><code>item</code></em></code> variable. For
+        list type system information items a variable
+        info_<em class="replaceable"><code>item</code></em>_<em class="replaceable"><code>entry</code></em>
+        is set to <code class="constant">1</code> for each entry of the list. Both
+        <em class="replaceable"><code>item</code></em> and <em class="replaceable"><code>entry</code></em>
+        are converted to lower case.</p>
+
+        <p>All predefined substitutions can be overloaded at class or
+        change level.</p>
+      </div>
+    </div>
+
+    <div class="section" title="2.3.2. Best Match"><div class="titlepage"><div><div><h3 class="title"><a name="cust.class.match"></a>2.3.2. Best Match</h3></div></div></div>
+      
+
+      <p>For each feature a class is selected and its changes are
+      processed. The class is selected according to a prioritized list of
+      class names that are generated from the available system information
+      items. The first class that is found is used. The feature is ignored if
+      no class matches.</p>
+
+      <p>See <a class="xref" href="ch07s03.html#cust.classes" title="7.3.8. Class Match Order">Section 7.3.8, “Class Match Order”</a> for information about the
+      default list.</p>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch02s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch02s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2.2. Features </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 2.4. Changes</td></tr></table></div></body></html>

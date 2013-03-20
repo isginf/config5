@@ -1,0 +1,824 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter>
+<chapter version="5.0" xml:lang="en_US" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/2000/svg"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Configuration Data</title>
+
+  <para>The following sections provide in-depth explanation of the various
+  concepts and the structure of configuration data that is deployed using
+  <productname>Config5</productname>.</para>
+
+  <section xml:id="conf.featureset">
+    <title>Feature Set</title>
+
+    <para>Configuration data that is applied using
+    <productname>Config5</productname> is organized in a <firstterm>feature
+    set</firstterm>. A feature set is nothing more than a directory containing
+    <link linkend="conf.features">features</link> (see <xref
+    linkend="conf.features"/>).</para>
+
+    <para>By default <productname>Config5</productname> has one feature set
+    that is located in a directory named <filename
+    class="directory">features</filename> in the same directory as the
+    <filename class="directory">bin</filename> directory containing the
+    <command>config5</command> script: <screen>$ ls
+deploy  doc  example  util
+$ ls deploy/
+bin  etc  features  lib
+$ ls deploy/bin
+config5</screen> There are two ways to customize the location of the default
+    feature set:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>The directory <filename class="directory">features</filename>
+        can be replaced by a symbolic link that points to the real location of
+        the feature set directory. The directory the symbolic link links to
+        must be available on all target systems that are going to be
+        managed.</para>
+      </listitem>
+
+      <listitem>
+        <para>The directory name can be changed by customizing the
+        <productname>Config5</productname> settings (see <xref
+        linkend="cust.settings"/>).</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+
+  <section xml:id="conf.features">
+    <title>Features</title>
+
+    <para>The actual configuration data is organized in one or more
+    <firstterm>features</firstterm> in the <link
+    linkend="conf.featureset">feature set</link> (see <xref
+    linkend="conf.featureset"/>). Each feature is again a directory containing
+    a <firstterm>specification file</firstterm>. The default name for the file
+    is <filename>spec</filename> but that can be changed (see <xref
+    linkend="cust.settings"/>):</para>
+
+    <screen>$ ls deploy/features
+autofs  firewall  ssh  sshd
+$ ls deploy/features/sshd
+sshd_config spec</screen>
+
+    <para>The specification file contains a number of <link
+    linkend="conf.classes">class definitions</link>.</para>
+  </section>
+
+  <section xml:id="conf.classes">
+    <title>Classes</title>
+
+    <para><firstterm>Classes</firstterm> group together individual the <link
+    linkend="conf.featureset">changes</link> (see <xref
+    linkend="conf.changes"/>). The general syntax is the following:</para>
+
+    <programlisting>class: [referenced_class…] [key=value…]</programlisting>
+
+    <para>Any string of character excluding white space is suitable as a class
+    name. Classes that are not intended to match (see <xref
+    linkend="cust.classes"/>) can still be referenced by other classes.
+    Typically these classes have a naming convention that distinguishes them
+    from classes that can be selected as best match, for instance by prefixing
+    them with an underscore.</para>
+
+    <section xml:id="conf.class.subst">
+      <title>Substitutions</title>
+
+      <para>One of the strengths of <productname>Config5</productname> is its
+      capability to create config files from templates using the
+      <productname>Template Toolkit</productname> <xref
+      linkend="bib.templatetoolkit"/>. Command lines run by the
+      <function>execute</function> change are also processed using Template
+      Toolkit.</para>
+
+      <para>Substitutions are always specified as <code>key=value</code> pair.
+      If <code>value</code> contains spaces the pair must be quoted.
+      Substitutions can be specified in two places:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>In class definitions. Substitutions are passed to all changes
+          of the class and all included classes.</para>
+        </listitem>
+
+        <listitem>
+          <para>In <function>copy</function> or <function>append</function>
+          changes.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>Substitutions that are passed down override substitutions in
+      changes or included classes. Each substitution is a variable in
+      <productname>Template Toolkit</productname> with the name
+      <code>key</code> and <code>value</code> as value.</para>
+
+      <example>
+        <title>Substitution Specification</title>
+
+        <programlisting>RedHatEnterpriseServer: _sshd permitroot=1
+RedHatEnterpriseWorkstation: _sshd permitroot=0
+
+_sshd:
+  copy sshd_config /etc/sshd/sshd_config root root 600
+
+sample:
+  copy sshd_config.test /etc/sshd/sshd_config root root 600 permitroot=1</programlisting>
+      </example>
+
+      <section>
+        <title>Predefined Substitutions</title>
+
+        <para>A set of substitutions are predefined and relate to information
+        about the target system and the configuration:</para>
+
+        <informaltable>
+          <tgroup cols="2">
+            <thead>
+              <row>
+                <entry align="center">Variable</entry>
+
+                <entry align="center">Description</entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry><varname>auto_base</varname></entry>
+
+                <entry>The base directory of
+                <productname>Config5</productname> (parent directory of the
+                directory containing the running <command>config5</command>
+                script)</entry>
+              </row>
+
+              <row>
+                <entry><varname>auto_class</varname></entry>
+
+                <entry>The name of the matching class of the
+                <function>copy</function> or <function>append</function>
+                change</entry>
+              </row>
+
+              <row>
+                <entry><varname>auto_class_lc</varname></entry>
+
+                <entry>Same as <varname>auto_class</varname> but all lower
+                case</entry>
+              </row>
+
+              <row>
+                <entry><varname>auto_feature</varname></entry>
+
+                <entry>The name of the feature of the
+                <function>copy</function> or <function>append</function>
+                change</entry>
+              </row>
+
+              <row>
+                <entry><varname>auto_dynamic_rnd</varname></entry>
+
+                <entry>32 bit random number (changes every time
+                <command>config5</command> is run)</entry>
+              </row>
+
+              <row>
+                <entry><varname>auto_static_rnd</varname></entry>
+
+                <entry>32 bit random number (changed only when the
+                <varname>host</varname> system item changes)</entry>
+              </row>
+
+              <row>
+                <entry><varname>auto_program_version</varname></entry>
+
+                <entry>The version of the
+                <productname>Config5</productname></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+
+        <para>Additionally the value of all system information items (see
+        <xref linkend="sysinfo.items"/>) is available as
+        <varname>info_<replaceable>item</replaceable></varname> variable. For
+        list type system information items a variable
+        info_<replaceable>item</replaceable>_<replaceable>entry</replaceable>
+        is set to <constant>1</constant> for each entry of the list. Both
+        <replaceable>item</replaceable> and <replaceable>entry</replaceable>
+        are converted to lower case.</para>
+
+        <para>All predefined substitutions can be overloaded at class or
+        change level.</para>
+      </section>
+    </section>
+
+    <section xml:id="cust.class.match">
+      <title>Best Match</title>
+
+      <para>For each feature a class is selected and its changes are
+      processed. The class is selected according to a prioritized list of
+      class names that are generated from the available system information
+      items. The first class that is found is used. The feature is ignored if
+      no class matches.</para>
+
+      <para>See <xref linkend="cust.classes"/> for information about the
+      default list.</para>
+    </section>
+  </section>
+
+  <section xml:id="conf.changes">
+    <title>Changes</title>
+
+    <para>The <emphasis><firstterm>changes</firstterm></emphasis> specify
+    individual changes to the system. Each change is identified by a keyword,
+    usually a verb or noun and followed by parameters.</para>
+
+    <para>Extensions can define additional changes with other keywords.</para>
+
+    <section xml:id="conf.changes.flags">
+      <title>Flags</title>
+
+      <para>Some aspects of a change can be modified using a set of
+      <firstterm>flags</firstterm>. Flags are indicated using a leading minus
+      sign. The flags are optional but if present must be directly after the
+      keyword.</para>
+
+      <para>The following common flags are handled the same way for all
+      changes, both core changes and changes from extensions:</para>
+
+      <informaltable>
+        <tgroup cols="2">
+          <thead>
+            <row>
+              <entry align="center">Flag</entry>
+
+              <entry align="center">Description</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry><option>-0</option> to <option>-9</option></entry>
+
+              <entry>Sets the pass in which the change is applied</entry>
+            </row>
+
+            <row>
+              <entry><option>-b</option></entry>
+
+              <entry>Data is binary and should not be processed with the
+              <productname>Template Toolkit</productname></entry>
+            </row>
+
+            <row>
+              <entry><option>-i</option></entry>
+
+              <entry>Files are changed in-place</entry>
+            </row>
+
+            <row>
+              <entry><option>-n</option></entry>
+
+              <entry>All errors are ignored</entry>
+            </row>
+
+            <row>
+              <entry><option>-t</option></entry>
+
+              <entry>Change is only performed if another change in the same
+              class was applied</entry>
+            </row>
+
+            <row>
+              <entry><option>-T</option></entry>
+
+              <entry>Change is only performed if another change in the same
+              feature was applied</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+
+      <para>Stages (see <xref linkend="app.stage"/>) are also specified as
+      flags.</para>
+    </section>
+
+    <section xml:id="conf.chg.param">
+      <title>Parameters</title>
+
+      <para>Every change has its own set of mandatory and optional parameters.
+      The core changes share some common parameters.</para>
+
+      <para>The following subsections describe common parameters that are
+      handled the same way for all changes, both core changes and changes from
+      extension.</para>
+
+      <section>
+        <title>Source File</title>
+
+        <para>The <parameter>source</parameter> file may be specified as path
+        relative to the feature directory or an absolute path on the target
+        system.</para>
+      </section>
+
+      <section>
+        <title>Destination Path</title>
+
+        <para>The <parameter>destination</parameter> path for changes related
+        to the file system must always be absolute.</para>
+      </section>
+
+      <section>
+        <title>User</title>
+
+        <para>The <parameter>user</parameter> for a file (symbolic link, etc.)
+        or directory can be specified as a <systemitem
+        class="username">uname</systemitem> or a numeric <systemitem
+        class="username">uid</systemitem>.</para>
+
+        <para>For an existing file or directory it is possible to use a minus
+        sign as user in which case the current <systemitem
+        class="username">user</systemitem> of the file is unchanged. If the
+        file does not exist the <systemitem class="username">user</systemitem>
+        of the file is set to <systemitem class="username">root</systemitem>
+        (<systemitem class="username">uid</systemitem>
+        <constant>0</constant>).</para>
+      </section>
+
+      <section>
+        <title>Group</title>
+
+        <para>The <parameter>group</parameter> for a file (symbolic link,
+        etc.) or directory can be specified as a group name or a numeric
+        <systemitem class="username">gid</systemitem>.</para>
+
+        <para>For an existing file or directory it is possible to use a minus
+        sign as <systemitem class="groupname">group</systemitem> in which case
+        the current <systemitem class="groupname">group</systemitem> of the
+        file is unchanged. If the file does not exist the <systemitem
+        class="username">group</systemitem> of the file is set to <systemitem
+        class="groupname">root</systemitem> (<systemitem
+        class="groupname">gid</systemitem> <constant>0</constant>).</para>
+      </section>
+
+      <section>
+        <title>Mode</title>
+
+        <para>The <parameter>mode</parameter> for a file or directory is
+        specified as an octal number.</para>
+
+        <para>If a minus sign is used as mode then the current mode of the
+        file is unchanged. If the file does not exist then the mode is set to
+        <constant>0644</constant>.</para>
+      </section>
+
+      <section xml:id="conf.chg.param.selinux">
+        <title>SELinux Context</title>
+
+        <para>For files (directories, symbolic links, etc.) the core changes
+        accept an optional SELinux context if SELinux support is activated
+        (see <xref linkend="cust.settings"/>). A context can be specified in
+        three formats:</para>
+
+        <variablelist>
+          <varlistentry>
+            <term>type</term>
+
+            <listitem>
+              <para>SELinux type, expands to
+              <constant>system_u:object_r:</constant><replaceable>type</replaceable><constant>:s0</constant>.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>user:role:type</term>
+
+            <listitem>
+              <para>SELinux user, role and type, expands to
+              <constant><replaceable>user</replaceable>:<replaceable>role</replaceable>:</constant><replaceable>type</replaceable><constant>:s0</constant>.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>user:role:type:range</term>
+
+            <listitem>
+              <para>Complete SELinux context.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+
+        <para>The core changes that accept an optional SELinux context will
+        keep the current context of an existing file. If a file is created
+        then the context is defined by the SELinux policy.</para>
+      </section>
+    </section>
+
+    <section>
+      <title>Core Changes</title>
+
+      <para>The following subsections explain the core changes that are
+      natively supported by <productname>Config5</productname>, i.e., are not
+      provided by an extension.</para>
+
+      <section>
+        <title>Copy File</title>
+
+        <para>The <firstterm>copy</firstterm> change is used to copy a regular
+        file.</para>
+
+        <informaltable>
+          <tgroup cols="2">
+            <tbody>
+              <row>
+                <entry>Synopsis</entry>
+
+                <entry><function>copy</function> [<option>-bintT</option>]
+                <parameter>source</parameter>
+                <parameter>destination</parameter> <parameter>user</parameter>
+                <parameter>group</parameter> <parameter>mode</parameter>
+                [<parameter>context</parameter>]
+                [<parameter>key=value</parameter>…]</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+
+        <para>The parameters <parameter>source</parameter>,
+        <parameter>destination</parameter>, <parameter>user</parameter>,
+        <parameter>group</parameter>, <parameter>mode</parameter> and
+        <parameter>context</parameter> are common parameters (see <xref
+        linkend="conf.chg.param"/>).</para>
+
+        <para>One or more substitutions can be appended as
+        <parameter>key=value</parameter> pairs (see <xref
+        linkend="conf.class.subst"/>). If the <option>-b</option> flag is used
+        the file is treated as binary and no substitutions are done.</para>
+
+        <para>The content of a file (after applying all
+        <function>append</function> changes for the same file),
+        <parameter>user</parameter>, <parameter>group</parameter>,
+        <parameter>mode</parameter> and <parameter>context</parameter> are
+        individually compared to the destination file and copied or set when
+        different.</para>
+
+        <para>If <parameter>destination</parameter> exists and is not a file
+        then it will be deleted before creating the file.</para>
+
+        <example>
+          <title>Copy File</title>
+
+          <programlisting>sample:
+  copy sshd_config /etc/sshd/sshd_config root root 600 permitroot=1
+  copy authorised_keys /root/.ssh/authorized_keys root root 644 ssh_home_t</programlisting>
+        </example>
+      </section>
+
+      <section xml:id="conf.chg.truncate">
+        <title>Truncate File</title>
+
+        <para>The <firstterm>truncate</firstterm> change is used to create a
+        empty file.</para>
+
+        <informaltable>
+          <tgroup cols="2">
+            <tbody>
+              <row>
+                <entry>Synopsis</entry>
+
+                <entry><function>truncate</function> [<option>-intT</option>]
+                <parameter>destination</parameter> <parameter>user</parameter>
+                <parameter>group</parameter> <parameter>mode</parameter>
+                [<parameter>context</parameter>]</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+
+        <para>The parameters <parameter>source</parameter>,
+        <parameter>destination</parameter>, <parameter>user</parameter>,
+        <parameter>group</parameter>, <parameter>mode</parameter> and
+        <parameter>context</parameter> are common parameters (see <xref
+        linkend="conf.chg.param"/>).</para>
+
+        <para>The content of a file (after applying all
+        <function>append</function> changes for the same file),
+        <parameter>user</parameter>, <parameter>group</parameter>,
+        <parameter>mode</parameter> and <parameter>context</parameter> are
+        individually compared to the destination file and copied or set when
+        different.</para>
+
+        <para>If <parameter>destination</parameter> exists and is not a file
+        then it will be deleted before creating the file.</para>
+
+        <example>
+          <title>Truncate File</title>
+
+          <programlisting>sample:
+  truncate /etc/rc.d/rc.local root root 755</programlisting>
+        </example>
+      </section>
+
+      <section xml:id="conf.chg.append">
+        <title>Append to File</title>
+
+        <para>The <firstterm>append</firstterm> change is used to append data
+        to a file.</para>
+
+        <informaltable>
+          <tgroup cols="2">
+            <tbody>
+              <row>
+                <entry>Synopsis</entry>
+
+                <entry><function>append</function> [<option>-b</option>]
+                <parameter>source</parameter>
+                <parameter>destination</parameter>
+                [<parameter>key=value</parameter>…]</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+
+        <para>The parameters <parameter>source</parameter> and
+        <parameter>destination</parameter> are common parameters (see <xref
+        linkend="conf.chg.param"/>).</para>
+
+        <para>One or more substitutions can be appended as
+        <parameter>key=value</parameter> pairs (see <xref
+        linkend="conf.class.subst"/>). If the <option>-b</option> flag is used
+        the appended data is treated as binary and no substitutions are
+        done.</para>
+
+        <important>
+          <para>To append to a file it must be copied or truncated. A
+          corresponding copy or truncate change must be present in exactly one
+          of the features.</para>
+        </important>
+
+        <example>
+          <title>Append to File</title>
+
+          <programlisting>sample:
+  append rc.local /etc/rc.d/rc.local </programlisting>
+        </example>
+      </section>
+
+      <section xml:id="conf.chg.directory">
+        <title>Create Directory</title>
+
+        <para>The <firstterm>directory</firstterm> change is used to create a
+        directory.</para>
+
+        <informaltable>
+          <tgroup cols="2">
+            <tbody>
+              <row>
+                <entry>Synopsis</entry>
+
+                <entry><function>directory</function> [<option>-ntT</option>]
+                <parameter>destination</parameter> <parameter>user</parameter>
+                <parameter>group</parameter> <parameter>mode</parameter>
+                [<parameter>context</parameter>]</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+
+        <para>The parameters <parameter>source</parameter>,
+        <parameter>destination</parameter>, <parameter>user</parameter>,
+        <parameter>group</parameter>, <parameter>mode</parameter> and
+        <parameter>context</parameter> are common parameters (see <xref
+        linkend="conf.chg.param"/>).</para>
+
+        <para>The <parameter>user</parameter>, <parameter>group</parameter>,
+        <parameter>mode</parameter> and <parameter>context</parameter> are
+        individually compared to the destination path and copied or set when
+        different.</para>
+
+        <para>If <parameter>destination</parameter> exists and is not a
+        directory then it will be deleted before creating the file.</para>
+
+        <example>
+          <title>Create Directory</title>
+
+          <programlisting>sample:
+  directory /local root root 1777</programlisting>
+        </example>
+      </section>
+
+      <section xml:id="conf.chg.link">
+        <title>Create Link</title>
+
+        <para>The <firstterm>link</firstterm> change is used to create a
+        (hard) link.</para>
+
+        <informaltable>
+          <tgroup cols="2">
+            <tbody>
+              <row>
+                <entry>Synopsis</entry>
+
+                <entry><function>link</function> [<option>-ntT</option>]
+                <parameter>source</parameter>
+                <parameter>destination</parameter></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+
+        <para>The parameter <parameter>destination</parameter> is a common
+        parameter (see <xref linkend="conf.chg.param"/>). The
+        <parameter>source</parameter> parameter is like the
+        <parameter>destination</parameter> parameter an absolute path in the
+        file system of the target system.</para>
+
+        <para>If <parameter>destination</parameter> exists and its inode or
+        device id is different then it will be deleted before creating the
+        link.</para>
+
+        <example>
+          <title>Create Link</title>
+
+          <programlisting>sample:
+  link /tmp/a /tmp/b</programlisting>
+        </example>
+      </section>
+
+      <section xml:id="conf.chg.symlink">
+        <title>Create Symbolic Link</title>
+
+        <para>The <firstterm>symlink</firstterm> change is used to create a
+        symbolic link.</para>
+
+        <informaltable>
+          <tgroup cols="2">
+            <tbody>
+              <row>
+                <entry>Synopsis</entry>
+
+                <entry><function>symlink</function> [<option>-bntT</option>]
+                <parameter>value</parameter>
+                <parameter>destination</parameter> <parameter>user</parameter>
+                <parameter>group</parameter>
+                [<parameter>context</parameter>]</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+
+        <para>The parameters <parameter>destination</parameter>,
+        <parameter>user</parameter>, <parameter>group</parameter> and
+        <parameter>context</parameter> are common parameters (see <xref
+        linkend="conf.chg.param"/>). The parameter <filename>value</filename>
+        is usually a path but may be set to any string.</para>
+
+        <para>The substitutions defined for the class or inherited from
+        including classes are applied to <filename>value</filename> unless the
+        <option>-b</option> flag is used.</para>
+
+        <para>The content of the symbolic link, <parameter>user</parameter>,
+        <parameter>group</parameter> and <parameter>context</parameter> are
+        individually compared to the destination path and set when
+        different.</para>
+
+        <para>If <parameter>destination</parameter> exists and is not a
+        symbolic link then it will be deleted before creating the symbolic
+        link.</para>
+
+        <example>
+          <title>Create Symbolic Link</title>
+
+          <programlisting>sample:
+  copy ca.pem /etc/openldap/cacerts/ca.pem root root 644
+  symlink ca.pem /etc/openldap/cacerts/12345678.0 root root</programlisting>
+        </example>
+      </section>
+
+      <section>
+        <title>Change Properties</title>
+
+        <para>The <firstterm>properties</firstterm> change is used to change
+        the properties of an existing file.</para>
+
+        <informaltable>
+          <tgroup cols="2">
+            <tbody>
+              <row>
+                <entry>Synopsis</entry>
+
+                <entry><function>properties</function> [<option>-ntT</option>]
+                <parameter>destination</parameter> <parameter>user</parameter>
+                <parameter>group</parameter> <parameter>mode</parameter>
+                [<parameter>context</parameter>]
+                [<parameter>key=value</parameter>…]</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+
+        <para>The parameters <parameter>destination</parameter>,
+        <parameter>user</parameter>, <parameter>group</parameter>,
+        <parameter>mode</parameter> and <parameter>context</parameter> are
+        common parameters (see <xref linkend="conf.chg.param"/>).</para>
+
+        <para>The <parameter>user</parameter>, <parameter>group</parameter>,
+        <parameter>mode</parameter> and <parameter>context</parameter> are
+        individually compared to the destination file and set when
+        different.</para>
+
+        <example>
+          <title>Change Properties</title>
+
+          <programlisting>sample:
+  properties /var/log/messages - - 644</programlisting>
+        </example>
+      </section>
+
+      <section xml:id="conf.chg.remove">
+        <title>Remove</title>
+
+        <para>The <firstterm>remove</firstterm> change is used to delete a
+        file, directory, symbolic link, link or special file.</para>
+
+        <informaltable>
+          <tgroup cols="2">
+            <tbody>
+              <row>
+                <entry>Synopsis</entry>
+
+                <entry><function>remove</function> [<option>-ntT</option>]
+                <parameter>destination</parameter></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+
+        <para>The parameters <parameter>destination</parameter> is a common
+        parameter (see <xref linkend="conf.chg.param"/>).</para>
+
+        <important>
+          <para>It is currently not possible to recursively remove a directory
+          with the <function>remove</function> change. Run <command>rm
+          -rf</command> using the <function>execute</function> change instead
+          (see <xref linkend="conf.chg.execute"/>).</para>
+        </important>
+
+        <example>
+          <title>Remove</title>
+
+          <programlisting>sample:
+  remove /etc/openldap/cacerts/ca.pem
+  remove /etc/openldap/cacerts/12345678.0
+  remove /etc/openldap/cacerts</programlisting>
+        </example>
+      </section>
+
+      <section xml:id="conf.chg.execute">
+        <title>Execute Shell Command Line</title>
+
+        <para>The <firstterm>execute</firstterm> change is used to execute a
+        shell command line.</para>
+
+        <informaltable>
+          <tgroup cols="2">
+            <tbody>
+              <row>
+                <entry>Synopsis</entry>
+
+                <entry><function>execute</function> [<option>-bntT</option>]
+                …</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+
+        <para>The entire rest of the line is executed as a shell command line.
+        The line is executed as the user and group of the running
+        <command>config5</command> process which is usually both <systemitem
+        class="username">root</systemitem>.</para>
+
+        <para>The substitutions defined for the class or inherited from
+        including classes are applied to the command line before executing it
+        unless the <option>-b</option> flag is used.</para>
+
+        <para>The execute change is always performed unless the
+        <option>-t</option> or <option>-T</option> flag is used but no earlier
+        change triggers it.</para>
+
+        <example>
+          <title>Execute Shell Command Line</title>
+
+          <programlisting>sample:
+  execute service sssd stop ; rm -f rm -f /var/lib/sss/db/* ; service sssd start</programlisting>
+        </example>
+      </section>
+    </section>
+  </section>
+</chapter>

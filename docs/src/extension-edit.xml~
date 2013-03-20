@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book>
+<book version="5.0" xml:lang="en_US" xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:ns5="http://www.w3.org/2000/svg"
+      xmlns:ns4="http://www.w3.org/1999/xhtml"
+      xmlns:ns3="http://www.w3.org/1998/Math/MathML"
+      xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Edit Extension for Config5</title>
+
+  <info>
+    <author>
+      <personname><firstname>Stefan</firstname>
+      <surname>Walter</surname></personname>
+
+      <email>stefan.walter@inf.ethz.ch</email>
+    </author>
+
+    <revhistory>
+      <revision>
+        <date>August 2012</date>
+
+        <revremark>First Revision.</revremark>
+      </revision>
+    </revhistory>
+
+    <pubdate>August 2012</pubdate>
+
+    <copyright>
+      <year>2012</year>
+
+      <holder>ETH Zurich, ISGINF</holder>
+    </copyright>
+
+    <legalnotice>
+      <para>Permission is granted to copy, distribute and/or modify this
+      document under the terms of the GNU Free Documentation License, Version
+      1.3 or any later version published by the Free Software Foundation; with
+      no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A
+      copy of the license is included in the section entitled "GNU Free
+      Documentation License" of the "Config5 Systems Administrator's
+      Guide".</para>
+    </legalnotice>
+  </info>
+
+  <chapter>
+    <title>Introduction</title>
+
+    <section>
+      <title>Overview</title>
+
+      <para>The <productname>Edit Extension</productname> provides the
+      <function>edit</function> change which adds simple line editing
+      capabilities for text files to <productname>Config5</productname>. It
+      operates only on existing files and complements the built-in
+      <function>copy</function>, <function>truncate</function> and
+      <function>append</function> changes which manage the complete content of
+      a file.</para>
+
+      <para>Using the edit change it is possible to add, remove or replace
+      lines to a text file. The <function>remove</function> and
+      <function>replace</function> actions support perl regular expressions
+      for matching, the replaced line of a <function>replace</function> action
+      is a constant string though. All strings can be processed with
+      substitutions.</para>
+
+      <para>Typical files that are better modified with edit rather than full
+      copy are for instance:<itemizedlist>
+          <listitem>
+            <para><filename>/etc/fstab</filename></para>
+          </listitem>
+        </itemizedlist></para>
+
+      <itemizedlist>
+        <listitem>
+          <para><filename>/etc/passwd</filename></para>
+        </listitem>
+      </itemizedlist>
+
+      <itemizedlist>
+        <listitem>
+          <para><filename>/etc/shadow</filename></para>
+        </listitem>
+      </itemizedlist>
+
+      <para>The <function>edit</function> change is intended for unstructured
+      text files where the line order does not matter. The <productname>Augeas
+      Extension</productname> for <productname>Config5</productname> is more
+      suited for structured text files such as XML or INI files.</para>
+    </section>
+
+    <section>
+      <title>Examples</title>
+
+      <para>The following examples illustrate the basic usage of this
+      extension.</para>
+
+      <section>
+        <title>Append Mount</title>
+
+        <para>Additional mounts can easily be added to
+        <filename>/etc/fstab</filename> with <function>edit add</function>. A
+        sample <filename>spec</filename> file for adding an NFS mount could
+        look like this:</para>
+
+        <screen>RedHatEnterpriseServer:
+  edit add /etc/fstab "server:/share /mnt nfs hard,intr,bg,rw 0 0"</screen>
+
+        <para>If the line is already present in /etc/fstab (it must exactly
+        match the quoted line in the <filename>spec</filename> file, including
+        any whitespace) it will not be added again.</para>
+      </section>
+
+      <section>
+        <title>Replace User <systemitem class="username">root</systemitem> by
+        <systemitem class="username">toor</systemitem></title>
+
+        <para>Changing the name user <systemitem
+        class="username">root</systemitem> to <systemitem>toor</systemitem>
+        requires a line replacement in <filename>/etc/passwd</filename> and a
+        modification of <filename>/etc/shadow</filename> which can be achieved
+        with the following sample <filename>spec</filename> file:</para>
+
+        <screen>RedHatEnterpriseServer:
+  edit replace /etc/passwd ^root: toor:x:0:0:toor:/root:/bin/bash
+  edit modify /etc/shadow ^root:(.*) toor:$1</screen>
+      </section>
+
+      <section>
+        <title>Disable Grub Spash Screen</title>
+
+        <para>The splash screen of grub can easily be disabled by removing one
+        line in <filename>/boot/grub/grub.conf</filename> as shown in the
+        following sample <filename>spec</filename> file:</para>
+
+        <screen>RedHatEnterpriseWorkstation:
+  edit remove /boot/grub/grub.conf splashimage=.*</screen>
+      </section>
+    </section>
+  </chapter>
+
+  <chapter>
+    <title>Installation and Customization</title>
+
+    <section>
+      <title>Installation</title>
+
+      <para>This extension is contained in the archive
+      <filename>extensions/edit.tgz</filename> which is part of the
+      <productname>Config5</productname> distribution. Simply extract this
+      archive in the <filename>deploy</filename> directory.</para>
+
+      <section>
+        <title>Files</title>
+
+        <para>The following files are included in the archive:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para><filename>etc/extensions.d/edit.pl</filename></para>
+          </listitem>
+        </itemizedlist>
+
+        <itemizedlist>
+          <listitem>
+            <para><filename>lib/perl/Config5/Change/Extensions/Edit.pm</filename></para>
+          </listitem>
+        </itemizedlist>
+
+        <itemizedlist>
+          <listitem>
+            <para><filename>lib/perl/Config5/Action/Extensions/Edit.pm</filename></para>
+          </listitem>
+        </itemizedlist>
+      </section>
+    </section>
+
+    <section>
+      <title>Settings</title>
+
+      <para>This extension does not have any configurable settings.</para>
+    </section>
+  </chapter>
+
+  <chapter>
+    <title>Changes</title>
+
+    <section>
+      <title>Changes</title>
+
+      <para>This extension provides the <function>edit</function> change which
+      has four distinct actions: <function>add</function>,
+      <function>remove</function>, <function>replace</function> and
+      <function>modify</function>.</para>
+
+      <section>
+        <title>edit add</title>
+
+        <para>The <function>add</function> action of the
+        <function>edit</function> change will append a line if it is not
+        present in the file yet.</para>
+
+        <informaltable>
+          <tgroup cols="2">
+            <tbody>
+              <row>
+                <entry>Synopsis</entry>
+
+                <entry><function>edit</function>
+                [<userinput><option>-nbtT</option></userinput>]
+                <function>add</function> <parameter>line</parameter>
+                [<parameter>regexp</parameter>]</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+
+        <para>The parameter <parameter>line</parameter> is the complete line
+        that is appended if not present in the file yet. If the optional
+        parameter regexp is present then the line is added if any line in the
+        file matches the regular expression <parameter>regexp</parameter>. If
+        either contains a white space it must be quoted. Substitutions passed
+        down from the class definition are applied to both
+        <parameter>line</parameter> and <parameter>regexp</parameter> unless
+        the <option>-b</option> flag is used.</para>
+
+        <example>
+          <title>Add Line</title>
+
+          <programlisting>sample:
+  edit add /etc/hosts "8.8.8.8 google-public-dns-a.google.com"</programlisting>
+        </example>
+      </section>
+
+      <section>
+        <title>edit remove</title>
+
+        <para>The <function>remove</function> action of the
+        <function>edit</function> change will remove any line that matches a
+        regular expression.</para>
+
+        <informaltable>
+          <tgroup cols="2">
+            <tbody>
+              <row>
+                <entry>Synopsis</entry>
+
+                <entry><function>edit</function>
+                [<userinput><option>-nbtT</option></userinput>]
+                <function>remove</function>
+                <parameter>regexp</parameter></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+
+        <para>The parameter <parameter>regexp</parameter> is the regular
+        expression used for matching lines to be removed. If the regular
+        expression contains a white space it must be quoted. Substitutions
+        passed down from the class definition are applied to
+        <parameter>regexp</parameter> unless the <option>-b</option> flag is
+        used.</para>
+
+        <example>
+          <title>Remove Line</title>
+
+          <programlisting>sample:
+  edit remove /etc/my.cnf ^symbolic-links=0</programlisting>
+        </example>
+      </section>
+
+      <section>
+        <title>edit replace</title>
+
+        <para>The <function>replace</function> action of the
+        <function>edit</function> change will replace any line that matches a
+        regular expression with a complete new line.</para>
+
+        <informaltable>
+          <tgroup cols="2">
+            <tbody>
+              <row>
+                <entry>Synopsis</entry>
+
+                <entry><function>edit</function>
+                [<userinput><option>-nbtT</option></userinput>]
+                <function>replace</function> <parameter>regexp</parameter>
+                <parameter>line</parameter></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+
+        <para>The parameter <parameter>regexp</parameter> is the regular
+        expression used for matching lines to be replaced, the parameter
+        <parameter>line</parameter> is the complete line that is used as
+        replacement. If either contains a white space it must be quoted.
+        Substitutions passed down from the class definition are applied to
+        <parameter>regexp</parameter> and <parameter>line</parameter> unless
+        the <option>-b</option> flag is used.</para>
+
+        <example>
+          <title>Replace Line</title>
+
+          <programlisting>sample:
+  edit replace /etc/hosts ^127.0.0.1 "127.0.0.1 localhost [% info_fqhn %]"</programlisting>
+        </example>
+      </section>
+
+      <section>
+        <title>edit modify</title>
+
+        <para>The <function>modify</function> action of the
+        <function>edit</function> change will replace any part of a line that
+        matches a regular expression.</para>
+
+        <informaltable>
+          <tgroup cols="2">
+            <tbody>
+              <row>
+                <entry>Synopsis</entry>
+
+                <entry><function>edit</function>
+                [<userinput><option>-nbtT</option></userinput>]
+                <function>modify</function> <parameter>regexp</parameter>
+                <parameter>replacement</parameter></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+
+        <para>The parameter <parameter>regexp</parameter> is the regular
+        expression used for matching lines to be modified. The parameter
+        <parameter>replacement</parameter> is the string that will replace the
+        part of a line that matches <parameter>regexp</parameter>. If either
+        contains a white space it must be quoted. Characters that are special
+        in perl regular expressions and the forward slash
+        (<constant>/</constant>) must be escaped with a backslash
+        (<constant>\</constant>). Capture buffers (<constant>$1</constant>,
+        <constant>$2</constant>, etc.) can be used in
+        <parameter>replacement</parameter>.</para>
+
+        <para>Substitutions passed down from the class definition are applied
+        to <parameter>regexp</parameter> and
+        <parameter>replacement</parameter> unless the <option>-b</option> flag
+        is used. </para>
+
+        <example>
+          <title>Modify Line</title>
+
+          <programlisting>sample:
+  edit modify /etc/shadow ^root:(.*) toor:$1</programlisting>
+        </example>
+      </section>
+    </section>
+
+    <section>
+      <title>Configuration Application</title>
+
+      <section>
+        <title>Phase</title>
+
+        <para>The edit changes are applied in the
+        <constant>configure</constant> phase.</para>
+      </section>
+
+      <section>
+        <title>Order</title>
+
+        <para>All <function>edit</function> changes of a pass are ordered
+        according to the <emphasis>alphabetical order</emphasis> of the file
+        path and applied in this order.</para>
+      </section>
+
+      <section>
+        <title>Application</title>
+
+        <para>All changes for the same file are accumulated in each pass and
+        written as a whole.</para>
+      </section>
+
+      <section>
+        <title>Trigger Flag</title>
+
+        <para>The the trigger flag for triggered changes is set when a line is
+        effectively added, removed or replaced in a file.</para>
+      </section>
+
+      <section>
+        <title>Root Directory</title>
+
+        <para>This extension supports changed root directories, i.e., setting
+        the root system information item to something other than
+        <filename>/</filename>.</para>
+      </section>
+    </section>
+  </chapter>
+
+  <appendix>
+    <title>Error Messages</title>
+
+    <section>
+      <title>Configuration Data Errors</title>
+
+      <para>Configuration data errors are fatal, no changes will be done to
+      the system.</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Invalid action '…' in …</term>
+
+          <listitem>
+            <para>The action must be <constant>add</constant>,
+            <constant>remove</constant> or
+            <constant>replace</constant>.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Invalid regular expression '…' in …</term>
+
+          <listitem>
+            <para>The regular expression of a <function>remove</function> or
+            <function>replace</function> action is invalid.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+
+    <section>
+      <title>Configuration Application Errors</title>
+
+      <para>The following errors are reported for changes as they are applied
+      but do not interrupt the application of other changes.</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Failed to … line in '<replaceable>path</replaceable>'</term>
+
+          <listitem>
+            <para>The line could not be added, removed or replaced in the
+            referenced file. This error is typically reported if a file does
+            not exist.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+  </appendix>
+</book>

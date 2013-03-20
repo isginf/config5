@@ -1,0 +1,391 @@
+#!/usr/bin/perl
+
+# Copyright 2011 ETH Zurich, ISGINF
+#
+# This file is part of Config5.
+#
+# Config5 is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Config5 is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Config5.  If not, see <http://www.gnu.org/licenses/>.
+
+# config5 - 5th Generation Unix Configuration Management Utility
+#
+# $Id: config5 198 2013-03-19 15:14:36Z walteste $
+# $HeadURL: https://svn.isg.inf.ethz.ch/svn/isg/config5/trunk/deploy/bin/config5 $
+
+use strict;
+use warnings;
+ 
+use Module::Load;
+use Module::Load::Conditional qw(can_load);
+
+# Add library path relative to script
+use Cwd qw(abs_path);
+use FindBin;
+use lib abs_path("$FindBin::Bin/../lib/perl");
+
+use File::ApplicationLock;
+use Getopt::Constrainted;
+use Config5::Util qw(set_dummy set_debug set_verbose info fail is_verbose had_output has_errors error set_root is_change_root);
+use Config5::System;
+use Config5::Settings;
+use Config5::FeatureSet;
+
+use vars qw($opt_report $opt_apply $opt_check $opt_version);
+use vars qw(@opt_set $opt_features $opt_selinux);
+use vars qw($opt_v $opt_d $opt_n $opt_h $opt_q $opt_m);
+
+our $VERSION = '2.2';
+
+# Before all else load and apply settings
+my $base = abs_path("$FindBin::Bin/../");
+our $BASE = $base;
+our $SETTINGS = new Config5::Settings($base);
+
+umask $SETTINGS->{os}->{umask};
+
+foreach my $key (keys %{$::SETTINGS->{os}->{env}}) {
+   defined $::SETTINGS->{os}->{env}->{$key} ? $ENV{$key} = $::SETTINGS->{os}->{env}->{$key} : delete $ENV{$key};
+}
+
+# Load modules that are not part of Config5 and are not core modules
+fail "Perl module 'Template' is not installed but required"
+   unless can_load( modules => { 'Template' => undef } );
+
+# Command line options and constraints
+my %options = 
+(
+   'check' => \$opt_check,
+   'report=s' => \$opt_report,
+   'apply' => \$opt_apply,
+
+   'set=s' => \@opt_set,
+   'features=s' => \$opt_features,
+   'selinux!' => \$opt_selinux,
+
+   'verbose|v' => sub { $opt_v += 1 },
+   'quiet|q' => \$opt_q,
+   'debug|d' => sub { $opt_d += 1 },
+   'dummy|n' => \$opt_n,
+   'help|h' => \$opt_h,
+   'man|m' => \$opt_m,
+   'version|V' => \$opt_version,
+);
+
+my %constraints =
+(
+   defaults => [
+      [ 'apply', 1, 'report', 'check', ],
+      [ 'features', "$base/" . $SETTINGS->{features}->{name} ],
+   ],
+
+   mutex => [
+      [ 'apply', 'report', 'check' ],
+      [ 'help', 'man', 'version' ],
+      [ 'verbose', 'quiet' ]
+   ],
+
+   depend => {
+      report => {
+         optional => [ 'set', 'features' ],
+      },
+      apply => {
+         optional => [ 'set', 'features' ],
+      },
+      check => {
+         optional => [ 'set', 'features' ],
+      },
+   },
+
+   syntax => {
+      report => [ 'system', 'features', 'files', 'matches', 'classes', 'systemitems', 'stages', 'changes', 'rawsystem', 'classorder' ],
+      set => sub { /^[^=]+=/ },
+   },
+        
+   unconstrainted => [ 'verbose', 'debug', 'help', 'man', 'dummy', 'quiet', 'version', 'selinux', 'root' ],
+);
+
+# Get and apply command line options
+GetOptions(%options, %constraints);
+
+set_verbose(1);
+set_verbose($opt_v + 1) if $opt_v;
+set_verbose(0) if $opt_q;
+set_debug($opt_d) if $opt_d;
+set_dummy(1) if $opt_n;
+
+print("$VERSION\n"), exit 0 if $opt_version;
+
+# Extract the root directory from the command line options
+map { set_root($1) if /^root=(.+)/ } @opt_set;
+
+# Load the system information module and apply command line options
+my $class = $SETTINGS->{system}->{class};
+load $class;
+my $system = new $class();
+
+map { $system->set($1,$2) if /^([^=]+)=(.*)/ } @opt_set;
+
+$system->check();
+
+# Load SELinux support if enabled and not chrooted
+$SETTINGS->{os}->{selinux}->{enable} = undef
+   if is_change_root();
+$SETTINGS->{os}->{selinux}->{enable} = $opt_selinux
+   if defined $opt_selinux;
+
+if ($SETTINGS->{os}->{selinux}->{enable})
+{
+   fail "Perl module 'File::ExtAttr' is not installed but required if SELinux support is enabled"
+      unless can_load( modules => { 'File::ExtAttr' => undef } );
+}
+
+# Reports related to system and setings
+if ($opt_report)
+{
+   $SETTINGS->report_stages(), exit 0 if $opt_report eq 'stages';
+   $SETTINGS->report_changes(), exit 0 if $opt_report eq 'changes';
+   $system->dump(), exit 0 if $opt_report eq 'system';
+   $system->dump(1), exit 0 if $opt_report eq 'rawsystem';
+   $system->report_items(), exit 0 if $opt_report eq 'systemitems';
+   $system->report_classorder(), exit 0 if $opt_report eq 'classorder';
+}
+
+# Load features
+my $set = new Config5::FeatureSet($opt_features, @ARGV);
+
+# Perform consistency checks
+if ($opt_check)
+{
+   $set->check($system);
+   exit has_errors() ? 1 : 0;
+}
+
+# Reports related to the features
+if ($opt_report)
+{
+   $set->dump(), exit 0 if $opt_report eq 'features';
+   $set->report_files(), exit 0 if $opt_report eq 'files';
+   $set->report_classes(), exit 0 if $opt_report eq 'classes';
+   $set->report_matches($system), exit 0 if $opt_report eq 'matches';
+}
+
+my $lock;
+unless ($opt_n)
+{
+   # Check if execution is disabled
+   error("Disabled via '$SETTINGS->{disable}->{file}'"), exit 0
+      if -f $system->change_root($SETTINGS->{disable}->{file});
+
+   # Lock
+   $lock = new File::ApplicationLock($system->change_root($SETTINGS->{lock}->{file}), $SETTINGS->{lock}->{timeout})
+      or fail "Unable to lock '$SETTINGS->{lock}->{file}'";
+}
+
+# Banner
+$system->dump() if is_verbose($SETTINGS->{display}->{entities}->{system});
+
+# Run
+$set->apply($system);
+
+# Status
+my $status = $SETTINGS->{display}->{entities}->{status};
+info('', $status) if had_output();
+
+if (has_errors()) {
+   info("Completed with errors.", $status), exit 1;
+} else {
+   info("Done.", $status), exit 0;
+}
+
+
+__END__
+
+=head1 NAME
+
+config5 - 5th Generation Unix Configuration Management Utility
+
+=head1 SYNOPSIS
+
+B<config5> [B<-vqdnhmV>] [B<--selinux>|B<--no-selinux>] [B<--set> I<key=value>] [B<--apply>|B<--check>|B<--report> I<type>] [B<--features> F<dir>] [feature...]
+
+=head1 DESCRIPTION
+
+B<config5> is the main script of the I<Config5> Unix Configuration Management
+Kit. It can apply a configuration (feature set), check configuration metadata
+for consistency and give various reports on the configuration and the system
+it is run on.
+
+When run without arguments it will perform all operations with the full set
+of features. Otherwise it will only process the features specified. The feature set location defaults to 'F<features>' in the I<Config5> base directory and
+can be altered with the B<--features> otion.
+
+Information about the system a configuration is appled to is collected from
+data on the system where B<config5> is run. The collected values can be altered
+using the B<--set> option.
+
+For detailed documentation consult the L<Config5 Systems Administrator's Guide>.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--apply>
+
+Apply the configuration. Either the entire feature set or only the features
+specified on the command line are applied.
+
+=item B<--check>
+
+Perform consistency checks of the entire configuration. Checks include syntax
+checks of the specification files in all features, checks for references to
+missing files and more.
+
+=item B<--report> I<type>
+
+Print various reports. The report I<type> can be one of:
+
+=over 4
+
+=item I<changes>
+
+Report the keywords for all changes.
+
+=item I<classes>
+
+Report all classes in alphabetical order. 
+
+=item I<classorder>
+
+Report the classes used to match the best class in each feature. The classes are reported in the order they are checked and are generated using the gathered system
+information and the values set using B<--set>.
+
+=item I<features>
+
+Report all classes and changes for all features in a normalized form.
+
+=item I<files>
+
+Report all files that are modified by any class of all features.
+
+=item I<matches>
+
+Report the matching class for each feature using the gathered system
+information and the values set using B<--set>.
+
+=item I<stages>
+
+Report all defined target system stages.
+
+=item I<system>
+
+Show the various values of the system information.
+
+=item I<rawsystem>
+
+Show the various values of the system information as parsable output. The output can be sourced by a shell.
+
+=item I<systemitems>
+
+Report all configured system information items with description, identifier and other meta information.
+
+=back
+
+For all reports relating to features the report comprises either all features
+or only the features specified on the command line.
+
+=item B<--set> I<key=value>
+
+Change the value of one of the system information items.
+
+=item B<--features> F<dir>
+
+Sets the directory containing the feature set.
+
+=item B<--set> I<key=value>
+
+Change the value of one of the system information items.
+
+=item B<--selinux> or B<--no-selinux>
+
+Activates or deactivates SELinux support, overrides the configuration in the settings.
+
+=item B<--help>, B<-h>
+
+Print a brief help message and exit.
+
+=item B<--man>, B<-m>
+
+Print this manual page and exit.
+
+=item B<--version>, B<-V>
+
+Print the version number of the script and exit.
+
+=item B<--verbose>, B<-v>
+
+Enable verbose messages on the process. Can be specified multiple times to
+increase verbosity.
+
+=item B<--quiet>, B<-q>
+
+Only print errors and warning. This option overrides B<--verbose>.
+
+=item B<--debug>, B<-d>
+
+Enable debugging output. Can be specified multiple times to increase the
+debug level.
+
+=item B<--dummy>, B<-n>
+
+Activate dummy mode where no actual changes are made.
+
+=back
+
+=head1 EXIT VALUES
+
+If there were no errors the program exists with return code 0. Otherwise the return code is 1.
+
+=head1 EXAMPLES
+
+=over 4
+
+=item C<config5>
+
+Apply the entire configuration.
+
+=item C<config5 --set root=/var/diskless/host1 --set host=host1>
+
+Apply the configuration for a diskless client on the server.
+
+=item C<config5 --report info>
+
+Report information about the system.
+
+=item C<config5 --dummy>
+
+Simulate application of the configuration.
+
+=item C<config5 --check>
+
+Check the feature set for consistency and syntax errors.
+
+=item C<config5 --set host=sample --report matches cifs nfs>
+
+Report the matching class of features 'nfs' and 'cifs' for host 'sample'.
+
+=back
+
+=cut
+
+
+

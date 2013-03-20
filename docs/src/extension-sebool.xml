@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book>
+<book version="5.0" xml:lang="en_US" xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:ns5="http://www.w3.org/2000/svg"
+      xmlns:ns4="http://www.w3.org/1999/xhtml"
+      xmlns:ns3="http://www.w3.org/1998/Math/MathML"
+      xmlns:ns="http://docbook.org/ns/docbook">
+  <title>SEBool Extension for Config5</title>
+
+  <info>
+    <author>
+      <personname><firstname>Stefan</firstname>
+      <surname>Walter</surname></personname>
+
+      <email>stefan.walter@inf.ethz.ch</email>
+    </author>
+
+    <revhistory>
+      <revision>
+        <date>August 2012</date>
+
+        <revremark>First Revision.</revremark>
+      </revision>
+    </revhistory>
+
+    <pubdate>August 2012</pubdate>
+
+    <copyright>
+      <year>2012</year>
+
+      <holder>ETH Zurich, ISGINF</holder>
+    </copyright>
+
+    <legalnotice>
+      <para>Permission is granted to copy, distribute and/or modify this
+      document under the terms of the GNU Free Documentation License, Version
+      1.3 or any later version published by the Free Software Foundation; with
+      no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A
+      copy of the license is included in the section entitled "GNU Free
+      Documentation License" of the "Config5 Systems Administrator's
+      Guide".</para>
+    </legalnotice>
+  </info>
+
+  <chapter>
+    <title>Introduction</title>
+
+    <section>
+      <title>Overview</title>
+
+      <para>The <productname>SEBool Extension</productname> is a simple
+      wrapper around the <command>setsebool</command> command. It provides the
+      <function>sebool</function> change to efficiently set and clear SELinux
+      booleans with <productname>Config5</productname>.</para>
+    </section>
+
+    <section>
+      <title>Examples</title>
+
+      <para>Booleans can be set or cleared as shown in the following example
+      spec file:</para>
+
+      <screen>RedHatEnterpriseServer:
+  sebool set samba_share_nfs
+  sebool clear httpd_can_network_connect</screen>
+    </section>
+  </chapter>
+
+  <chapter>
+    <title>Installation and Customization</title>
+
+    <section>
+      <title>Installation</title>
+
+      <para>This extension is contained in the archive
+      <filename>extensions/sebool.tgz</filename> which is part of the
+      <productname>Config5</productname> distribution. Simply extract this
+      archive in the <filename>deploy</filename> directory.</para>
+
+      <section>
+        <title>Files</title>
+
+        <para>The following files are included in the archive:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para><filename>etc/extensions.d/sebool.pl</filename></para>
+          </listitem>
+        </itemizedlist>
+
+        <itemizedlist>
+          <listitem>
+            <para><filename>lib/perl/Config5/Change/Extensions/SEBool.pm</filename></para>
+          </listitem>
+        </itemizedlist>
+
+        <itemizedlist>
+          <listitem>
+            <para><filename>lib/perl/Config5/Action/Extensions/SEBool.pm</filename></para>
+          </listitem>
+        </itemizedlist>
+      </section>
+    </section>
+
+    <section>
+      <title>Settings</title>
+
+      <para>This extension does not have any configurable settings.</para>
+    </section>
+  </chapter>
+
+  <chapter>
+    <title>Changes</title>
+
+    <section>
+      <title>Changes</title>
+
+      <para>This extension provides the <function>sebool</function> change
+      which can set or clear SELinux booleans:</para>
+
+      <para><informaltable>
+          <tgroup cols="2">
+            <tbody>
+              <row>
+                <entry>Synopsis</entry>
+
+                <entry><function>sebool</function>
+                [<userinput><option>-ntT</option></userinput>]
+                <function>set</function>|<function>clear</function>
+                <function>boolean</function></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>The <function>set</function> or
+      <function>clear</function> action specifies if the boolean is set or
+      cleared. The parameter boolean specifies the boolean to operate
+      on.</para>
+    </section>
+
+    <section>
+      <title>Configuration Application</title>
+
+      <section>
+        <title>Phase</title>
+
+        <para>The sebool changes are applied in the
+        <constant>configure</constant> phase.</para>
+      </section>
+
+      <section>
+        <title>Order and Application</title>
+
+        <para>All <function>sebool</function> changes of a pass are grouped
+        together to one command line for <command>setsebool -P</command> which
+        cause a policy rebuild.</para>
+
+        <para>The extension caches information from <command>getsebool
+        -a</command> when checking for booleans to set or clear. Mixing
+        <function>sebool</function> and <function>execute</function> changes
+        to modify SELinux booleans is not supported.</para>
+      </section>
+
+      <section>
+        <title>Trigger Flag</title>
+
+        <para>The the trigger flag for triggered changes is set when a boolean
+        needs to be set or cleared.</para>
+      </section>
+
+      <section>
+        <title>Root Directory</title>
+
+        <para>Changes of this extension are only applied if the root system
+        information item is equal to <filename>/</filename>.</para>
+      </section>
+    </section>
+  </chapter>
+
+  <appendix>
+    <title>Error Messages</title>
+
+    <section>
+      <title>System Errors</title>
+
+      <para>System errors are fatal, no changes will be done to the
+      system.</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Cannot get list ob SELinux booleans</term>
+
+          <listitem>
+            <para>The list of booleans cannot be obtained. Typically SELinux
+            is completely turned off or the <command>getsebool</command>
+            command is not installed.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+
+    <section>
+      <title>Configuration Data Errors</title>
+
+      <para>Configuration data errors are fatal, no changes will be done to
+      the system.</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Invalid action '…' in …</term>
+
+          <listitem>
+            <para>The action must be <constant>set</constant> or
+            <constant>clear</constant>.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+
+    <section>
+      <title>Configuration Application Errors</title>
+
+      <para>The following errors are reported for changes as they are applied
+      but do not interrupt the application of other changes.</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Unknown SELinux boolean '<replaceable>boolean</replaceable>'
+          in …</term>
+
+          <listitem>
+            <para>A set or clear action was attempted on an inexistent SELinux
+            boolean. Run the <command>getsebool -a</command> command on the
+            target system to list all available booleans.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <variablelist>
+        <varlistentry>
+          <term>Failed to … SELinux boolean
+          '<replaceable>boolean</replaceable>'</term>
+
+          <listitem>
+            <para>The named boolean could not be set or cleared.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+  </appendix>
+</book>

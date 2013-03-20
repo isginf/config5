@@ -1,0 +1,92 @@
+# This is the custom settings file that we use for the RHEL6 configuration
+# at ISGINF.
+
+my $self = $_;
+
+# Change location of the disable flag file
+$self->{disable}->{file} = '/etc/supp/config5_disabled';
+
+# Enable SELinux support
+$self->{os}->{selinux}->{enable} = 1;
+
+# Change the system information class
+$self->{system}->{class} = 'Config5::System::SystemInfo';
+
+# Path of the system-info file (system-info only)
+$self->{system}->{systeminfo}->{file} = '/etc/supp/system-info';
+
+# System-info item to properties translation
+$self->{system}->{systeminfo}->{append_properties} = 
+[
+   'singleboot',
+   'dualboot',
+   'tripleboot'
+];
+
+# Directory containing system-info files to use for extended checks
+$self->{system}->{systeminfo}->{variations_directory} = '/pub/linux-new/feedback/data/rhel6/config5-system';
+
+# Default properties
+$self->{system}->{systeminfo}->{default_properties} =
+[
+   [ 'singleboot', 'dualboot', 'tripleboot' ]
+];
+
+# Add the OU system information item
+$self->{system}->{items}->{ou} = [ 25, 1, 0, '', 'OU' ];
+$self->{system}->{items}->{processors} = [ 75, 1, 0, '', 'Processors' ];
+
+# Make properties all upper case
+$self->{system}->{items}->{properties}->[3] = 'toupper';
+
+# Make the IP system information item mandatory
+$self->{system}->{items}->{ip}->[1] = 1;
+
+# Use 'package' instead of 'yum'
+$self->{change}->{keywords}->{package} = 'yum';
+$self->{display}->{keywords}->{yum} = 'package';
+delete $self->{change}->{keywords}->{yum};
+
+# Custom search order for best class match, includes the OU
+$self->{class}->{match} =
+[
+   '{host}_{properties}_{release}_{arch}',
+   '{host}_{properties}_{release}',
+   '{host}_{properties}_{arch}',
+   '{host}_{properties}',
+   '{host}_{release}_{arch}',
+   '{host}_{release}',
+   '{host}_{arch}',
+   '{host}',
+   '{os}_{ou}_{properties}_{release}_{arch}',
+   '{os}_{ou}_{properties}_{release}',
+   '{os}_{ou}_{properties}_{arch}',
+   '{os}_{ou}_{properties}',
+   '{ou}_{properties}_{release}_{arch}',
+   '{ou}_{properties}_{release}',
+   '{ou}_{properties}_{arch}',
+   '{ou}_{properties}',
+   '{os}_{properties}_{release}_{arch}',
+   '{os}_{properties}_{release}',
+   '{os}_{properties}_{arch}',
+   '{os}_{properties}',
+   '{properties}_{release}_{arch}',
+   '{properties}_{release}',
+   '{properties}_{arch}',
+   '{properties}',
+   '{os}_{ou}_{release}_{arch}',
+   '{os}_{ou}_{release}',
+   '{os}_{ou}_{arch}',
+   '{os}_{ou}',
+   '{ou}_{release}_{arch}',
+   '{ou}_{release}',
+   '{ou}_{arch}',
+   '{ou}',
+   '{os}_{release}_{arch}',
+   '{os}_{release}',
+   '{os}_{arch}',
+   '{os}',
+];
+
+1;
+

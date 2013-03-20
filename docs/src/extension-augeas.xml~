@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book>
+<book version="5.0" xml:lang="en_US" xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:ns5="http://www.w3.org/2000/svg"
+      xmlns:ns4="http://www.w3.org/1999/xhtml"
+      xmlns:ns3="http://www.w3.org/1998/Math/MathML"
+      xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Augeas Extension for Config5</title>
+
+  <info>
+    <author>
+      <personname><firstname>Stefan</firstname>
+      <surname>Walter</surname></personname>
+
+      <email>stefan.walter@inf.ethz.ch</email>
+    </author>
+
+    <revhistory>
+      <revision>
+        <date>August 2012</date>
+
+        <revremark>First Revision.</revremark>
+      </revision>
+    </revhistory>
+
+    <pubdate>August 2012</pubdate>
+
+    <copyright>
+      <year>2012</year>
+
+      <holder>ETH Zurich, ISGINF</holder>
+    </copyright>
+
+    <legalnotice>
+      <para>Permission is granted to copy, distribute and/or modify this
+      document under the terms of the GNU Free Documentation License, Version
+      1.3 or any later version published by the Free Software Foundation; with
+      no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A
+      copy of the license is included in the section entitled "GNU Free
+      Documentation License" of the "Config5 Systems Administrator's
+      Guide".</para>
+    </legalnotice>
+  </info>
+
+  <chapter>
+    <title>Introduction</title>
+
+    <section>
+      <title>Overview</title>
+
+      <para>The <productname>Augeas Extension</productname> provides the
+      <function>augeas</function> change which adds the capability to
+      <productname>Config5</productname> to modify configuration files via
+      <productname>Augeas</productname> (see <link
+      xlink:href="http://augeas.net/">http://augeas.net</link>). It operates
+      only on existing files and complements the built-in
+      <function>copy</function>, <function>truncate</function> and
+      <function>append</function> changes which manage the complete content of
+      a file.</para>
+
+      <para>Using the augeas change it is possible modify single values in
+      structured configuration files that are supported by
+      <productname>Augeas</productname>. All values can be processed with
+      substitutions.</para>
+
+      <para>To use this extension it is recommended to study the functionality
+      of <productname>Augeas</productname> and
+      <command>augtool</command>.</para>
+    </section>
+
+    <section>
+      <title>Examples</title>
+
+      <para>The following examples illustrate the basic usage of this
+      extension.</para>
+
+      <section>
+        <title>Change Grub Timeout</title>
+
+        <para>The following sample spec file shows how to set the grub default
+        timeout using the <function>set</function> action of the
+        <function>augeas</function> change:</para>
+
+        <screen>RedHatEnterpriseServer:
+  augeas set /files/etc/grub.conf/timeout 10</screen>
+
+        <para>The path <filename>/files/etc/grub.conf/timeout</filename> is
+        the path of the option to set in the augeas tree.</para>
+      </section>
+
+      <section>
+        <title>Hide Grub Menu</title>
+
+        <para>To hide the grub boot menu the <function>insert</function>
+        action of the <function>augeas</function> change can be used as shown
+        in the following sample <filename>spec</filename> file:</para>
+
+        <screen>RedHatEnterpriseServer:
+  augeas insert hiddenmenu before /files/etc/grub.conf/password</screen>
+
+        <para>This adds a new augeas node for the grub option
+        <function>hiddenmenu</function> in the tree before the given
+        path.</para>
+      </section>
+
+      <section>
+        <title>Show Grub Menu</title>
+
+        <para>To show the grub boot menu the grub hiddenmenu option can be
+        removed with the remove action of the augeas change as shown in the
+        following sample <filename>spec</filename> file:</para>
+
+        <screen>RedHatEnterpriseWorkstation:
+  augeas remove /files/etc/grub.conf/hiddenmenu</screen>
+      </section>
+
+      <section>
+        <title>Replace OS Titles in Grub</title>
+
+        <para>A Windows installation will typically get the title <systemitem
+        class="osname">Other</systemitem> when grub is installed. The
+        following sample spec file shows how to replace this to <systemitem
+        class="osname">Windows</systemitem>:</para>
+
+        <screen>RedHatEnterpriseWorkstation:
+  augeas replace /files/etc/grub.conf/title[*] Other Windows</screen>
+      </section>
+    </section>
+  </chapter>
+
+  <chapter>
+    <title>Installation and Customization</title>
+
+    <section>
+      <title>Installation</title>
+
+      <para>This extension is contained in the archive
+      <filename>extensions/augeas.tgz</filename> which is part of the
+      <productname>Config5</productname> distribution. Simply extract this
+      archive in the <filename>deploy</filename> directory.</para>
+
+      <section>
+        <title>Files</title>
+
+        <para>The following files are included in the archive:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para><filename>etc/extensions.d/augeas.pl</filename></para>
+          </listitem>
+        </itemizedlist>
+
+        <itemizedlist>
+          <listitem>
+            <para><filename>lib/perl/Config5/Change/Extensions/Augeas.pm</filename></para>
+          </listitem>
+        </itemizedlist>
+
+        <itemizedlist>
+          <listitem>
+            <para><filename>lib/perl/Config5/Action/Extensions/Augeas.pm</filename></para>
+          </listitem>
+        </itemizedlist>
+      </section>
+    </section>
+
+    <section>
+      <title>Settings</title>
+
+      <para>This extension does not have any configurable settings.</para>
+    </section>
+  </chapter>
+
+  <chapter>
+    <title>Changes</title>
+
+    <section>
+      <title>Changes</title>
+
+      <para>This extension provides the <function>augeas</function> change
+      which has four distict actions: <function>set</function>,
+      <function>remove</function>, <function>insert</function> and
+      <function>replace</function>. These actions directly map to functions of
+      the <productname>Augeas</productname> API.</para>
+
+      <section>
+        <title>augeas set</title>
+
+        <para>The <function>set</function> action of the
+        <function>augeas</function> change will set the value of a given node
+        in the Augeas tree.</para>
+
+        <informaltable>
+          <tgroup cols="2">
+            <tbody>
+              <row>
+                <entry>Synopsis</entry>
+
+                <entry><function>augeas</function>
+                [<userinput><option>-nbtT</option></userinput>] set
+                <parameter>path</parameter>
+                <parameter>value</parameter></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+
+        <para>The parameter path is the path of the node in the Augeas tree,
+        <function>value</function> is the value to set it to. If the node does
+        not exist it will ne created.</para>
+
+        <para>If either contains a white space it must be quoted.
+        Substitutions passed down from the class definition are applied to
+        <function>value</function> unless the <option>-b</option> flag is
+        used.</para>
+
+        <example>
+          <title>Set</title>
+
+          <programlisting>sample:
+  augeas set /files/etc/sysconfig/network-scripts/ifcfg-eth0/IPV6ADDR "[% info_ip6 %]"</programlisting>
+        </example>
+      </section>
+
+      <section>
+        <title>augeas remove</title>
+
+        <para>The <function>remove</function> action of the
+        <function>augeas</function> change will remove all nodes in the tree
+        that match a given path in the Augeas tree.</para>
+
+        <informaltable>
+          <tgroup cols="2">
+            <tbody>
+              <row>
+                <entry>Synopsis</entry>
+
+                <entry><function>augeas</function>
+                [<userinput><option>-ntT</option></userinput>]
+                <function>remove</function>
+                <parameter>path</parameter></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+
+        <para>The parameter <parameter>path</parameter> is the path of the
+        node to remove in the tree to remove. It may be a path pattern to
+        remove multiple nodes.</para>
+
+        <example>
+          <title>Remove</title>
+
+          <programlisting>sample:
+  augeas remove /files/etc/grub.conf/*/savedefault</programlisting>
+        </example>
+      </section>
+
+      <section>
+        <title>augeas insert</title>
+
+        <para>The <function>insert</function> action of the
+        <function>augeas</function> change will insert a node before or after
+        a given path in the Augeas tree.</para>
+
+        <informaltable>
+          <tgroup cols="2">
+            <tbody>
+              <row>
+                <entry>Synopsis</entry>
+
+                <entry><function>augeas</function>
+                [<userinput><option>-ntT</option></userinput>]
+                <function>insert</function> name
+                <constant>before</constant>|<constant>after</constant>
+                <parameter>path</parameter></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+
+        <para>The keyword before and after indicate if the node is created
+        immediately before or after the node specified by the
+        <parameter>path</parameter> parameter. To insert multiple nodes
+        <parameter>path</parameter> may be specified as a path pattern. The
+        nodes will all be named as specified with the parameter
+        <parameter>name</parameter>.</para>
+
+        <para>If either contains a white space it must be quoted.</para>
+
+        <example>
+          <title>Insert</title>
+
+          <programlisting>sample:
+  augeas insert savedefault before /files/etc/grub.conf/*/root
+  augeas insert savedefault before /files/etc/grub.conf/*/rootnoverify</programlisting>
+        </example>
+      </section>
+
+      <section>
+        <title>augeas replace</title>
+
+        <para>The <function>replace</function> action of the
+        <function>augeas</function> change will replace the value of the node
+        with a given path in the augeas tree.</para>
+
+        <informaltable>
+          <tgroup cols="2">
+            <tbody>
+              <row>
+                <entry>Synopsis</entry>
+
+                <entry><function>augeas</function>
+                [<userinput><option>-bntT</option></userinput>]
+                <function>replace</function> <parameter>path</parameter>
+                <parameter>value</parameter></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+
+        <para>The parameter <parameter>path</parameter> is the path of the
+        node to replace. It may be a path pattern to replace multiple nodes.
+        The value of the nodes will be set to the parameter
+        <parameter>value</parameter>.</para>
+
+        <para>If either contains a white space it must be quoted.
+        Substitutions passed down from the class definition are applied to
+        <function>value</function> unless the <option>-b</option> flag is
+        used.</para>
+
+        <example>
+          <title>Replace</title>
+
+          <programlisting>sample:
+  replace /files/etc/default/useradd/HOME /home /local/home</programlisting>
+        </example>
+      </section>
+    </section>
+
+    <section>
+      <title>Configuration Application</title>
+
+      <para>This extension is only loaded if an <function>augeas</function>
+      change is used.</para>
+
+      <important>
+        <para>Loading the <productname>Augeas Extension</productname> may take
+        a second or two because <productname>Augeas</productname> loads all of
+        its lenses on load.</para>
+      </important>
+
+      <section>
+        <title>Phase</title>
+
+        <para>The <function>augeas</function> changes are applied in the
+        <constant>configure</constant> phase.</para>
+      </section>
+
+      <section>
+        <title>Order</title>
+
+        <para>All <function>augeas</function> changes of a pass are applied in
+        the order the changes are encountered during the parsing of the
+        <filename>spec</filename> files.</para>
+      </section>
+
+      <section>
+        <title>Application</title>
+
+        <para>All <function>augeas</function> changes of a pass are applied in
+        one commit.</para>
+      </section>
+
+      <section>
+        <title>Trigger Flag</title>
+
+        <para>The the trigger flag for triggered changes is set when an
+        <function>augeas</function> change needs to be applied.</para>
+      </section>
+
+      <section>
+        <title>Root Directory</title>
+
+        <para>All <function>augeas</function> changes are applied relative to
+        the path of the root system information item.</para>
+      </section>
+    </section>
+  </chapter>
+
+  <appendix>
+    <title>Error Messages</title>
+
+    <section>
+      <title>Configuration Data Errors</title>
+
+      <para>Configuration data errors are fatal, no changes will be done to
+      the system.</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Invalid action '…' in …</term>
+
+          <listitem>
+            <para>The action must be <constant>set</constant>,
+            <constant>insert</constant>, <constant>remove</constant> or
+            <constant>replace</constant>.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Invalid location '…' in …</term>
+
+          <listitem>
+            <para>The location for an insert action must be
+            <constant>before</constant> or <constant>after</constant>.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+
+    <section>
+      <title>Configuration Application Errors</title>
+
+      <para>The following errors are reported for changes as they are applied
+      but do not interrupt the application of other changes.</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Failed to <emphasis>action</emphasis> path
+          <emphasis>path</emphasis> in …</term>
+
+          <listitem>
+            <para>The change could not be registered with the augeas system.
+            Typically the specified path does not exist in the augeas
+            tree.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Augeas failed to commit changes</term>
+
+          <listitem>
+            <para>The commit of one or more changes to the filesystem
+            failed.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+  </appendix>
+</book>

@@ -1,0 +1,128 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>6.2. System Information Items</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Config5"><link rel="up" href="ch06.html" title="Chapter 6. System Information"><link rel="prev" href="ch06.html" title="Chapter 6. System Information"><link rel="next" href="ch06s03.html" title="6.3. System Information Modules"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.2. System Information Items</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06.html">Prev</a> </td><th width="60%" align="center">Chapter 6. System Information</th><td width="20%" align="right"> <a accesskey="n" href="ch06s03.html">Next</a></td></tr></table><hr></div><div class="section" title="6.2. System Information Items"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sysinfo.items"></a>6.2. System Information Items</h2></div></div></div>
+    
+
+    <p>The system information is organized in <span class="emphasis"><em>items</em></span>.
+    Each item is determined somehow by the system information module and can
+    be used in the class matching process and is available as a variable for
+    substitution.</p>
+
+    <p>Each item has a unique name and the following relevant information
+    associated with it:</p>
+
+    <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+        <p>Priority for displaying the system information summary (low
+        priority means display first).</p>
+      </li><li class="listitem">
+        <p>Whether or not the item is optional (<code class="constant">0</code>) or
+        mandatory (<code class="constant">1</code>).</p>
+      </li><li class="listitem">
+        <p>The type of the system information item (<code class="constant">0</code>
+        for scalar, <code class="constant">1</code> for ordered list).</p>
+      </li><li class="listitem">
+        <p>A conversion method for the gathered value of the item (see
+        below).</p>
+      </li><li class="listitem">
+        <p>The human readable description displayed in the system
+        information summary.</p>
+      </li></ul></div>
+
+    <p>The conversion is useful to modify the raw value gathered by the
+    module. No conversions are used in the default configuration. The
+    following conversions are supported:</p>
+
+    <div class="variablelist"><dl><dt><span class="term">none</span></dt><dd>
+          <p>No conversion.</p>
+        </dd><dt><span class="term">toupper</span></dt><dd>
+          <p>Convert all characters to upper case.</p>
+        </dd><dt><span class="term">tolower</span></dt><dd>
+          <p>Convert all characters to lower case.</p>
+        </dd><dt><span class="term">nows</span></dt><dd>
+          <p>Strip all white space characters.</p>
+        </dd><dt><span class="term">wstounderscore</span></dt><dd>
+          <p>Convert all white space characters to underscore.</p>
+        </dd></dl></div>
+
+    <p>The available system information items are configured via settings
+    (see <a class="xref" href="ch07s03.html#cust.sysinfo" title="7.3.3. System Information Settings">Section 7.3.3, “System Information Settings”</a>). The following items are configured
+    by default:</p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col><col><col><col><col><col></colgroup><thead><tr><th align="left">Item</th><th align="left">Priority</th><th align="left">Mandatory</th><th align="left">Type</th><th align="left">Conversion</th><th align="left">Description</th></tr></thead><tbody><tr><td><code class="varname">date</code></td><td><code class="constant">10</code></td><td>no</td><td>scalar</td><td align="left">none</td><td>Architecture</td></tr><tr><td><code class="varname">host</code></td><td><code class="constant">20</code></td><td>yes</td><td>scalar</td><td align="left">none</td><td>Host name</td></tr><tr><td><code class="varname">arch</code></td><td><code class="constant">30</code></td><td>yes</td><td>scalar</td><td align="left">none</td><td>Architecture</td></tr><tr><td><code class="varname">os</code></td><td><code class="constant">40</code></td><td>yes</td><td>scalar</td><td>none</td><td>OS</td></tr><tr><td><code class="varname">release</code></td><td><code class="constant">50</code></td><td>yes</td><td>scalar</td><td align="left">none</td><td>Release</td></tr><tr><td><code class="varname">ip</code></td><td><code class="constant">60</code></td><td>no</td><td>scalar</td><td align="left">none</td><td>IP</td></tr><tr><td><code class="varname">ip6</code></td><td><code class="constant">70</code></td><td>no</td><td>scalar</td><td align="left">none</td><td>IP6</td></tr><tr><td><code class="varname">fqhn</code></td><td><code class="constant">80</code></td><td>no</td><td>scalar</td><td align="left">none</td><td>Fully qualified host name</td></tr><tr><td><code class="varname">fqdn</code></td><td><code class="constant">90</code></td><td>no</td><td>scalar</td><td align="left">none</td><td>Fully qualified domain name</td></tr><tr><td><code class="varname">properties</code></td><td><code class="constant">100</code></td><td>no</td><td>list</td><td align="left">none</td><td>Properties</td></tr><tr><td><code class="varname">root</code></td><td><code class="constant">110</code></td><td>yes</td><td>scalar</td><td align="left">none</td><td>Root directory</td></tr><tr><td><code class="varname">stage</code></td><td><code class="constant">120</code></td><td>yes</td><td>scalar</td><td align="left">none</td><td>Stage</td></tr></tbody></table>
+    </div>
+
+    <div class="section" title="6.2.1. Common System Information Items"><div class="titlepage"><div><div><h3 class="title"><a name="idp777872"></a>6.2.1. Common System Information Items</h3></div></div></div>
+      
+
+      <p>The following system information items are determined independent
+      of the chosen module and are always available and are determined from
+      the running operating system:</p>
+
+      <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+          <p><code class="varname">arch</code></p>
+        </li><li class="listitem">
+          <p><code class="varname">host</code></p>
+        </li><li class="listitem">
+          <p><code class="varname">ip</code> (if configured)</p>
+        </li><li class="listitem">
+          <p><code class="varname">ip6</code> (if configured)</p>
+        </li><li class="listitem">
+          <p><code class="varname">properties</code></p>
+        </li><li class="listitem">
+          <p><code class="varname">root</code></p>
+        </li><li class="listitem">
+          <p><code class="varname">stage</code></p>
+        </li></ul></div>
+
+      <p>If the root directory is changed (see <a class="xref" href="ch03s02.html#app.root" title="3.2.1. Root Directory">Section 3.2.1, “Root Directory”</a>)
+      then only the following items are determined.</p>
+
+      <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+          <p><code class="varname">properties</code></p>
+        </li><li class="listitem">
+          <p><code class="varname">root</code></p>
+        </li><li class="listitem">
+          <p><code class="varname">stage</code></p>
+        </li></ul></div>
+
+      <p>The remaining mandatory modules must be provided by command line
+      argument or by an alternative system information module such as the
+      <code class="systemitem">Hardwired</code> module (see <a class="xref" href="ch06s03.html#sysinfo.mod.hardwired" title="6.3.2. Hardwired">Section 6.3.2, “Hardwired”</a>).</p>
+    </div>
+
+    <div class="section" title="6.2.2. Properties"><div class="titlepage"><div><div><h3 class="title"><a name="idp838160"></a>6.2.2. Properties</h3></div></div></div>
+      
+
+      <p>The properties are read from a file that contains space- or
+      comma-separated words. This file can be provisioned during
+      installation.</p>
+    </div>
+
+    <div class="section" title="6.2.3. Root"><div class="titlepage"><div><div><h3 class="title"><a name="sysinfo.items.root"></a>6.2.3. Root</h3></div></div></div>
+      
+
+      <p>The root directory (see <a class="xref" href="ch03s02.html#app.root" title="3.2.1. Root Directory">Section 3.2.1, “Root Directory”</a>) can be
+      modified with the <code class="option">--set</code> command line option when
+      running <span class="command"><strong>config5</strong></span>. Changing the root directory only
+      makes sense when the configuration is applied to something other than
+      the system where <span class="command"><strong>config5</strong></span> is run, for instance a
+      diskless client image on the file server that serves it.</p>
+
+      <p>The default path of the root directory is taken from the
+      <code class="varname">$self-&gt;{os}-&gt;{root}</code> setting (see <a class="xref" href="ch07s03.html#cust.os" title="7.3.2. Operating System Settings">Section 7.3.2, “Operating System Settings”</a>) and is typically <code class="filename">/</code>.</p>
+    </div>
+
+    <div class="section" title="6.2.4. Stage"><div class="titlepage"><div><div><h3 class="title"><a name="idp845472"></a>6.2.4. Stage</h3></div></div></div>
+      
+
+      <p>The stage (see <a class="xref" href="ch03s02.html#app.root" title="3.2.1. Root Directory">Section 3.2.1, “Root Directory”</a>) can be modified with
+      the <code class="option">--set</code> command line option when running
+      <span class="command"><strong>config5</strong></span>.</p>
+
+      <p>The default change can be changed with the following
+      setting:</p>
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col><col><col></colgroup><thead><tr><th align="left">Setting</th><th align="left">Default</th><th align="left">Description</th></tr></thead><tbody><tr><td><code class="varname">$self-&gt;{system}-&gt;{defaults}-&gt;{stage}</code></td><td><code class="filename">production</code></td><td>The default stage.</td></tr></tbody></table>
+      </div>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch06.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch06.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch06s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 6. System Information </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 6.3. System Information Modules</td></tr></table></div></body></html>

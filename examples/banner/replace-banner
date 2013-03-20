@@ -1,0 +1,34 @@
+#!/usr/bin/perl
+
+#
+# replace-banner  - Replace banner text in spec files
+#
+# This script adds or replaces a banner text in spec files. The banner is the
+# first text in the file and consists of lines that start with '#'.
+#
+# Usage:
+#
+# replace-banner banner.txt features/*/spec
+#
+# $Id: replace-banner 190 2013-03-18 08:47:37Z walteste $
+# $HeadURL: https://svn.isg.inf.ethz.ch/svn/isg/config5/trunk/examples/banner/replace-banner $
+#
+
+use strict;
+use warnings;
+
+use File::Slurp;
+
+my $banner = shift;
+my $text = read_file $banner;
+
+foreach my $file (@ARGV)
+{
+   my @lines = read_file $file;
+
+   while (defined $lines[0] and $lines[0] =~ /^#/) {
+     shift @lines;
+   }
+
+   write_file $file, $text, @lines;
+}

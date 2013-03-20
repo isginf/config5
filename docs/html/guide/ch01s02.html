@@ -1,0 +1,351 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>1.2. Examples</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Config5"><link rel="up" href="ch01.html" title="Chapter 1. Introduction"><link rel="prev" href="ch01.html" title="Chapter 1. Introduction"><link rel="next" href="ch02.html" title="Chapter 2. Configuration Data"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.2. Examples</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01.html">Prev</a> </td><th width="60%" align="center">Chapter 1. Introduction</th><td width="20%" align="right"> <a accesskey="n" href="ch02.html">Next</a></td></tr></table><hr></div><div class="section" title="1.2. Examples"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp66528"></a>1.2. Examples</h2></div></div></div>
+    
+
+    <p>To illustrate how <span class="productname">Config5</span> is used we will
+    create a feature to configure <code class="systemitem">ntpd</code>
+    and deploy it to the host <code class="systemitem">sample</code> which is running <code class="systemitem">Red Hat Enterprise Linux 6</code> (<code class="systemitem">RHEL6</code>). In subsequent steps we will enhance
+    the configuration step by step.</p>
+
+    <p>First we start by downloading and unpacking the
+    <span class="productname">Config5</span> distribution:</p>
+
+    <pre class="screen">$ cd /tmp
+$ wget http://oss.isg.inf.ethz.ch/pub/Main/ProjectsConfig5/config5-latest.tgz
+$ tar zxf config5-latest.tgz
+$ cd config5-?.?</pre>
+
+    <div class="section" title="1.2.1. The Basic ntp feature"><div class="titlepage"><div><div><h3 class="title"><a name="idp100288"></a>1.2.1. The Basic <code class="function">ntp</code> feature</h3></div></div></div>
+      
+
+      <p>First we create a new feature called <code class="function">ntp</code> and
+      <code class="filename">spec</code> file:</p>
+
+      <pre class="screen">$ cd deploy/features
+$ mkdir ntp
+$ cd ntp
+$ vi spec</pre>
+
+      <p>The content of the <code class="filename">spec</code> file should look like
+      this:</p>
+
+      <pre class="programlisting">RedHatEnterpriseWorkstation:
+  copy ntp.conf /etc/ntp.conf root root 644</pre>
+
+      <p>This change will copy the file <code class="filename">ntp.conf</code> to
+      <code class="filename">/etc/ntp.conf</code> for all target systems that are
+      running <code class="systemitem">Red Hat Enterprise Linux
+      Workstation</code> and set the permissions as indicated.</p>
+
+      <p>The only missing part is the file <code class="filename">ntp.conf</code>
+      which is created in the same place as the <code class="filename">spec</code>
+      file:</p>
+
+      <pre class="screen">$ vi ntp.conf</pre>
+
+      <p>We will use a simplified version of the default
+      <code class="filename">/etc/ntp.conf</code> that ships with <code class="systemitem">RHEL6</code>:</p>
+
+      <pre class="programlisting">restrict default kod nomodify notrap nopeer noquery
+restrict -6 default kod nomodify notrap nopeer noquery
+restrict 127.0.0.1
+restrict -6 ::1
+
+server 0.rhel.pool.ntp.org
+server 1.rhel.pool.ntp.org
+server 2.rhel.pool.ntp.org</pre>
+
+      <p>Now we can deploy the configuration to the host <code class="systemitem">sample</code>:</p>
+
+      <pre class="screen">$ ( cd ../../.. ; tar cf /tmp/c5.tar deploy )
+$ scp /tmp/c5.tar root@sample:/root/c5.tar
+$ ssh root@sample "tar xf c5.tar ; deploy/bin/config5"</pre>
+
+      <p>The output of the last command will look like this:</p>
+
+      <pre class="screen">Date:               Fri Aug 24 09:54:47 2012
+Host name:          sample
+Architecture:       x86_64
+OS:                 RedHatEnterpriseWorkstation
+Release:            6.3
+IP:                 127.0.0.1
+FQHN:               sample.example.com
+FQDN:               example.com
+Root:               /
+Stage:              production
+
+Pass 1:
+/etc/ntp.conf: file (ntp:RedHatEnterpriseWorkstation) - CHANGED
+
+Done.</pre>
+
+      <p>If the last command is run again it will not change the file a
+      second time and display the following output:</p>
+
+      <pre class="screen">$ ssh root@sample deploy/bin/config5
+…
+Root:               /
+Stage:              production
+
+Done.</pre>
+    </div>
+
+    <div class="section" title="1.2.2. Best Matching Class"><div class="titlepage"><div><div><h3 class="title"><a name="idp112960"></a>1.2.2. Best Matching Class</h3></div></div></div>
+      
+
+      <p>When the configuration in a feature is applied,
+      <span class="productname">Config5</span> will select the class that it applies
+      using a list of classes generated from the system information. The first
+      class that exists in the feature will be used.</p>
+
+      <p>The list of all classes that are checked on a system can be
+      optained by running <span class="command"><strong>config5 --report classorder</strong></span>. For
+      host sample the output will look like this:</p>
+
+      <pre class="screen">$ ssh root@sample "deploy/bin/config5 --report classorder"
+sample_RedHatEnterpriseWorkstation_6.3_x86_64
+sample_RedHatEnterpriseWorkstation_6.3
+sample_RedHatEnterpriseWorkstation_x86_64
+sample_RedHatEnterpriseWorkstation
+sample_x86_64
+sample
+RedHatEnterpriseWorkstation_6.3_x86_64
+RedHatEnterpriseWorkstation_6.3
+RedHatEnterpriseWorkstation_x86_64
+RedHatEnterpriseWorkstation</pre>
+
+      <p>The class <code class="classname">RedHatEnterpriseWorkstation</code> from
+      our example is the last one in the list. We could modify the
+      <code class="filename">spec</code> file to look like this:</p>
+
+      <pre class="programlisting">sample:
+  copy ntp.conf /etc/ntp.conf root root 644</pre>
+
+      <p>When this configuration is on the host sample the result is the
+      same. When the same configuration is applied on any other system the
+      feature would not be applied because no class matches (assuming that the
+      system is not named <code class="systemitem">sample</code>).</p>
+    </div>
+
+    <div class="section" title="1.2.3. Adding Service Management to the ntp Feature"><div class="titlepage"><div><div><h3 class="title"><a name="idp119792"></a>1.2.3. Adding Service Management to the <code class="function">ntp</code>
+      Feature</h3></div></div></div>
+      
+
+      <p>The <code class="function">ntp</code> feature so far only copies the file.
+      This is not enough because the <code class="systemitem">ntpd</code> service is not enabled by default and
+      is not running. We will extend the feature to enable the service and
+      start it:</p>
+
+      <pre class="programlisting">RedHatEnterpriseWorkstation:
+  copy ntp.conf /etc/ntp.conf root root 644
+  execute chkconfig ntpd on
+  execute service ntpd start</pre>
+
+      <p>This will additionally execute the two shell commands
+      <span class="command"><strong>chkconfig ntpd on</strong></span> and <span class="command"><strong>service ntpd
+      start</strong></span>.</p>
+
+      <p>If we deploy this to <code class="systemitem">sample</code> like before the output will look
+      like this:</p>
+
+      <pre class="screen">$ ssh root@sample "tar xf c5.tar ; deploy/bin/config5"
+…
+
+Pass 1:
+run (ntp:RedHatEnterpriseWorkstation): chkconfig ntpd on
+run (ntp:RedHatEnterpriseWorkstation): service ntpd restart
+
+Done.</pre>
+
+      <p>The output remains the same if the <span class="command"><strong>config5</strong></span>
+      command is run a second time. The service is enabled and started every
+      time but we actually only want that to happen when
+      <code class="filename">/etc/ntp.conf</code> changes. To change that we add a
+      trigger flag to the lines that execute the shell commands:</p>
+
+      <pre class="programlisting">RedHatEnterpriseWorkstation:
+  copy ntp.conf /etc/ntp.conf root root 644
+  execute <span class="emphasis"><em>-t</em></span> root root chkconfig ntpd on
+  execute <span class="emphasis"><em>-t</em></span> root root service ntpd restart</pre>
+
+      <p>Now the commands are only executed if the configuration file
+      changes. When we deploy this to <code class="systemitem">sample</code> the output again shows no changes
+      because the correct <code class="filename">/etc/ntp.conf</code> is already in
+      place:</p>
+
+      <pre class="screen">$ ssh root@sample "tar xf c5.tar ; deploy/bin/config5"
+…
+Root:               /
+Stage:              production
+
+Done.</pre>
+    </div>
+
+    <div class="section" title="1.2.4. Improving the ntp Feature with Extensions"><div class="titlepage"><div><div><h3 class="title"><a name="idp130176"></a>1.2.4. Improving the <code class="function">ntp</code> Feature with
+      Extensions</h3></div></div></div>
+      
+
+      <p>Executing commands to enable and start the <code class="systemitem">ntpd</code> service works but there is a better
+      way. <span class="productname">Config5</span> ships with a set of extensions
+      and one of them is the <span class="productname">Services</span> extension
+      which will manage system services using the <span class="command"><strong>chkconfig</strong></span>
+      and the <span class="command"><strong>service</strong></span> commands. It does follow the overall
+      principle of <span class="productname">Config5</span> that it only applies a
+      change if necessary, i.e., only enable or start a service if it is not
+      enabled or started yet.</p>
+
+      <p>The installation of the extension is simple:</p>
+
+      <pre class="screen">$ ( cd ../.. ; tar zxf ../extensions/service.tgz )
+</pre>
+
+      <p>We modify the spec file and use the new
+      <code class="function">service</code> change provided by the extension:</p>
+
+      <pre class="programlisting">RedHatEnterpriseWorkstation:
+  copy ntp.conf /etc/ntp.conf root root 644
+  service enable ntpd
+  service start ntpd</pre>
+
+      <p>The trigger flags are gone which makes subtle difference for the
+      systems administrator: Any time <span class="command"><strong>config5</strong></span> is run it
+      will enable and start the service, even if an administrator has
+      intentionally shut it down on a specific target system. For <code class="systemitem">ntpd</code> this is probably the right choice but
+      for services that require maintenance such as <code class="systemitem">mysqld</code>, <code class="systemitem">httpd</code> or <code class="systemitem">samba</code> an administrator will probably not
+      want these services to be suddenly started, especially if
+      <span class="command"><strong>config5</strong></span> is run from <code class="systemitem">cron</code>. For these services it is better to at
+      least trigger the service start on configuration file changes.</p>
+
+      <p>There is still one issue with the above spec file though. The
+      <code class="systemitem">ntpd</code> service will not be
+      restarted if the configuration file changes while the <code class="systemitem">ntpd</code> service is already running. The
+      <span class="productname">Services</span> extension does intentionally not
+      provide a <code class="function">restart</code> action but the original
+      <span class="command"><strong>service ntpd restart</strong></span> command will do the job:</p>
+
+      <pre class="programlisting">RedHatEnterpriseWorkstation:
+  copy ntp.conf /etc/ntp.conf root root 644
+  execute -t root root service ntpd restart
+  service enable ntpd
+  service start ntpd</pre>
+
+      <p>The <code class="function">execute</code> change is inserted before the
+      service changes to avoid a restart of the service because one of the
+      <code class="function">service</code> changes needs to be applied.</p>
+    </div>
+
+    <div class="section" title="1.2.5. Installation vs. Production"><div class="titlepage"><div><div><h3 class="title"><a name="idp132032"></a>1.2.5. Installation vs. Production</h3></div></div></div>
+      
+
+      <p>We will typically install Red Hat Enterprise Linux Workstation on
+      a target system over the network using kickstart and at that time also
+      run <span class="command"><strong>config5</strong></span> from a post script section to apply the
+      configuration. However, the environment during installation is not
+      exactly the same as when the system is running with the installed
+      operating system. The installer has already configured the local time so
+      we actually do not want to start or restart <code class="systemitem">ntpd</code> at this point.</p>
+
+      <p><span class="productname">Config5</span> predefines two
+      <em class="firstterm">stages</em> for a target system,
+      <code class="constant">installation</code> and <code class="constant">production</code>,
+      the later being the default. We will tag the service start and restart
+      changes to only be applied in the production stage:</p>
+
+      <pre class="programlisting">RedHatEnterpriseWorkstation:
+  copy ntp.conf /etc/ntp.conf root root 644
+  execute -t<span class="emphasis"><em>P</em></span> root root service ntpd restart
+  service enable ntpd
+  service -<span class="emphasis"><em>P</em></span> start ntpd</pre>
+
+      <p>To make this work we will run <span class="command"><strong>config5</strong></span> with the
+      option <code class="option">--set stage=installation</code> in the kickstart post
+      script.</p>
+    </div>
+
+    <div class="section" title="1.2.6. Adding Time Servers to the ntp Feature"><div class="titlepage"><div><div><h3 class="title"><a name="idp158368"></a>1.2.6. Adding Time Servers to the <code class="function">ntp</code>
+      Feature</h3></div></div></div>
+      
+
+      <p>We are actually running two time servers <code class="systemitem">ts1.example.com</code> and <code class="systemitem">ts2.example.com</code> that we would prefer
+      to the default servers. Workstations will only use <code class="systemitem">ts1</code> while servers will use <code class="systemitem">ts2</code>. We could create two files, one for
+      servers and one for workstations but we can do better using a template.
+      We modify the file <code class="filename">ntp.conf</code> as follows:</p>
+
+      <pre class="programlisting">restrict default kod nomodify notrap nopeer noquery
+restrict -6 default kod nomodify notrap nopeer noquery
+restrict 127.0.0.1
+restrict -6 ::1
+
+[%- IF server %]
+server [% server %]
+[%- ELSE %]
+server 0.rhel.pool.ntp.org
+server 1.rhel.pool.ntp.org
+server 2.rhel.pool.ntp.org
+[%- END %]</pre>
+
+      <p>To generate two distinct files for servers and workstations we
+      change the <code class="filename">spec</code> file to this:</p>
+
+      <pre class="programlisting">RedHatEnterpriseWorkstation: _ntp server=ts2.example.com
+RedHatEnterpriseServer: _ntp server=ts1.example.com
+
+_ntp:
+  copy ntp.conf /etc/ntp.conf root root 644
+  execute -tP root root service ntpd restart
+  service enable ntpd
+  service -P start ntpd</pre>
+    </div>
+
+    <div class="section" title="1.2.7. Dealing with Exceptions"><div class="titlepage"><div><div><h3 class="title"><a name="idp166080"></a>1.2.7. Dealing with Exceptions</h3></div></div></div>
+      
+
+      <p>As time passes we encounter a few exceptions that our
+      configuration has to cover:</p>
+
+      <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+          <p>The laptop <code class="systemitem">foobar</code>
+          is configured as workstation but cannot contact the time servers
+          because of the company firewall.</p>
+        </li><li class="listitem">
+          <p>The user of workstation <code class="systemitem">snafu</code> wants it to be configured to
+          use <code class="systemitem">ts2</code>.</p>
+        </li><li class="listitem">
+          <p>A bug in <code class="systemitem">ntpd</code> on 64
+          bit systems causes it to crash all the time. Until the bug is fixed
+          we need a workaround.</p>
+        </li></ul></div>
+
+      <p>We change the <code class="filename">spec</code> file by adding the
+      following two host-specific lines:</p>
+
+      <pre class="programlisting">foobar: RedHatEnterpriseWorkstation
+snafu: RedHatEnterpriseWorkstation server=ts2.example.com</pre>
+
+      <p>The generated <code class="filename">/etc/ntp.conf</code> on <code class="systemitem">foobar</code> will contain the three time
+      servers in the <code class="systemitem">ntp.org</code> pool.
+      The same file on <code class="systemitem">snafu</code> will
+      refer to <code class="systemitem">ts2.example.com</code>.</p>
+
+      <p>A suitable workaround for the crashes of <code class="systemitem">ntpd</code> could be to set the time with
+      <span class="command"><strong>ntpdate</strong></span> and run it whenever
+      <span class="command"><strong>config5</strong></span> runs: Adding the following snippet to the
+      <code class="filename">spec</code> file does this:</p>
+
+      <pre class="programlisting">RedHatEnterpriseWorkstation_x86_64: _ntpdate server=ts1.example.com
+RedHatEnterpriseServer_x86_64: _ntpdate server=ts2.example.com
+
+_ntpdate:
+  service -P stop ntpd
+  service disable ntpd
+  execute ntpdate [% server %]</pre>
+
+      <p>The workarounds for <code class="systemitem">foobar</code> and <code class="systemitem">snafu</code> need to be verified again at this
+      point. Since <code class="systemitem">foobar</code> is an
+      old laptop it will remain a 32 bit installation. The workstation
+      <code class="systemitem">snafu</code> on the other hand
+      could be reinstalled with either 32 or 64 bit so we make sure both work
+      fine and add this line to the <code class="filename">spec</code> file:</p>
+
+      <pre class="programlisting">snafu_x86_64: RedHatEnterpriseWorkstation_x86_64 server=ts2.example.com</pre>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 1. Introduction </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 2. Configuration Data</td></tr></table></div></body></html>

@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter>
+<chapter version="5.0" xml:lang="en_US" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/2000/svg"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Configuration Application</title>
+
+  <para>Understanding how the configuration is applied to a system is
+  essential and outlined in this chapter.</para>
+
+  <section xml:id="app.proc">
+    <title>Configuration Processing</title>
+
+    <para>The information in the feature set is processed in a well defined
+    order:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>All features are processed in alphabetical order.</para>
+      </listitem>
+
+      <listitem>
+        <para>Starting with the class that matches best in each feature (if
+        there is any, see <xref linkend="cust.class.match"/>) the referenced
+        classes are processed first from left to right. Classes are processed
+        once every time they are referenced which may be more than
+        once.</para>
+      </listitem>
+
+      <listitem>
+        <para>In each class that is processed the changes are processed from
+        top to bottom.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Some changes are applied in the order they are processed (see <xref
+    linkend="app.changes"/>).</para>
+  </section>
+
+  <section xml:id="app.env">
+    <title>Environment</title>
+
+    <section xml:id="app.root">
+      <title>Root Directory</title>
+
+      <para>The root directory that is used when Config5 applies the
+      configuration on a target system is typically /. The root directory can
+      be changed by setting the root system information item, for instance
+      using the <option>--set</option> command line option of
+      <command>config5</command>.</para>
+
+      <para>All core changes support a different root directory. All changes
+      except the execute change will automatically prepend the root directory
+      to all absolute source or destination paths. The execute change is
+      executed but requires the use of substitution by inserting
+      <replaceable>[% info_root %]</replaceable> where needed. </para>
+    </section>
+
+    <section xml:id="app.stage">
+      <title>Stages</title>
+
+      <para>A target system may require different configurations throughout
+      its life cycle. <productname>Config5</productname> supports this in a
+      generic fashion by defining a set of <firstterm>stages</firstterm>. The
+      default configuration defines the following two stages:</para>
+
+      <informaltable>
+        <tgroup cols="3">
+          <thead>
+            <row>
+              <entry align="left">Stage</entry>
+
+              <entry align="left">Flag</entry>
+
+              <entry align="left">Description</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry><constant>installation</constant></entry>
+
+              <entry><option>-I</option></entry>
+
+              <entry>System is being installed.</entry>
+            </row>
+
+            <row>
+              <entry><constant>production</constant></entry>
+
+              <entry><option>-P</option></entry>
+
+              <entry>System is up and running (default).</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+
+      <para>Individual changes can be selectively enabled for only some stages
+      by specifying the stages as flags (see <xref
+      linkend="conf.changes.flags"/>). If no stage is specified this means
+      that the change is applied in any stage.</para>
+
+      <para>The stage can be set using the <option>--set</option> command line
+      option of <command>config5</command>. </para>
+    </section>
+  </section>
+
+  <section>
+    <title>Configuration Application</title>
+
+    <para>The configuration is applied after processing in a structured
+    manner.</para>
+
+    <section xml:id="app.passes">
+      <title>Passes</title>
+
+      <para>The configuration is applied in ten
+      <emphasis><firstterm>passes</firstterm></emphasis>. The pass in which a
+      change is applied can be specified with the flags <option>-0</option> to
+      <option>-9</option> for each change. The default pass is
+      <constant>1</constant>.</para>
+
+      <para>Applying the configuration in multiple passes can be helpful in a
+      couple of scenarios:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Changes that must be done before or after everything else can
+          be placed in an earlier or later pass.</para>
+        </listitem>
+
+        <listitem>
+          <para>Configuration files that are generated by a command that
+          writes a temporary file which is copied to the final
+          destination.</para>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section xml:id="app.phases">
+      <title>Phases</title>
+
+      <para>In each pass the relevant changes are applied in different phases.
+      Currently the following phases are defined and processed in this
+      order:</para>
+
+      <orderedlist>
+        <listitem>
+          <para>Install or remove packages</para>
+        </listitem>
+
+        <listitem>
+          <para>Delete files and directories</para>
+        </listitem>
+
+        <listitem>
+          <para>Create files and directories</para>
+        </listitem>
+
+        <listitem>
+          <para>Modify files and directories</para>
+        </listitem>
+
+        <listitem>
+          <para>Configure system</para>
+        </listitem>
+
+        <listitem>
+          <para>Execute commands</para>
+        </listitem>
+      </orderedlist>
+
+      <para>Each type of change is applied in exactly one phase:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Install or remove packages</term>
+
+          <listitem>
+            <para>(not used by the core changes)</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Delete files and directories</term>
+
+          <listitem>
+            <para><function>remove</function></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Create files and directories</term>
+
+          <listitem>
+            <para><function>append</function>, <function>copy</function>,
+            <function>directory</function>, <function>link</function>,
+            <function>symlink</function>, <function>truncate</function></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Modify files and directories</term>
+
+          <listitem>
+            <para>(not used by the core changes)</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Configure system</term>
+
+          <listitem>
+            <para>(not used by the core changes)</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Execute commands</term>
+
+          <listitem>
+            <para><function>execute</function>,
+            <function>service</function></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>For each phase the order in which changes are applied is also
+      defined:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Install or remove packages</term>
+
+          <listitem>
+            <para>All changes are applied in the order the changes were
+            processed (see <xref linkend="app.proc"/>).</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Delete files and directories</term>
+
+          <listitem>
+            <para>All changes are ordered according to the <emphasis>reverse
+            alphabetical order</emphasis> of the destination path and applied
+            in this order. Files are deleted before their parent
+            directory.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Create files and directories</term>
+
+          <listitem>
+            <para>All changes are ordered according to the
+            <emphasis>alphabetical order</emphasis> of the destination path
+            and applied in this order. Directories are created before files
+            they contain.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Modify files and directories</term>
+
+          <listitem>
+            <para>All changes are ordered according to the
+            <emphasis>alphabetical order</emphasis> of the destination path
+            and applied in this order. Directories are created before files
+            they contain.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Configure system</term>
+
+          <listitem>
+            <para>All changes are applied in the order the changes were
+            processed (see <xref linkend="app.proc"/>).</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Execute commands</term>
+
+          <listitem>
+            <para>All changes are applied in the order the changes were
+            processed (see <xref linkend="app.proc"/>).</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <section xml:id="app.generation">
+        <title>Data Generation</title>
+
+        <para>Before the files are copied in phase <constant>3</constant> of
+        each pass, the content of files are generated. This is done on two
+        steps:</para>
+
+        <orderedlist>
+          <listitem>
+            <para>The source data of all append and copy changes that are not
+            marked as binary using the <option>-b</option> flag is processed
+            using Template Toolkit.</para>
+          </listitem>
+
+          <listitem>
+            <para>The processed data from all <function>append</function>
+            changes is appended to the processed data of the respective
+            <function>copy</function> or <function>truncate</function>
+            changes.</para>
+          </listitem>
+        </orderedlist>
+
+        <para>The processed data is not written to the destination files yet
+        but kept in memory for use during the actual configuration
+        application.</para>
+
+        <important>
+          <para>Copying large files may use up a lot of memory because of the
+          intermediate copy in memory.</para>
+        </important>
+      </section>
+    </section>
+
+    <section xml:id="app.changes">
+      <title>Changes</title>
+
+      <para>For each change that is applied <command>config5</command> will
+      first check if there are modifications needed. Changes that require no
+      modifications on the target system are not shown in the default
+      verbosity level.</para>
+
+      <para>The following subsections describe how each change type is
+      applied.</para>
+
+      <section>
+        <title><function>copy</function> and
+        <function>truncate</function></title>
+
+        <para>When applying a <function>copy</function> or
+        <function>truncate</function> change <command>config5</command> will
+        do it with as few side effects as possible. A file is only replaced or
+        created if it is missing or its content (or file type) changes in
+        which case <command>config5</command> does the following:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>If the file already exists but is not a plain file then it
+            will be deleted first.</para>
+          </listitem>
+
+          <listitem>
+            <para>It will create a temporary file with the new content and set
+            all permissions as specified. If SELinux is enabled and no SELinux
+            context is specified and the file is replaced then the context
+            from the current file is copied to the temporary file.</para>
+          </listitem>
+
+          <listitem>
+            <para>The temporary file is renamed to the real file name which
+            also deletes the old file.</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>If the file is already present and the content is the same then
+        only the properties such as user, group, mode or SELinux context (if
+        enabled) are modified if necessary.</para>
+      </section>
+
+      <section>
+        <title><function>directory</function></title>
+
+        <para>If a file exists with the same path as the directory it is
+        removed.</para>
+      </section>
+
+      <section>
+        <title><function>execute</function></title>
+
+        <para>The command line is executed by the default shell of the user
+        who is running <command>config5</command>.</para>
+      </section>
+
+      <section>
+        <title><function>link</function></title>
+
+        <para>If the link is missing or does not have the same device and
+        inode number as the file it links to <command>config5</command> does
+        the following:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>It will create a temporary link to the source file</para>
+          </listitem>
+
+          <listitem>
+            <para>The temporary link is renamed to the real file name which
+            also deletes the old link.</para>
+          </listitem>
+        </itemizedlist>
+      </section>
+
+      <section>
+        <title><function>remove</function></title>
+
+        <para>If the file or directory exists it will be removed.</para>
+
+        <important>
+          <para>Recursively deleting directories is not supported at this
+          time. Use an <function>execute</function> change to run
+          <command>rm</command> instead.</para>
+        </important>
+      </section>
+
+      <section>
+        <title><function>symlink</function></title>
+
+        <para>If the symbolic link is missing or does not have the right
+        content <command>config5</command> does the following:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>If the file already exists but is not a symbolic link then
+            it will be deleted first.</para>
+          </listitem>
+
+          <listitem>
+            <para>It will create a temporary symbolic link with the new
+            content and set all permissions as specified. If SELinux is
+            enabled and no SELinux context is specified and the symbolic link
+            is replaced then the context from the current symbolic link is
+            copied to the temporary symbolic link.</para>
+          </listitem>
+
+          <listitem>
+            <para>The temporary symbolic link is renamed to the real file name
+            which also deletes the old symbolic link.</para>
+          </listitem>
+        </itemizedlist>
+      </section>
+
+      <section>
+        <title>properties</title>
+
+        <para>The file or directory must exist. The properties such as user,
+        group, mode or SELinux context (if enabled) are modified if
+        necessary.</para>
+      </section>
+    </section>
+
+    <section xml:id="app.triggers">
+      <title>Triggered Changes</title>
+
+      <para>A simple mechanism exists to make the application of changes
+      depend on the modifications of previous changes. The most common case
+      where this is used is to restart a service after updating its
+      configuration files.</para>
+
+      <para>Each class and each feature has a <emphasis>triggered</emphasis>
+      flag which are cleared before configuration application. Every change
+      that requires a relevant modification (see <xref
+      linkend="app.triggers.relevant"/>) to the target system will set the
+      triggered flags of its class and feature. Each change can be flagged to
+      be triggered using either the <option>-t</option> or <option>-T</option>
+      flag. In this case the change is only applied if the triggered flag of
+      the class (<option>-t</option>) or the feature (<option>-T</option>) of
+      the change is set.</para>
+
+      <para>The following facts are also relevant when working with triggered
+      changes:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>The flags are kept across all phases and passes</para>
+        </listitem>
+
+        <listitem>
+          <para>Triggered changes never set the triggered flags</para>
+        </listitem>
+      </itemizedlist>
+
+      <section xml:id="app.triggers.relevant">
+        <title>Relevant Modifications</title>
+
+        <para>Not every modification that is done when a change is applied
+        sets the triggered flags. The following table lists the modifications
+        that set or do not set the triggered flags:</para>
+
+        <informaltable>
+          <tgroup cols="3">
+            <colspec align="left"/>
+
+            <thead>
+              <row>
+                <entry align="left">Change</entry>
+
+                <entry>Triggered Flag Set</entry>
+
+                <entry align="left">No Change</entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry><function>append</function></entry>
+
+                <entry>Never</entry>
+
+                <entry/>
+              </row>
+
+              <row>
+                <entry><function>copy</function></entry>
+
+                <entry>File missing or not a plain file,content
+                changed</entry>
+
+                <entry>Change of user, group, mode or other properties</entry>
+              </row>
+
+              <row>
+                <entry><function>directory</function></entry>
+
+                <entry>Directory missing or not a directory</entry>
+
+                <entry>Change of user, group, mode or other properties</entry>
+              </row>
+
+              <row>
+                <entry><function>execute</function></entry>
+
+                <entry>Never</entry>
+
+                <entry/>
+              </row>
+
+              <row>
+                <entry><function>link</function></entry>
+
+                <entry>Link missing or to different inode</entry>
+
+                <entry/>
+              </row>
+
+              <row>
+                <entry><function>properties</function></entry>
+
+                <entry>Change of user, group, mode or other properties</entry>
+
+                <entry/>
+              </row>
+
+              <row>
+                <entry><function>remove</function></entry>
+
+                <entry>File or directory existing</entry>
+
+                <entry/>
+              </row>
+
+              <row>
+                <entry><function>symlink</function></entry>
+
+                <entry>Symbolic link missing or not a symbolic link, content
+                changed</entry>
+
+                <entry>Change of user, group or other properties</entry>
+              </row>
+
+              <row>
+                <entry><function>truncate</function></entry>
+
+                <entry>File missing or not a plain file,content
+                changed</entry>
+
+                <entry>Change of user, group, mode or other properties</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+      </section>
+    </section>
+  </section>
+</chapter>

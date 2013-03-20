@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE preface>
+<preface version="5.0" xml:lang="en_US" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/2000/svg"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Preface</title>
+
+  <para><productname>Config5</productname> is a configuration management
+  utility for UNIX systems. It is particularly well suited to manage large
+  numbers of systems in an enterprise where the configuration varies in the
+  various organizational units. Configuration data can be verified before
+  deployment which makes deployment more resilient to human errors and
+  facilitates teamwork. <productname>Config5</productname> is highly
+  customizable and extendable to support a broad variation of UNIX and
+  UNIX-like operating systems.</para>
+
+  <section>
+    <title>Background</title>
+
+    <para><orgname>The IT Service Group
+    (</orgname><emphasis><orgname>isginf</orgname></emphasis>) of the
+    <orgname>Department of Computer Science</orgname> at ETH Zurich is
+    managing UNIX systems since the early nineties. Since then we have always
+    used custom configuration management utilities to provision servers and
+    workstations. <productname>Config5</productname> is the
+    <emphasis>fifth</emphasis> utility that we developed, hence its name. We
+    believe that <productname>Config5</productname> may be useful for others
+    too and therefore release <productname>Config5</productname> as open
+    source project and make it publicly available.</para>
+  </section>
+
+  <section>
+    <title>Motivation</title>
+
+    <para>Having a way to provision computer systems with configuration data
+    over the whole life cycle is important to any systems administrator who
+    manages two computers or more.</para>
+
+    <para>Some enterprise operating systems provide a way to provision a
+    configuration during the initial installation but usually provide none to
+    update the configuration later. Many programs exist to fill in this gap.
+    Utilities like <productname>Bcfg2</productname> <xref
+    linkend="bib.bcfg2"/>, <productname>Cfengine</productname> <xref
+    linkend="bib.cfengine"/>, <productname>LCFG</productname> <xref
+    linkend="bib.lcfg"/>, <productname>Puppet</productname> <xref
+    linkend="bib.puppet"/> and many others were all developed to solve one
+    problem: To consistently manage the configuration of many computers. Each
+    of them has a different philosophy, different design requirements and
+    different strengths and weaknesses. A systems administrator can already
+    now pick the one that fits his or her needs, policies or work flow
+    best.</para>
+
+    <para>At the end of 2010 <emphasis>isginf</emphasis> was preparing to roll
+    out <productname>Red Hat Enterprise Linux</productname>
+    <productnumber>6</productnumber>. Because of some important missing
+    functionality and other problems with our previous configuration
+    management utilities we once more looked for alternatives. Unfortunately
+    none of the existing utilities were suitable for our requirements and we
+    developed <productname>Config5</productname>.</para>
+
+    <section>
+      <title>Requirements</title>
+
+      <para>The way IT is organized for us (in an educational institution with
+      thirty-odd research groups) defines an interesting set of general
+      conditions:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Our people are free to use our service but are not required
+          to. As a consequence we never know for sure what machines are
+          around. A system that we install today may be reinstalled by its
+          owner with his favorite distro the next day. Workstations are
+          generally installed with both Windows and Linux and either of them
+          may not be booted into for months. The difference between a
+          reinstalled system and one that is always booted in the other
+          operating system is difficult to track.</para>
+        </listitem>
+
+        <listitem>
+          <para>We provide installations on laptops too. These may be outside
+          the organization for weeks but must be able to update themselves
+          without access to our infrastructure.</para>
+        </listitem>
+
+        <listitem>
+          <para>Every research group has its own set of configuration data
+          that is unique to it. Configured printers, authentication settings,
+          firewall rules are typically all different.</para>
+
+          <para>Total uniformity of the deployed systems even within a
+          research group is difficult to enforce. There are always exceptions
+          or special configurations requested for a project. Such exceptions
+          must be tracked and documented.</para>
+        </listitem>
+
+        <listitem>
+          <para>We are organized as a team with individual responsibilities.
+          Parts of the configuration may be changed by several team members at
+          the same time.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>Based on the above and a few lessons learned we defined the
+      following set of requirements for a suitable configuration management
+      utility:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>The configuration must be pulled by client systems rather than
+          pushed on by a server.</para>
+        </listitem>
+
+        <listitem>
+          <para>The configuration must be selected using information that may
+          be only known to the client system but is not maintained in a
+          central database. This implies that the client system selects the
+          configuration that it needs rather than having a server unilaterally
+          decide what it has to have.</para>
+        </listitem>
+
+        <listitem>
+          <para>Configuration files must be constructible from templates and
+          fragments.</para>
+        </listitem>
+
+        <listitem>
+          <para>The deployment should be fast and scalable. The configuration
+          may be applied often and on many systems.</para>
+        </listitem>
+
+        <listitem>
+          <para>Changes to the configuration must be traceable and revertible.
+          This can usually be achieved with a version control management
+          system.</para>
+        </listitem>
+
+        <listitem>
+          <para>The system should be resilient to human error as much as
+          possible. In combination with a version control management system it
+          should prevent invalid, conflicting or incomplete configuration
+          data.</para>
+        </listitem>
+      </itemizedlist>
+    </section>
+  </section>
+
+  <section>
+    <title>Acknowledgments</title>
+
+    <para><productname>Config5</productname> bases on
+    <productname>configng</productname> (our <emphasis>fourth</emphasis>
+    configuration management utility) done by Klaus Ethgen
+    (<email>klaus@ethgen.ch</email>) while he was a member of
+    <emphasis>isginf</emphasis> . Some concepts and ideas used in
+    <productname>configng</productname> were taken from <productname>Template
+    Tree</productname> <productnumber>II</productnumber> <xref
+    linkend="bib.tetre2"/>.</para>
+  </section>
+</preface>

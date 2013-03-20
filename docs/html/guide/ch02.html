@@ -1,0 +1,44 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Chapter 2. Configuration Data</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Config5"><link rel="up" href="index.html" title="Config5"><link rel="prev" href="ch01s02.html" title="1.2. Examples"><link rel="next" href="ch02s02.html" title="2.2. Features"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 2. Configuration Data</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s02.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch02s02.html">Next</a></td></tr></table><hr></div><div lang="en_US" class="chapter" title="Chapter 2. Configuration Data"><div class="titlepage"><div><div><h2 class="title"><a name="idp95600"></a>Chapter 2. Configuration Data</h2></div></div></div>
+  
+
+  <p>The following sections provide in-depth explanation of the various
+  concepts and the structure of configuration data that is deployed using
+  <span class="productname">Config5</span>.</p>
+
+  <div class="section" title="2.1. Feature Set"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="conf.featureset"></a>2.1. Feature Set</h2></div></div></div>
+    
+
+    <p>Configuration data that is applied using
+    <span class="productname">Config5</span> is organized in a <em class="firstterm">feature
+    set</em>. A feature set is nothing more than a directory containing
+    <a class="link" href="ch02s02.html" title="2.2. Features">features</a> (see <a class="xref" href="ch02s02.html" title="2.2. Features">Section 2.2, “Features”</a>).</p>
+
+    <p>By default <span class="productname">Config5</span> has one feature set
+    that is located in a directory named <code class="filename">features</code> in the same directory as the
+    <code class="filename">bin</code> directory containing the
+    <span class="command"><strong>config5</strong></span> script: </p><pre class="screen">$ ls
+deploy  doc  example  util
+$ ls deploy/
+bin  etc  features  lib
+$ ls deploy/bin
+config5</pre><p> There are two ways to customize the location of the default
+    feature set:</p>
+
+    <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+        <p>The directory <code class="filename">features</code>
+        can be replaced by a symbolic link that points to the real location of
+        the feature set directory. The directory the symbolic link links to
+        must be available on all target systems that are going to be
+        managed.</p>
+      </li><li class="listitem">
+        <p>The directory name can be changed by customizing the
+        <span class="productname">Config5</span> settings (see <a class="xref" href="ch07s03.html" title="7.3. Settings Reference">Section 7.3, “Settings Reference”</a>).</p>
+      </li></ul></div>
+  </div>
+
+  
+
+  
+
+  
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s02.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ch02s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.2. Examples </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 2.2. Features</td></tr></table></div></body></html>

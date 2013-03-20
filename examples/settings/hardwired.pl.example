@@ -1,0 +1,14 @@
+# This is an example settings file for using the module 'Config5::System::Hardwired'
+# as system information module.  Copy this file to deploy/etc/custom.d/hardwired.pl
+# and change the copy by commenting out and changing the appropriate lines.
+
+my $self = $_;
+
+# Change the system information class
+$self->{system}->{class} = 'Config5::System::Hardwired';
+
+#$self->{system}->{hardwired}->{os} = 'Solaris';
+#$self->{system}->{hardwired}->{release} = '10';
+
+1;
+
