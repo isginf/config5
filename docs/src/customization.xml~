@@ -194,12 +194,11 @@ custom.d  extensions.d  settings.pl</screen>
             </row>
 
             <row>
-              <entry><varname>$self-&gt;{os}-&gt;{umask}</varname></entry>
+              <entry><varname>$self-&gt;{os}-&gt;{root}</varname></entry>
 
-              <entry><constant>022</constant></entry>
+              <entry><filename>/</filename></entry>
 
-              <entry>The file and directory creating mask for shell
-              commands.</entry>
+              <entry>The root directory.</entry>
             </row>
 
             <row>
@@ -239,6 +238,15 @@ custom.d  extensions.d  settings.pl</screen>
               <entry>The facility for log entries if logging via <systemitem
               class="daemon">syslog</systemitem> is enabled.</entry>
             </row>
+
+            <row>
+              <entry><varname>$self-&gt;{os}-&gt;{umask}</varname></entry>
+
+              <entry><constant>022</constant></entry>
+
+              <entry>The file and directory creating mask for shell
+              commands.</entry>
+            </row>
           </tbody>
         </tgroup>
       </informaltable>
@@ -272,6 +280,15 @@ custom.d  extensions.d  settings.pl</screen>
             </row>
 
             <row>
+              <entry><varname>$self-&gt;{system}-&gt;{items}-&gt;{<replaceable>item</replaceable>}</varname></entry>
+
+              <entry><filename>see <xref
+              linkend="sysinfo.items"/></filename></entry>
+
+              <entry>The known system information items.</entry>
+            </row>
+
+            <row>
               <entry><varname>$self-&gt;{system}-&gt;{properties}-&gt;{file}</varname></entry>
 
               <entry><filename>/etc/config5-properties</filename></entry>
@@ -280,12 +297,12 @@ custom.d  extensions.d  settings.pl</screen>
             </row>
 
             <row>
-              <entry><varname>$self-&gt;{system}-&gt;{items}-&gt;{<replaceable>item</replaceable>}</varname></entry>
+              <entry><varname>$self-&gt;{system}-&gt;{variations_directory}</varname></entry>
 
-              <entry><filename>see <xref
-              linkend="sysinfo.items"/></filename></entry>
+              <entry><replaceable>undefined</replaceable></entry>
 
-              <entry>The known system information items.</entry>
+              <entry>Directory containing files variations of system
+              information (see <xref linkend="run.verify"/>).</entry>
             </row>
           </tbody>
         </tgroup>

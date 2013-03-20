@@ -370,7 +370,7 @@
 
         <para>If <emphasis>in-place</emphasis> modification is explicitly
         enabled using the <option>-i</option> flag then the existing file is
-        mofdified directly instead and <command>config5</command> does the
+        modified directly instead and <command>config5</command> does the
         following:</para>
 
         <orderedlist>

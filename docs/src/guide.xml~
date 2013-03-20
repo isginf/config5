@@ -21,6 +21,12 @@
 
     <revhistory>
       <revision>
+        <date>March 2013</date>
+
+        <revremark>Second Revision for Version 2.2.</revremark>
+      </revision>
+
+      <revision>
         <date>February 2013</date>
 
         <revremark>Second Revision for Version 2.1.</revremark>
@@ -45,7 +51,7 @@
       </revision>
     </revhistory>
 
-    <pubdate>February 2013</pubdate>
+    <pubdate>March 2013</pubdate>
 
     <copyright>
       <year>2013</year>

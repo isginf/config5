@@ -57,7 +57,7 @@
       except the execute change will automatically prepend the root directory
       to all absolute source or destination paths. The execute change is
       executed but requires the use of substitution by inserting
-      <replaceable>[% info_root %]</replaceable> where needed. </para>
+      <replaceable>[% info_root %]</replaceable> where needed.</para>
     </section>
 
     <section xml:id="app.stage">
@@ -106,7 +106,7 @@
       that the change is applied in any stage.</para>
 
       <para>The stage can be set using the <option>--set</option> command line
-      option of <command>config5</command>. </para>
+      option of <command>config5</command>.</para>
     </section>
   </section>
 
@@ -349,7 +349,7 @@
         created if it is missing or its content (or file type) changes in
         which case <command>config5</command> does the following:</para>
 
-        <itemizedlist>
+        <orderedlist>
           <listitem>
             <para>If the file already exists but is not a plain file then it
             will be deleted first.</para>
@@ -366,7 +366,23 @@
             <para>The temporary file is renamed to the real file name which
             also deletes the old file.</para>
           </listitem>
-        </itemizedlist>
+        </orderedlist>
+
+        <para>If <emphasis>in-place</emphasis> modification is explicitly
+        enabled using the <option>-i</option> flag then the existing file is
+        mofdified directly instead and <command>config5</command> does the
+        following:</para>
+
+        <orderedlist>
+          <listitem>
+            <para>If the file already exists but is not a plain file then it
+            will be deleted first.</para>
+          </listitem>
+
+          <listitem>
+            <para>It will write the new content to the file.</para>
+          </listitem>
+        </orderedlist>
 
         <para>If the file is already present and the content is the same then
         only the properties such as user, group, mode or SELinux context (if
@@ -394,7 +410,7 @@
         inode number as the file it links to <command>config5</command> does
         the following:</para>
 
-        <itemizedlist>
+        <orderedlist>
           <listitem>
             <para>It will create a temporary link to the source file</para>
           </listitem>
@@ -403,7 +419,7 @@
             <para>The temporary link is renamed to the real file name which
             also deletes the old link.</para>
           </listitem>
-        </itemizedlist>
+        </orderedlist>
       </section>
 
       <section>
@@ -424,7 +440,7 @@
         <para>If the symbolic link is missing or does not have the right
         content <command>config5</command> does the following:</para>
 
-        <itemizedlist>
+        <orderedlist>
           <listitem>
             <para>If the file already exists but is not a symbolic link then
             it will be deleted first.</para>
@@ -442,7 +458,7 @@
             <para>The temporary symbolic link is renamed to the real file name
             which also deletes the old symbolic link.</para>
           </listitem>
-        </itemizedlist>
+        </orderedlist>
       </section>
 
       <section>

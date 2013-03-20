@@ -312,7 +312,7 @@ custom.d  extensions.d  settings.pl</screen>
     <section xml:id="cust.changes">
       <title>Built-in Changes</title>
 
-      <para>The following settings control the behaviour of the built-in
+      <para>The following settings control the behavior of the built-in
       changes.</para>
 
       <informaltable>
@@ -422,8 +422,8 @@ $self-&gt;{change}-&gt;{keywords}-&gt;{mkdir} = 'directory';
 # Add 'package' as keyword for 'yum'
 $self-&gt;{change}-&gt;{keywords}-&gt;{package} = 'yum';</programlisting>
 
-      <para>Similarily the identifier used for changes when displaying them
-      can be changed by modifying
+      <para>Similarly the identifier used for changes when displaying them can
+      be changed by modifying
       <varname>$self-&gt;{display}-&gt;{keywords}</varname>:<programlisting># Replace the keyword 'directory' by 'mkdir'
 $self-&gt;{display}-&gt;{keywords}-&gt;{directory} = 'mkdir';
 

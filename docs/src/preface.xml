@@ -15,7 +15,7 @@
   various organizational units. Configuration data can be verified before
   deployment which makes deployment more resilient to human errors and
   facilitates teamwork. <productname>Config5</productname> is highly
-  customizable and extendable to support a broad variation of UNIX and
+  customizable and extensible to support a broad variation of UNIX and
   UNIX-like operating systems.</para>
 
   <section>

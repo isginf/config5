@@ -82,7 +82,7 @@ class2: …
   append     [-b]     src path [key=value...]
   directory  [-ntT]   path user group mode [context]
   link       [-ntT]   src_path dest_path
-  symlink    [-ntT]   value path user group [context]
+  symlink    [-bntT]  value path user group [context]
   properties [-ntT]   path user group mode [context]
   remove     [-ntT]   path
   execute    [-bntT]  shell_line</programlisting>
@@ -194,7 +194,8 @@ $ mkdir ntp
 $ cd ntp
 $ vi spec</screen>
 
-      <para>The content of the spec file should look like this:</para>
+      <para>The content of the <filename>spec</filename> file should look like
+      this:</para>
 
       <programlisting>RedHatEnterpriseWorkstation:
   copy ntp.conf /etc/ntp.conf root root 644</programlisting>
@@ -262,22 +263,14 @@ Done.</screen>
     <section>
       <title>Best Matching Class</title>
 
-      <para>The <function>ntp</function> feature so far only copies the file.
-      This is not enough because the <systemitem
-      class="daemon">ntpd</systemitem> service is not enabled by default and
-      is not running. We will extend the feature to enable the service and
-      start it:</para>
+      <para>When the configuration in a feature is applied,
+      <productname>Config5</productname> will select the class that it applies
+      using a list of classes generated from the system information. The first
+      class that exists in the feature will be used.</para>
 
-      <programlisting>RedHatEnterpriseWorkstation:
-  copy ntp.conf /etc/ntp.conf root root 644</programlisting>
-
-      <para>This will additionally execute the two shell commands
-      <command>chkconfig ntpd on</command> and <command>service ntpd
-      start</command>.</para>
-
-      <para>To get the list of all classes that are checked on a system we
-      deploy this to <systemitem class="systemname">sample</systemitem> like
-      before the output will look like this:</para>
+      <para>The list of all classes that are checked on a system can be
+      optained by running <command>config5 --report classorder</command>. For
+      host sample the output will look like this:</para>
 
       <screen>$ ssh root@sample "deploy/bin/config5 --report classorder"
 sample_RedHatEnterpriseWorkstation_6.3_x86_64
@@ -290,6 +283,19 @@ RedHatEnterpriseWorkstation_6.3_x86_64
 RedHatEnterpriseWorkstation_6.3
 RedHatEnterpriseWorkstation_x86_64
 RedHatEnterpriseWorkstation</screen>
+
+      <para>The class <classname>RedHatEnterpriseWorkstation</classname> from
+      our example is the last one in the list. We could modify the
+      <filename>spec</filename> file to look like this:</para>
+
+      <programlisting>sample:
+  copy ntp.conf /etc/ntp.conf root root 644</programlisting>
+
+      <para>When this configuration is on the host sample the result is the
+      same. When the same configuration is applied on any other system the
+      feature would not be applied because no class matches (assuming that the
+      system is not named <systemitem
+      class="systemname">sample</systemitem>).</para>
     </section>
 
     <section>
@@ -380,7 +386,7 @@ Done.</screen>
       systems administrator: Any time <command>config5</command> is run it
       will enable and start the service, even if an administrator has
       intentionally shut it down on a specific target system. For <systemitem
-      class="daemon">ntpd</systemitem> this is probaby the right choice but
+      class="daemon">ntpd</systemitem> this is probably the right choice but
       for services that require maintenance such as <systemitem
       class="daemon">mysqld</systemitem>, <systemitem
       class="daemon">httpd</systemitem> or <systemitem

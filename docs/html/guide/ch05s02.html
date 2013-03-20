@@ -33,7 +33,7 @@
     at a time. It is therefore save to run <span class="command"><strong>config5</strong></span> from
     different places without additional synchronization means.</p>
 
-    <div class="section" title="5.2.1. Random Delay"><div class="titlepage"><div><div><h3 class="title"><a name="idp735472"></a>5.2.1. Random Delay</h3></div></div></div>
+    <div class="section" title="5.2.1. Random Delay"><div class="titlepage"><div><div><h3 class="title"><a name="idp735440"></a>5.2.1. Random Delay</h3></div></div></div>
       
 
       <p>If many system are likely to update their configuration at the
@@ -48,7 +48,7 @@
       <p>The following <span class="command"><strong>bash</strong></span> code will perform a random
       five minute delay before running <span class="command"><strong>config5</strong></span>:</p>
 
-      <div class="example"><a name="idp740128"></a><p class="title"><b>Example 5.1. Random Delay with bash</b></p><div class="example-contents">
+      <div class="example"><a name="idp740096"></a><p class="title"><b>Example 5.1. Random Delay with bash</b></p><div class="example-contents">
         
 
         <pre class="programlisting">RND=$RANDOM ; let "RND\%=300" ; sleep $RND; /usr/config5/bin/config5</pre>

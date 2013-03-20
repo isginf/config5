@@ -74,7 +74,7 @@ class2: …
       extensions.</para>
 
       <para>Each change supports a number of optional flags right after the
-      keyword which modify the behaviour of the change. The arguments after
+      keyword which modify the behavior of the change. The arguments after
       each keyword vary:</para>
 
       <programlisting>  copy       [-bintT] src path user group mode [context] [key=value...]
@@ -269,7 +269,7 @@ Done.</screen>
       class that exists in the feature will be used.</para>
 
       <para>The list of all classes that are checked on a system can be
-      optained by running <command>config5 --report classorder</command>. For
+      obtained by running <command>config5 --report classorder</command>. For
       host sample the output will look like this:</para>
 
       <screen>$ ssh root@sample "deploy/bin/config5 --report classorder"
