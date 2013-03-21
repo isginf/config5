@@ -39,7 +39,7 @@
       handled the same way for all changes, both core changes and changes from
       extension.</p>
 
-      <div class="section" title="2.4.2.1. Source File"><div class="titlepage"><div><div><h4 class="title"><a name="idp275296"></a>2.4.2.1. Source File</h4></div></div></div>
+      <div class="section" title="2.4.2.1. Source File"><div class="titlepage"><div><div><h4 class="title"><a name="idp278304"></a>2.4.2.1. Source File</h4></div></div></div>
         
 
         <p>The <em class="parameter"><code>source</code></em> file may be specified as path
@@ -47,14 +47,14 @@
         system.</p>
       </div>
 
-      <div class="section" title="2.4.2.2. Destination Path"><div class="titlepage"><div><div><h4 class="title"><a name="idp277216"></a>2.4.2.2. Destination Path</h4></div></div></div>
+      <div class="section" title="2.4.2.2. Destination Path"><div class="titlepage"><div><div><h4 class="title"><a name="idp280352"></a>2.4.2.2. Destination Path</h4></div></div></div>
         
 
         <p>The <em class="parameter"><code>destination</code></em> path for changes related
         to the file system must always be absolute.</p>
       </div>
 
-      <div class="section" title="2.4.2.3. User"><div class="titlepage"><div><div><h4 class="title"><a name="idp278976"></a>2.4.2.3. User</h4></div></div></div>
+      <div class="section" title="2.4.2.3. User"><div class="titlepage"><div><div><h4 class="title"><a name="idp282032"></a>2.4.2.3. User</h4></div></div></div>
         
 
         <p>The <em class="parameter"><code>user</code></em> for a file (symbolic link, etc.)
@@ -68,7 +68,7 @@
         <code class="constant">0</code>).</p>
       </div>
 
-      <div class="section" title="2.4.2.4. Group"><div class="titlepage"><div><div><h4 class="title"><a name="idp286304"></a>2.4.2.4. Group</h4></div></div></div>
+      <div class="section" title="2.4.2.4. Group"><div class="titlepage"><div><div><h4 class="title"><a name="idp289744"></a>2.4.2.4. Group</h4></div></div></div>
         
 
         <p>The <em class="parameter"><code>group</code></em> for a file (symbolic link,
@@ -81,7 +81,7 @@
         file is unchanged. If the file does not exist the <code class="systemitem">group</code> of the file is set to <code class="systemitem">root</code> (<code class="systemitem">gid</code> <code class="constant">0</code>).</p>
       </div>
 
-      <div class="section" title="2.4.2.5. Mode"><div class="titlepage"><div><div><h4 class="title"><a name="idp293536"></a>2.4.2.5. Mode</h4></div></div></div>
+      <div class="section" title="2.4.2.5. Mode"><div class="titlepage"><div><div><h4 class="title"><a name="idp296976"></a>2.4.2.5. Mode</h4></div></div></div>
         
 
         <p>The <em class="parameter"><code>mode</code></em> for a file or directory is
@@ -116,14 +116,14 @@
       </div>
     </div>
 
-    <div class="section" title="2.4.3. Core Changes"><div class="titlepage"><div><div><h3 class="title"><a name="idp308864"></a>2.4.3. Core Changes</h3></div></div></div>
+    <div class="section" title="2.4.3. Core Changes"><div class="titlepage"><div><div><h3 class="title"><a name="idp312304"></a>2.4.3. Core Changes</h3></div></div></div>
       
 
       <p>The following subsections explain the core changes that are
       natively supported by <span class="productname">Config5</span>, i.e., are not
       provided by an extension.</p>
 
-      <div class="section" title="2.4.3.1. Copy File"><div class="titlepage"><div><div><h4 class="title"><a name="idp310960"></a>2.4.3.1. Copy File</h4></div></div></div>
+      <div class="section" title="2.4.3.1. Copy File"><div class="titlepage"><div><div><h4 class="title"><a name="idp314400"></a>2.4.3.1. Copy File</h4></div></div></div>
         
 
         <p>The <em class="firstterm">copy</em> change is used to copy a regular
@@ -157,7 +157,7 @@
         <p>If <em class="parameter"><code>destination</code></em> exists and is not a file
         then it will be deleted before creating the file.</p>
 
-        <div class="example"><a name="idp328992"></a><p class="title"><b>Example 2.2. Copy File</b></p><div class="example-contents">
+        <div class="example"><a name="idp332992"></a><p class="title"><b>Example 2.2. Copy File</b></p><div class="example-contents">
           
 
           <pre class="programlisting">sample:
@@ -194,7 +194,7 @@
         <p>If <em class="parameter"><code>destination</code></em> exists and is not a file
         then it will be deleted before creating the file.</p>
 
-        <div class="example"><a name="idp344928"></a><p class="title"><b>Example 2.3. Truncate File</b></p><div class="example-contents">
+        <div class="example"><a name="idp350464"></a><p class="title"><b>Example 2.3. Truncate File</b></p><div class="example-contents">
           
 
           <pre class="programlisting">sample:
@@ -229,7 +229,7 @@
           of the features.</p>
         </div>
 
-        <div class="example"><a name="idp358640"></a><p class="title"><b>Example 2.4. Append to File</b></p><div class="example-contents">
+        <div class="example"><a name="idp362688"></a><p class="title"><b>Example 2.4. Append to File</b></p><div class="example-contents">
           
 
           <pre class="programlisting">sample:
@@ -263,7 +263,7 @@
         <p>If <em class="parameter"><code>destination</code></em> exists and is not a
         directory then it will be deleted before creating the file.</p>
 
-        <div class="example"><a name="idp375184"></a><p class="title"><b>Example 2.5. Create Directory</b></p><div class="example-contents">
+        <div class="example"><a name="idp379072"></a><p class="title"><b>Example 2.5. Create Directory</b></p><div class="example-contents">
           
 
           <pre class="programlisting">sample:
@@ -293,7 +293,7 @@
         device id is different then it will be deleted before creating the
         link.</p>
 
-        <div class="example"><a name="idp386608"></a><p class="title"><b>Example 2.6. Create Link</b></p><div class="example-contents">
+        <div class="example"><a name="idp390448"></a><p class="title"><b>Example 2.6. Create Link</b></p><div class="example-contents">
           
 
           <pre class="programlisting">sample:
@@ -333,7 +333,7 @@
         symbolic link then it will be deleted before creating the symbolic
         link.</p>
 
-        <div class="example"><a name="idp403968"></a><p class="title"><b>Example 2.7. Create Symbolic Link</b></p><div class="example-contents">
+        <div class="example"><a name="idp407568"></a><p class="title"><b>Example 2.7. Create Symbolic Link</b></p><div class="example-contents">
           
 
           <pre class="programlisting">sample:
@@ -342,7 +342,7 @@
         </div></div><br class="example-break">
       </div>
 
-      <div class="section" title="2.4.3.7. Change Properties"><div class="titlepage"><div><div><h4 class="title"><a name="idp405440"></a>2.4.3.7. Change Properties</h4></div></div></div>
+      <div class="section" title="2.4.3.7. Change Properties"><div class="titlepage"><div><div><h4 class="title"><a name="idp408896"></a>2.4.3.7. Change Properties</h4></div></div></div>
         
 
         <p>The <em class="firstterm">properties</em> change is used to change
@@ -366,7 +366,7 @@
         individually compared to the destination file and set when
         different.</p>
 
-        <div class="example"><a name="idp420208"></a><p class="title"><b>Example 2.8. Change Properties</b></p><div class="example-contents">
+        <div class="example"><a name="idp423104"></a><p class="title"><b>Example 2.8. Change Properties</b></p><div class="example-contents">
           
 
           <pre class="programlisting">sample:
@@ -395,7 +395,7 @@
           (see <a class="xref" href="ch02s04.html#conf.chg.execute" title="2.4.3.9. Execute Shell Command Line">Section 2.4.3.9, “Execute Shell Command Line”</a>).</p>
         </div>
 
-        <div class="example"><a name="idp432352"></a><p class="title"><b>Example 2.9. Remove</b></p><div class="example-contents">
+        <div class="example"><a name="idp435568"></a><p class="title"><b>Example 2.9. Remove</b></p><div class="example-contents">
           
 
           <pre class="programlisting">sample:
@@ -428,7 +428,7 @@
         <code class="option">-t</code> or <code class="option">-T</code> flag is used but no earlier
         change triggers it.</p>
 
-        <div class="example"><a name="idp444016"></a><p class="title"><b>Example 2.10. Execute Shell Command Line</b></p><div class="example-contents">
+        <div class="example"><a name="idp447296"></a><p class="title"><b>Example 2.10. Execute Shell Command Line</b></p><div class="example-contents">
           
 
           <pre class="programlisting">sample:

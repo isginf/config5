@@ -150,6 +150,16 @@
   </section>
 
   <section>
+    <title>Development</title>
+
+    <para>Development of <productname>Config5</productname> is continuing on
+    <productname>GitHub</productname> at
+    <uri>https://github.com/isginf/config5</uri>. The latest release can be
+    downloaded from
+    <uri>https://github.com/isginf/config5/tree/master/releases</uri>.</para>
+  </section>
+
+  <section>
     <title>Acknowledgments</title>
 
     <para><productname>Config5</productname> bases on
