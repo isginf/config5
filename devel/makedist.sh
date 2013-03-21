@@ -22,7 +22,7 @@ mv tmp config5-$VERSION
   mv *.tgz extensions
 )
 
-rm -rf config5-$VERSION/devel config5-$VERSION/contrib config5-$VERSION/docs/src
+rm -rf config5-$VERSION/devel config5-$VERSION/contrib config5-$VERSION/docs/src config5-$VERSION/releases
 tar zcf config5-$VERSION.tgz config5-$VERSION
 mv config5-$VERSION config5-latest
 tar zcf config5-latest.tgz config5-latest
