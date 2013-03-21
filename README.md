@@ -3,7 +3,7 @@ Config5
 
 *Config5* is a configuration management utility for UNIX systems. It is particularly well suited to manage large numbers of systems in an enterprise where the configuration varies in the various organizational units. Configuration data can be verified before deployment which makes deployment more resilient to human errors. *Config5* is highly customizable and extensible to support a broad variation of UNIX and UNIX-like operating systems. 
 
-For more information read the [Systems Administrator's Guide](https://github.com/isginf/config5/blob/master/docs/pdf/guide.pdf?raw=true) (also available [in HTML](http://htmlpreview.github.com/?https://github.com/isginf/config5/blob/master/docs/html/guide.html).
+For more information read the [Systems Administrator's Guide](https://github.com/isginf/config5/blob/master/docs/pdf/guide.pdf?raw=true) (also available [in HTML](http://htmlpreview.github.com/?https://github.com/isginf/config5/blob/master/docs/html/guide.html)).
 
 Motivation
 ==========
