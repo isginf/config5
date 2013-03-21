@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>5.2. Running config5</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Config5"><link rel="up" href="ch05.html" title="Chapter 5. Deployment"><link rel="prev" href="ch05.html" title="Chapter 5. Deployment"><link rel="next" href="ch06.html" title="Chapter 6. System Information"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.2. Running <span class="command"><strong>config5</strong></span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch05.html">Prev</a> </td><th width="60%" align="center">Chapter 5. Deployment</th><td width="20%" align="right"> <a accesskey="n" href="ch06.html">Next</a></td></tr></table><hr></div><div class="section" title="5.2. Running config5"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp719648"></a>5.2. Running <span class="command"><strong>config5</strong></span></h2></div></div></div>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>5.2. Running config5</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Config5"><link rel="up" href="ch05.html" title="Chapter 5. Deployment"><link rel="prev" href="ch05.html" title="Chapter 5. Deployment"><link rel="next" href="ch06.html" title="Chapter 6. System Information"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.2. Running <span class="command"><strong>config5</strong></span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch05.html">Prev</a> </td><th width="60%" align="center">Chapter 5. Deployment</th><td width="20%" align="right"> <a accesskey="n" href="ch06.html">Next</a></td></tr></table><hr></div><div class="section" title="5.2. Running config5"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp757248"></a>5.2. Running <span class="command"><strong>config5</strong></span></h2></div></div></div>
     
 
     <p>Running the <span class="command"><strong>config5</strong></span> script at the right time is
@@ -33,7 +33,7 @@
     at a time. It is therefore save to run <span class="command"><strong>config5</strong></span> from
     different places without additional synchronization means.</p>
 
-    <div class="section" title="5.2.1. Random Delay"><div class="titlepage"><div><div><h3 class="title"><a name="idp735440"></a>5.2.1. Random Delay</h3></div></div></div>
+    <div class="section" title="5.2.1. Random Delay"><div class="titlepage"><div><div><h3 class="title"><a name="idp772864"></a>5.2.1. Random Delay</h3></div></div></div>
       
 
       <p>If many system are likely to update their configuration at the
@@ -48,7 +48,7 @@
       <p>The following <span class="command"><strong>bash</strong></span> code will perform a random
       five minute delay before running <span class="command"><strong>config5</strong></span>:</p>
 
-      <div class="example"><a name="idp740096"></a><p class="title"><b>Example 5.1. Random Delay with bash</b></p><div class="example-contents">
+      <div class="example"><a name="idp777488"></a><p class="title"><b>Example 5.1. Random Delay with bash</b></p><div class="example-contents">
         
 
         <pre class="programlisting">RND=$RANDOM ; let "RND\%=300" ; sleep $RND; /usr/config5/bin/config5</pre>

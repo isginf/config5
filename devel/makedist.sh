@@ -1,6 +1,8 @@
 #!/bin/sh
 
-svn export https://svn.isg.inf.ethz.ch/svn/isg/config5/trunk tmp
+rm -rf tmp
+mkdir tmp
+(cd .. ; git archive master ) | tar -x -C tmp
 VERSION=`cat tmp/VERSION`
 mv tmp config5-$VERSION
 
