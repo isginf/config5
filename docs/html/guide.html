@@ -1,16 +1,16 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Config5</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div lang="en_US" class="book" title="Config5"><div class="titlepage"><div><div><h1 class="title"><a name="idp192"></a>Config5</h1></div><div><h2 class="subtitle">Systems Administrator's Guide</h2></div><div><div class="author"><h3 class="author"><span class="firstname">Stefan</span> <span class="surname">Walter</span></h3><code class="email">&lt;<a class="email" href="mailto:stefan.walter@inf.ethz.ch">stefan.walter@inf.ethz.ch</a>&gt;</code></div></div><div><p class="copyright">Copyright © 2013 ETH Zurich, ISGINF</p></div><div><div class="legalnotice" title="Legal Notice"><a name="idp8736"></a><p>Permission is granted to copy, distribute and/or modify this
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Config5</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div lang="en_US" class="book" title="Config5"><div class="titlepage"><div><div><h1 class="title"><a name="idp192"></a>Config5</h1></div><div><h2 class="subtitle">Systems Administrator's Guide</h2></div><div><div class="author"><h3 class="author"><span class="firstname">Stefan</span> <span class="surname">Walter</span></h3><code class="email">&lt;<a class="email" href="mailto:stefan.walter@inf.ethz.ch">stefan.walter@inf.ethz.ch</a>&gt;</code></div></div><div><p class="copyright">Copyright © 2013 ETH Zurich, ISGINF</p></div><div><div class="legalnotice" title="Legal Notice"><a name="idp21936"></a><p>Permission is granted to copy, distribute and/or modify this
       document under the terms of the GNU Free Documentation License, Version
       1.3 or any later version published by the Free Software Foundation; with
       no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A
       copy of the license is included in the section entitled "GNU Free
-      Documentation License".</p></div></div><div><p class="pubdate">March 2013</p></div><div><div class="revhistory"><table border="1" width="100%" summary="Revision history"><tr><th align="left" valign="top" colspan="2"><b>Revision History</b></th></tr><tr><td align="left"></td><td align="left">March 2013</td></tr><tr><td align="left" colspan="2">Third Revision for Version 2.2.</td></tr><tr><td align="left"></td><td align="left">February 2013</td></tr><tr><td align="left" colspan="2">Second Revision for Version 2.1.</td></tr><tr><td align="left"></td><td align="left">August 2012</td></tr><tr><td align="left" colspan="2">First Revision for Version 2.0.</td></tr><tr><td align="left"></td><td align="left">July 2011</td></tr><tr><td align="left" colspan="2">Second Draft.</td></tr><tr><td align="left"></td><td align="left">June 2011</td></tr><tr><td align="left" colspan="2">First Draft.</td></tr></table></div></div></div><hr></div><div lang="en_US" class="preface" title="Preface"><div class="titlepage"><div><div><h2 class="title"><a name="idm480"></a>Preface</h2></div></div></div><p><span class="productname">Config5</span> is a configuration management
+      Documentation License".</p></div></div><div><p class="pubdate">March 2013</p></div><div><div class="revhistory"><table border="1" width="100%" summary="Revision history"><tr><th align="left" valign="top" colspan="2"><b>Revision History</b></th></tr><tr><td align="left"></td><td align="left">March 2013</td></tr><tr><td align="left" colspan="2">Third Revision for Version 2.2.</td></tr><tr><td align="left"></td><td align="left">February 2013</td></tr><tr><td align="left" colspan="2">Second Revision for Version 2.1.</td></tr><tr><td align="left"></td><td align="left">August 2012</td></tr><tr><td align="left" colspan="2">First Revision for Version 2.0.</td></tr><tr><td align="left"></td><td align="left">July 2011</td></tr><tr><td align="left" colspan="2">Second Draft.</td></tr><tr><td align="left"></td><td align="left">June 2011</td></tr><tr><td align="left" colspan="2">First Draft.</td></tr></table></div></div></div><hr></div><div lang="en_US" class="preface" title="Preface"><div class="titlepage"><div><div><h2 class="title"><a name="idm400"></a>Preface</h2></div></div></div><p><span class="productname">Config5</span> is a configuration management
   utility for UNIX systems. It is particularly well suited to manage large
   numbers of systems in an enterprise where the configuration varies in the
   various organizational units. Configuration data can be verified before
   deployment which makes deployment more resilient to human errors and
   facilitates teamwork. <span class="productname">Config5</span> is highly
   customizable and extensible to support a broad variation of UNIX and
-  UNIX-like operating systems.</p><div class="section" title="1. Background"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp29392"></a>1. Background</h2></div></div></div><p><span class="orgname">The IT Service Group
+  UNIX-like operating systems.</p><div class="section" title="1. Background"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp66576"></a>1. Background</h2></div></div></div><p><span class="orgname">The IT Service Group
     (</span><span class="emphasis"><em><span class="orgname">isginf</span></em></span>) of the
     <span class="orgname">Department of Computer Science</span> at ETH Zurich is
     managing UNIX systems since the early nineties. Since then we have always
@@ -19,7 +19,7 @@
     <span class="emphasis"><em>fifth</em></span> utility that we developed, hence its name. We
     believe that <span class="productname">Config5</span> may be useful for others
     too and therefore release <span class="productname">Config5</span> as open
-    source project and make it publicly available.</p></div><div class="section" title="2. Motivation"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp33920"></a>2. Motivation</h2></div></div></div><p>Having a way to provision computer systems with configuration data
+    source project and make it publicly available.</p></div><div class="section" title="2. Motivation"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp70544"></a>2. Motivation</h2></div></div></div><p>Having a way to provision computer systems with configuration data
     over the whole life cycle is important to any systems administrator who
     manages two computers or more.</p><p>Some enterprise operating systems provide a way to provision a
     configuration during the initial installation but usually provide none to
@@ -35,7 +35,7 @@
     functionality and other problems with our previous configuration
     management utilities we once more looked for alternatives. Unfortunately
     none of the existing utilities were suitable for our requirements and we
-    developed <span class="productname">Config5</span>.</p><div class="section" title="2.1. Requirements"><div class="titlepage"><div><div><h3 class="title"><a name="idp42992"></a>2.1. Requirements</h3></div></div></div><p>The way IT is organized for us (in an educational institution with
+    developed <span class="productname">Config5</span>.</p><div class="section" title="2.1. Requirements"><div class="titlepage"><div><div><h3 class="title"><a name="idp78272"></a>2.1. Requirements</h3></div></div></div><p>The way IT is organized for us (in an educational institution with
       thirty-odd research groups) defines an interesting set of general
       conditions:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>Our people are free to use our service but are not required
           to. As a consequence we never know for sure what machines are
@@ -67,14 +67,14 @@
           system.</p></li><li class="listitem"><p>The system should be resilient to human error as much as
           possible. In combination with a version control management system it
           should prevent invalid, conflicting or incomplete configuration
-          data.</p></li></ul></div></div></div><div class="section" title="3. Acknowledgments"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp58304"></a>3. Acknowledgments</h2></div></div></div><p><span class="productname">Config5</span> bases on
+          data.</p></li></ul></div></div></div><div class="section" title="3. Acknowledgments"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp91376"></a>3. Acknowledgments</h2></div></div></div><p><span class="productname">Config5</span> bases on
     <span class="productname">configng</span> (our <span class="emphasis"><em>fourth</em></span>
     configuration management utility) done by Klaus Ethgen
     (<code class="email">&lt;<a class="email" href="mailto:klaus@ethgen.ch">klaus@ethgen.ch</a>&gt;</code>) while he was a member of
     <span class="emphasis"><em>isginf</em></span> . Some concepts and ideas used in
     <span class="productname">configng</span> were taken from <span class="productname">Template
-    Tree</span> <span class="productnumber">II</span> <a class="xref" href="#bib.tetre2">[6]</a>.</p></div></div><div lang="en_US" class="chapter" title="Chapter 1. Introduction"><div class="titlepage"><div><div><h2 class="title"><a name="idp63504"></a>Chapter 1. Introduction</h2></div></div></div><p>In this chapter you will get a quick overview of how
-  <span class="productname">Config5</span> works and how it is used.</p><div class="section" title="1.1. Overview"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp65488"></a>1.1. Overview</h2></div></div></div><p>Configuration data that is managed and deployed with
+    Tree</span> <span class="productnumber">II</span> <a class="xref" href="#bib.tetre2">[6]</a>.</p></div></div><div lang="en_US" class="chapter" title="Chapter 1. Introduction"><div class="titlepage"><div><div><h2 class="title"><a name="idp95904"></a>Chapter 1. Introduction</h2></div></div></div><p>In this chapter you will get a quick overview of how
+  <span class="productname">Config5</span> works and how it is used.</p><div class="section" title="1.1. Overview"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp97680"></a>1.1. Overview</h2></div></div></div><p>Configuration data that is managed and deployed with
     <span class="productname">Config5</span> is maintained in a simple directory
     structure. A main directory (the <span class="emphasis"><em>feature set</em></span>)
     contains a set of sub directories (<span class="emphasis"><em>features</em></span>), each of
@@ -89,7 +89,7 @@ bin  etc  features  lib</pre><p>A feature must at least contain the specificatio
     <code class="filename">test</code> would look like this:</p><pre class="screen">$ ls deploy/features
 test
 $ ls deploy/features/test
-spec</pre><div class="section" title="1.1.1. The spec File"><div class="titlepage"><div><div><h3 class="title"><a name="idp73424"></a>1.1.1. The spec File</h3></div></div></div><p>The spec file describes the changes to do by grouping them in
+spec</pre><div class="section" title="1.1.1. The spec File"><div class="titlepage"><div><div><h3 class="title"><a name="idp105456"></a>1.1.1. The spec File</h3></div></div></div><p>The spec file describes the changes to do by grouping them in
       <span class="emphasis"><em>classes</em></span> and is processed from top to bottom.
       Classes start at the beginning of a line and are followed by a colon.
       <span class="emphasis"><em>Changes</em></span> are identified by a unique keyword with
@@ -102,7 +102,7 @@ class1: &#8230;
   change3 &#8230;
 
 class2: &#8230;
-  change1 &#8230;</pre></div><div class="section" title="1.1.2. Changes"><div class="titlepage"><div><div><h3 class="title"><a name="idp76208"></a>1.1.2. Changes</h3></div></div></div><p><span class="productname">Config5</span> has nine core changes built in:
+  change1 &#8230;</pre></div><div class="section" title="1.1.2. Changes"><div class="titlepage"><div><div><h3 class="title"><a name="idp108448"></a>1.1.2. Changes</h3></div></div></div><p><span class="productname">Config5</span> has nine core changes built in:
       <code class="function">copy</code>, <code class="function">truncate</code>,
       <code class="function">append</code>, <code class="function">directory</code>,
       <code class="function">link</code>, <code class="function">symlink</code>,
@@ -123,7 +123,7 @@ class2: &#8230;
       if necessary. The only exceptions is the <code class="function">execute</code>
       change which is always applied.</p><p>For each change <span class="productname">Config5</span> will check if
       applying the change would actually modify the state of the target system
-      and skip it if does not.</p></div><div class="section" title="1.1.3. Classes"><div class="titlepage"><div><div><h3 class="title"><a name="idp85552"></a>1.1.3. Classes</h3></div></div></div><p>A class may be a host name, an operating system identifier or some
+      and skip it if does not.</p></div><div class="section" title="1.1.3. Classes"><div class="titlepage"><div><div><h3 class="title"><a name="idp118528"></a>1.1.3. Classes</h3></div></div></div><p>A class may be a host name, an operating system identifier or some
       other property. A target system that configures itself with
       <span class="productname">Config5</span> will use the available information
       about itself (the <span class="emphasis"><em>system information</em></span>) to choose the
@@ -150,7 +150,7 @@ RedHatEnterpriseServer:
   copy hosts.deny /etc/hosts.deny root root 644
 
 RedHatEnterpriseWorkstation_6.1: RedHatEnterpriseServer
-  copy hosts.allow.61 /etc/hosts.allow root root 644</pre></div><div class="section" title="1.1.4. File Generation"><div class="titlepage"><div><div><h3 class="title"><a name="idp90384"></a>1.1.4. File Generation</h3></div></div></div><p>Files can be constructed from fragments using the
+  copy hosts.allow.61 /etc/hosts.allow root root 644</pre></div><div class="section" title="1.1.4. File Generation"><div class="titlepage"><div><div><h3 class="title"><a name="idp123888"></a>1.1.4. File Generation</h3></div></div></div><p>Files can be constructed from fragments using the
       <code class="function">append</code> change which can be distributed over
       multiple features.</p><p>All files that are copied and all fragments that are appended are
       by default processed with <span class="productname">Template Toolkit</span>
@@ -165,14 +165,14 @@ RedHatEnterpriseWorkstation_6.1: RedHatEnterpriseServer
       changes:</p><pre class="programlisting">foobar: RedHatEnterpriseServer ACCESS=snafu
 
 RedHatEnterpriseServer:
-  copy hosts.allow /etc/hosts.allow root root 644 ACCESS=ALL</pre></div></div><div class="section" title="1.2. Examples"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp65888"></a>1.2. Examples</h2></div></div></div><p>To illustrate how <span class="productname">Config5</span> is used we will
+  copy hosts.allow /etc/hosts.allow root root 644 ACCESS=ALL</pre></div></div><div class="section" title="1.2. Examples"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp97936"></a>1.2. Examples</h2></div></div></div><p>To illustrate how <span class="productname">Config5</span> is used we will
     create a feature to configure <code class="systemitem">ntpd</code>
     and deploy it to the host <code class="systemitem">sample</code> which is running <code class="systemitem">Red Hat Enterprise Linux 6</code> (<code class="systemitem">RHEL6</code>). In subsequent steps we will enhance
     the configuration step by step.</p><p>First we start by downloading and unpacking the
     <span class="productname">Config5</span> distribution:</p><pre class="screen">$ cd /tmp
-$ wget https://github.com/isginf/config5/blob/master/releases/config5-latest.tgz
+$ wget https://github.com/isginf/config5/blob/master/releases/config5-latest.tgz?raw=true
 $ tar zxf config5-latest.tgz
-$ cd config5-?.?</pre><div class="section" title="1.2.1. The Basic ntp feature"><div class="titlepage"><div><div><h3 class="title"><a name="idp99392"></a>1.2.1. The Basic <code class="function">ntp</code> feature</h3></div></div></div><p>First we create a new feature called <code class="function">ntp</code> and
+$ cd config5-?.?</pre><div class="section" title="1.2.1. The Basic ntp feature"><div class="titlepage"><div><div><h3 class="title"><a name="idp135376"></a>1.2.1. The Basic <code class="function">ntp</code> feature</h3></div></div></div><p>First we create a new feature called <code class="function">ntp</code> and
       <code class="filename">spec</code> file:</p><pre class="screen">$ cd deploy/features
 $ mkdir ntp
 $ cd ntp
@@ -213,7 +213,7 @@ Done.</pre><p>If the last command is run again it will not change the file a
 Root:               /
 Stage:              production
 
-Done.</pre></div><div class="section" title="1.2.2. Best Matching Class"><div class="titlepage"><div><div><h3 class="title"><a name="idp112944"></a>1.2.2. Best Matching Class</h3></div></div></div><p>When the configuration in a feature is applied,
+Done.</pre></div><div class="section" title="1.2.2. Best Matching Class"><div class="titlepage"><div><div><h3 class="title"><a name="idp150320"></a>1.2.2. Best Matching Class</h3></div></div></div><p>When the configuration in a feature is applied,
       <span class="productname">Config5</span> will select the class that it applies
       using a list of classes generated from the system information. The first
       class that exists in the feature will be used.</p><p>The list of all classes that are checked on a system can be
@@ -234,7 +234,7 @@ RedHatEnterpriseWorkstation</pre><p>The class <code class="classname">RedHatEnte
   copy ntp.conf /etc/ntp.conf root root 644</pre><p>When this configuration is on the host sample the result is the
       same. When the same configuration is applied on any other system the
       feature would not be applied because no class matches (assuming that the
-      system is not named <code class="systemitem">sample</code>).</p></div><div class="section" title="1.2.3. Adding Service Management to the ntp Feature"><div class="titlepage"><div><div><h3 class="title"><a name="idp118928"></a>1.2.3. Adding Service Management to the <code class="function">ntp</code>
+      system is not named <code class="systemitem">sample</code>).</p></div><div class="section" title="1.2.3. Adding Service Management to the ntp Feature"><div class="titlepage"><div><div><h3 class="title"><a name="idp157632"></a>1.2.3. Adding Service Management to the <code class="function">ntp</code>
       Feature</h3></div></div></div><p>The <code class="function">ntp</code> feature so far only copies the file.
       This is not enough because the <code class="systemitem">ntpd</code> service is not enabled by default and
       is not running. We will extend the feature to enable the service and
@@ -266,7 +266,7 @@ Done.</pre><p>The output remains the same if the <span class="command"><strong>c
 Root:               /
 Stage:              production
 
-Done.</pre></div><div class="section" title="1.2.4. Improving the ntp Feature with Extensions"><div class="titlepage"><div><div><h3 class="title"><a name="idp130448"></a>1.2.4. Improving the <code class="function">ntp</code> Feature with
+Done.</pre></div><div class="section" title="1.2.4. Improving the ntp Feature with Extensions"><div class="titlepage"><div><div><h3 class="title"><a name="idp168224"></a>1.2.4. Improving the <code class="function">ntp</code> Feature with
       Extensions</h3></div></div></div><p>Executing commands to enable and start the <code class="systemitem">ntpd</code> service works but there is a better
       way. <span class="productname">Config5</span> ships with a set of extensions
       and one of them is the <span class="productname">Services</span> extension
@@ -297,7 +297,7 @@ Done.</pre></div><div class="section" title="1.2.4. Improving the ntp Feature wi
   service enable ntpd
   service start ntpd</pre><p>The <code class="function">execute</code> change is inserted before the
       service changes to avoid a restart of the service because one of the
-      <code class="function">service</code> changes needs to be applied.</p></div><div class="section" title="1.2.5. Installation vs. Production"><div class="titlepage"><div><div><h3 class="title"><a name="idp132304"></a>1.2.5. Installation vs. Production</h3></div></div></div><p>We will typically install Red Hat Enterprise Linux Workstation on
+      <code class="function">service</code> changes needs to be applied.</p></div><div class="section" title="1.2.5. Installation vs. Production"><div class="titlepage"><div><div><h3 class="title"><a name="idp170080"></a>1.2.5. Installation vs. Production</h3></div></div></div><p>We will typically install Red Hat Enterprise Linux Workstation on
       a target system over the network using kickstart and at that time also
       run <span class="command"><strong>config5</strong></span> from a post script section to apply the
       configuration. However, the environment during installation is not
@@ -313,7 +313,7 @@ Done.</pre></div><div class="section" title="1.2.4. Improving the ntp Feature wi
   service enable ntpd
   service -<span class="emphasis"><em>P</em></span> start ntpd</pre><p>To make this work we will run <span class="command"><strong>config5</strong></span> with the
       option <code class="option">--set stage=installation</code> in the kickstart post
-      script.</p></div><div class="section" title="1.2.6. Adding Time Servers to the ntp Feature"><div class="titlepage"><div><div><h3 class="title"><a name="idp158640"></a>1.2.6. Adding Time Servers to the <code class="function">ntp</code>
+      script.</p></div><div class="section" title="1.2.6. Adding Time Servers to the ntp Feature"><div class="titlepage"><div><div><h3 class="title"><a name="idp188464"></a>1.2.6. Adding Time Servers to the <code class="function">ntp</code>
       Feature</h3></div></div></div><p>We are actually running two time servers <code class="systemitem">ts1.example.com</code> and <code class="systemitem">ts2.example.com</code> that we would prefer
       to the default servers. Workstations will only use <code class="systemitem">ts1</code> while servers will use <code class="systemitem">ts2</code>. We could create two files, one for
       servers and one for workstations but we can do better using a template.
@@ -336,7 +336,7 @@ _ntp:
   copy ntp.conf /etc/ntp.conf root root 644
   execute -tP root root service ntpd restart
   service enable ntpd
-  service -P start ntpd</pre></div><div class="section" title="1.2.7. Dealing with Exceptions"><div class="titlepage"><div><div><h3 class="title"><a name="idp166352"></a>1.2.7. Dealing with Exceptions</h3></div></div></div><p>As time passes we encounter a few exceptions that our
+  service -P start ntpd</pre></div><div class="section" title="1.2.7. Dealing with Exceptions"><div class="titlepage"><div><div><h3 class="title"><a name="idp204048"></a>1.2.7. Dealing with Exceptions</h3></div></div></div><p>As time passes we encounter a few exceptions that our
       configuration has to cover:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>The laptop <code class="systemitem">foobar</code>
           is configured as workstation but cannot contact the time servers
           because of the company firewall.</p></li><li class="listitem"><p>The user of workstation <code class="systemitem">snafu</code> wants it to be configured to
@@ -361,7 +361,7 @@ _ntpdate:
       old laptop it will remain a 32 bit installation. The workstation
       <code class="systemitem">snafu</code> on the other hand
       could be reinstalled with either 32 or 64 bit so we make sure both work
-      fine and add this line to the <code class="filename">spec</code> file:</p><pre class="programlisting">snafu_x86_64: RedHatEnterpriseWorkstation_x86_64 server=ts2.example.com</pre></div></div></div><div lang="en_US" class="chapter" title="Chapter 2. Configuration Data"><div class="titlepage"><div><div><h2 class="title"><a name="idp94688"></a>Chapter 2. Configuration Data</h2></div></div></div><p>The following sections provide in-depth explanation of the various
+      fine and add this line to the <code class="filename">spec</code> file:</p><pre class="programlisting">snafu_x86_64: RedHatEnterpriseWorkstation_x86_64 server=ts2.example.com</pre></div></div></div><div lang="en_US" class="chapter" title="Chapter 2. Configuration Data"><div class="titlepage"><div><div><h2 class="title"><a name="idp129360"></a>Chapter 2. Configuration Data</h2></div></div></div><p>The following sections provide in-depth explanation of the various
   concepts and the structure of configuration data that is deployed using
   <span class="productname">Config5</span>.</p><div class="section" title="2.1. Feature Set"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="conf.featureset"></a>2.1. Feature Set</h2></div></div></div><p>Configuration data that is applied using
     <span class="productname">Config5</span> is organized in a <em class="firstterm">feature
@@ -401,14 +401,14 @@ sshd_config spec</pre><p>The specification file contains a number of <a class="l
           changes.</p></li></ul></div><p>Substitutions that are passed down override substitutions in
       changes or included classes. Each substitution is a variable in
       <span class="productname">Template Toolkit</span> with the name
-      <code class="code">key</code> and <code class="code">value</code> as value.</p><div class="example"><a name="idp223520"></a><p class="title"><b>Example 2.1. Substitution Specification</b></p><div class="example-contents"><pre class="programlisting">RedHatEnterpriseServer: _sshd permitroot=1
+      <code class="code">key</code> and <code class="code">value</code> as value.</p><div class="example"><a name="idp260736"></a><p class="title"><b>Example 2.1. Substitution Specification</b></p><div class="example-contents"><pre class="programlisting">RedHatEnterpriseServer: _sshd permitroot=1
 RedHatEnterpriseWorkstation: _sshd permitroot=0
 
 _sshd:
   copy sshd_config /etc/sshd/sshd_config root root 600
 
 sample:
-  copy sshd_config.test /etc/sshd/sshd_config root root 600 permitroot=1</pre></div></div><br class="example-break"><div class="section" title="2.3.1.1. Predefined Substitutions"><div class="titlepage"><div><div><h4 class="title"><a name="idp225008"></a>2.3.1.1. Predefined Substitutions</h4></div></div></div><p>A set of substitutions are predefined and relate to information
+  copy sshd_config.test /etc/sshd/sshd_config root root 600 permitroot=1</pre></div></div><br class="example-break"><div class="section" title="2.3.1.1. Predefined Substitutions"><div class="titlepage"><div><div><h4 class="title"><a name="idp262384"></a>2.3.1.1. Predefined Substitutions</h4></div></div></div><p>A set of substitutions are predefined and relate to information
         about the target system and the configuration:</p><div class="informaltable"><table border="1"><colgroup><col><col></colgroup><thead><tr><th align="center">Variable</th><th align="center">Description</th></tr></thead><tbody><tr><td><code class="varname">auto_base</code></td><td>The base directory of
                 <span class="productname">Config5</span> (parent directory of the
                 directory containing the running <span class="command"><strong>config5</strong></span>
@@ -446,21 +446,21 @@ sample:
       flags.</p></div><div class="section" title="2.4.2. Parameters"><div class="titlepage"><div><div><h3 class="title"><a name="conf.chg.param"></a>2.4.2. Parameters</h3></div></div></div><p>Every change has its own set of mandatory and optional parameters.
       The core changes share some common parameters.</p><p>The following subsections describe common parameters that are
       handled the same way for all changes, both core changes and changes from
-      extension.</p><div class="section" title="2.4.2.1. Source File"><div class="titlepage"><div><div><h4 class="title"><a name="idp275808"></a>2.4.2.1. Source File</h4></div></div></div><p>The <em class="parameter"><code>source</code></em> file may be specified as path
+      extension.</p><div class="section" title="2.4.2.1. Source File"><div class="titlepage"><div><div><h4 class="title"><a name="idp314400"></a>2.4.2.1. Source File</h4></div></div></div><p>The <em class="parameter"><code>source</code></em> file may be specified as path
         relative to the feature directory or an absolute path on the target
-        system.</p></div><div class="section" title="2.4.2.2. Destination Path"><div class="titlepage"><div><div><h4 class="title"><a name="idp277584"></a>2.4.2.2. Destination Path</h4></div></div></div><p>The <em class="parameter"><code>destination</code></em> path for changes related
-        to the file system must always be absolute.</p></div><div class="section" title="2.4.2.3. User"><div class="titlepage"><div><div><h4 class="title"><a name="idp279360"></a>2.4.2.3. User</h4></div></div></div><p>The <em class="parameter"><code>user</code></em> for a file (symbolic link, etc.)
+        system.</p></div><div class="section" title="2.4.2.2. Destination Path"><div class="titlepage"><div><div><h4 class="title"><a name="idp316320"></a>2.4.2.2. Destination Path</h4></div></div></div><p>The <em class="parameter"><code>destination</code></em> path for changes related
+        to the file system must always be absolute.</p></div><div class="section" title="2.4.2.3. User"><div class="titlepage"><div><div><h4 class="title"><a name="idp318176"></a>2.4.2.3. User</h4></div></div></div><p>The <em class="parameter"><code>user</code></em> for a file (symbolic link, etc.)
         or directory can be specified as a <code class="systemitem">uname</code> or a numeric <code class="systemitem">uid</code>.</p><p>For an existing file or directory it is possible to use a minus
         sign as user in which case the current <code class="systemitem">user</code> of the file is unchanged. If the
         file does not exist the <code class="systemitem">user</code>
         of the file is set to <code class="systemitem">root</code>
         (<code class="systemitem">uid</code>
-        <code class="constant">0</code>).</p></div><div class="section" title="2.4.2.4. Group"><div class="titlepage"><div><div><h4 class="title"><a name="idp286896"></a>2.4.2.4. Group</h4></div></div></div><p>The <em class="parameter"><code>group</code></em> for a file (symbolic link,
+        <code class="constant">0</code>).</p></div><div class="section" title="2.4.2.4. Group"><div class="titlepage"><div><div><h4 class="title"><a name="idp324832"></a>2.4.2.4. Group</h4></div></div></div><p>The <em class="parameter"><code>group</code></em> for a file (symbolic link,
         etc.) or directory can be specified as a group name or a numeric
         <code class="systemitem">gid</code>.</p><p>For an existing file or directory it is possible to use a minus
         sign as <code class="systemitem">group</code> in which case
         the current <code class="systemitem">group</code> of the
-        file is unchanged. If the file does not exist the <code class="systemitem">group</code> of the file is set to <code class="systemitem">root</code> (<code class="systemitem">gid</code> <code class="constant">0</code>).</p></div><div class="section" title="2.4.2.5. Mode"><div class="titlepage"><div><div><h4 class="title"><a name="idp294208"></a>2.4.2.5. Mode</h4></div></div></div><p>The <em class="parameter"><code>mode</code></em> for a file or directory is
+        file is unchanged. If the file does not exist the <code class="systemitem">group</code> of the file is set to <code class="systemitem">root</code> (<code class="systemitem">gid</code> <code class="constant">0</code>).</p></div><div class="section" title="2.4.2.5. Mode"><div class="titlepage"><div><div><h4 class="title"><a name="idp332048"></a>2.4.2.5. Mode</h4></div></div></div><p>The <em class="parameter"><code>mode</code></em> for a file or directory is
         specified as an octal number.</p><p>If a minus sign is used as mode then the current mode of the
         file is unchanged. If the file does not exist then the mode is set to
         <code class="constant">0644</code>.</p></div><div class="section" title="2.4.2.6. SELinux Context"><div class="titlepage"><div><div><h4 class="title"><a name="conf.chg.param.selinux"></a>2.4.2.6. SELinux Context</h4></div></div></div><p>For files (directories, symbolic links, etc.) the core changes
@@ -470,9 +470,9 @@ sample:
               <code class="constant">system_u:object_r:</code><em class="replaceable"><code>type</code></em><code class="constant">:s0</code>.</p></dd><dt><span class="term">user:role:type</span></dt><dd><p>SELinux user, role and type, expands to
               <code class="constant"><em class="replaceable"><code>user</code></em>:<em class="replaceable"><code>role</code></em>:</code><em class="replaceable"><code>type</code></em><code class="constant">:s0</code>.</p></dd><dt><span class="term">user:role:type:range</span></dt><dd><p>Complete SELinux context.</p></dd></dl></div><p>The core changes that accept an optional SELinux context will
         keep the current context of an existing file. If a file is created
-        then the context is defined by the SELinux policy.</p></div></div><div class="section" title="2.4.3. Core Changes"><div class="titlepage"><div><div><h3 class="title"><a name="idp308544"></a>2.4.3. Core Changes</h3></div></div></div><p>The following subsections explain the core changes that are
+        then the context is defined by the SELinux policy.</p></div></div><div class="section" title="2.4.3. Core Changes"><div class="titlepage"><div><div><h3 class="title"><a name="idp346560"></a>2.4.3. Core Changes</h3></div></div></div><p>The following subsections explain the core changes that are
       natively supported by <span class="productname">Config5</span>, i.e., are not
-      provided by an extension.</p><div class="section" title="2.4.3.1. Copy File"><div class="titlepage"><div><div><h4 class="title"><a name="idp310576"></a>2.4.3.1. Copy File</h4></div></div></div><p>The <em class="firstterm">copy</em> change is used to copy a regular
+      provided by an extension.</p><div class="section" title="2.4.3.1. Copy File"><div class="titlepage"><div><div><h4 class="title"><a name="idp348416"></a>2.4.3.1. Copy File</h4></div></div></div><p>The <em class="firstterm">copy</em> change is used to copy a regular
         file.</p><div class="informaltable"><table border="1"><colgroup><col><col></colgroup><tbody><tr><td>Synopsis</td><td><code class="function">copy</code> [<code class="option">-bintT</code>]
                 <em class="parameter"><code>source</code></em>
                 <em class="parameter"><code>destination</code></em> <em class="parameter"><code>user</code></em>
@@ -489,7 +489,7 @@ sample:
         <em class="parameter"><code>mode</code></em> and <em class="parameter"><code>context</code></em> are
         individually compared to the destination file and copied or set when
         different.</p><p>If <em class="parameter"><code>destination</code></em> exists and is not a file
-        then it will be deleted before creating the file.</p><div class="example"><a name="idp329264"></a><p class="title"><b>Example 2.2. Copy File</b></p><div class="example-contents"><pre class="programlisting">sample:
+        then it will be deleted before creating the file.</p><div class="example"><a name="idp366592"></a><p class="title"><b>Example 2.2. Copy File</b></p><div class="example-contents"><pre class="programlisting">sample:
   copy sshd_config /etc/sshd/sshd_config root root 600 permitroot=1
   copy authorised_keys /root/.ssh/authorized_keys root root 644 ssh_home_t</pre></div></div><br class="example-break"></div><div class="section" title="2.4.3.2. Truncate File"><div class="titlepage"><div><div><h4 class="title"><a name="conf.chg.truncate"></a>2.4.3.2. Truncate File</h4></div></div></div><p>The <em class="firstterm">truncate</em> change is used to create a
         empty file.</p><div class="informaltable"><table border="1"><colgroup><col><col></colgroup><tbody><tr><td>Synopsis</td><td><code class="function">truncate</code> [<code class="option">-intT</code>]
@@ -504,7 +504,7 @@ sample:
         <em class="parameter"><code>mode</code></em> and <em class="parameter"><code>context</code></em> are
         individually compared to the destination file and copied or set when
         different.</p><p>If <em class="parameter"><code>destination</code></em> exists and is not a file
-        then it will be deleted before creating the file.</p><div class="example"><a name="idp347136"></a><p class="title"><b>Example 2.3. Truncate File</b></p><div class="example-contents"><pre class="programlisting">sample:
+        then it will be deleted before creating the file.</p><div class="example"><a name="idp383552"></a><p class="title"><b>Example 2.3. Truncate File</b></p><div class="example-contents"><pre class="programlisting">sample:
   truncate /etc/rc.d/rc.local root root 755</pre></div></div><br class="example-break"></div><div class="section" title="2.4.3.3. Append to File"><div class="titlepage"><div><div><h4 class="title"><a name="conf.chg.append"></a>2.4.3.3. Append to File</h4></div></div></div><p>The <em class="firstterm">append</em> change is used to append data
         to a file.</p><div class="informaltable"><table border="1"><colgroup><col><col></colgroup><tbody><tr><td>Synopsis</td><td><code class="function">append</code> [<code class="option">-b</code>]
                 <em class="parameter"><code>source</code></em>
@@ -515,7 +515,7 @@ sample:
         the appended data is treated as binary and no substitutions are
         done.</p><div class="important" title="Important" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Important</h3><p>To append to a file it must be copied or truncated. A
           corresponding copy or truncate change must be present in exactly one
-          of the features.</p></div><div class="example"><a name="idp361232"></a><p class="title"><b>Example 2.4. Append to File</b></p><div class="example-contents"><pre class="programlisting">sample:
+          of the features.</p></div><div class="example"><a name="idp398000"></a><p class="title"><b>Example 2.4. Append to File</b></p><div class="example-contents"><pre class="programlisting">sample:
   append rc.local /etc/rc.d/rc.local </pre></div></div><br class="example-break"></div><div class="section" title="2.4.3.4. Create Directory"><div class="titlepage"><div><div><h4 class="title"><a name="conf.chg.directory"></a>2.4.3.4. Create Directory</h4></div></div></div><p>The <em class="firstterm">directory</em> change is used to create a
         directory.</p><div class="informaltable"><table border="1"><colgroup><col><col></colgroup><tbody><tr><td>Synopsis</td><td><code class="function">directory</code> [<code class="option">-ntT</code>]
                 <em class="parameter"><code>destination</code></em> <em class="parameter"><code>user</code></em>
@@ -527,7 +527,7 @@ sample:
         <em class="parameter"><code>mode</code></em> and <em class="parameter"><code>context</code></em> are
         individually compared to the destination path and copied or set when
         different.</p><p>If <em class="parameter"><code>destination</code></em> exists and is not a
-        directory then it will be deleted before creating the file.</p><div class="example"><a name="idp378192"></a><p class="title"><b>Example 2.5. Create Directory</b></p><div class="example-contents"><pre class="programlisting">sample:
+        directory then it will be deleted before creating the file.</p><div class="example"><a name="idp414928"></a><p class="title"><b>Example 2.5. Create Directory</b></p><div class="example-contents"><pre class="programlisting">sample:
   directory /local root root 1777</pre></div></div><br class="example-break"></div><div class="section" title="2.4.3.5. Create Link"><div class="titlepage"><div><div><h4 class="title"><a name="conf.chg.link"></a>2.4.3.5. Create Link</h4></div></div></div><p>The <em class="firstterm">link</em> change is used to create a
         (hard) link.</p><div class="informaltable"><table border="1"><colgroup><col><col></colgroup><tbody><tr><td>Synopsis</td><td><code class="function">link</code> [<code class="option">-ntT</code>]
                 <em class="parameter"><code>source</code></em>
@@ -537,7 +537,7 @@ sample:
         <em class="parameter"><code>destination</code></em> parameter an absolute path in the
         file system of the target system.</p><p>If <em class="parameter"><code>destination</code></em> exists and its inode or
         device id is different then it will be deleted before creating the
-        link.</p><div class="example"><a name="idp389680"></a><p class="title"><b>Example 2.6. Create Link</b></p><div class="example-contents"><pre class="programlisting">sample:
+        link.</p><div class="example"><a name="idp426416"></a><p class="title"><b>Example 2.6. Create Link</b></p><div class="example-contents"><pre class="programlisting">sample:
   link /tmp/a /tmp/b</pre></div></div><br class="example-break"></div><div class="section" title="2.4.3.6. Create Symbolic Link"><div class="titlepage"><div><div><h4 class="title"><a name="conf.chg.symlink"></a>2.4.3.6. Create Symbolic Link</h4></div></div></div><p>The <em class="firstterm">symlink</em> change is used to create a
         symbolic link.</p><div class="informaltable"><table border="1"><colgroup><col><col></colgroup><tbody><tr><td>Synopsis</td><td><code class="function">symlink</code> [<code class="option">-bntT</code>]
                 <em class="parameter"><code>value</code></em>
@@ -553,9 +553,9 @@ sample:
         individually compared to the destination path and set when
         different.</p><p>If <em class="parameter"><code>destination</code></em> exists and is not a
         symbolic link then it will be deleted before creating the symbolic
-        link.</p><div class="example"><a name="idp404928"></a><p class="title"><b>Example 2.7. Create Symbolic Link</b></p><div class="example-contents"><pre class="programlisting">sample:
+        link.</p><div class="example"><a name="idp443888"></a><p class="title"><b>Example 2.7. Create Symbolic Link</b></p><div class="example-contents"><pre class="programlisting">sample:
   copy ca.pem /etc/openldap/cacerts/ca.pem root root 644
-  symlink ca.pem /etc/openldap/cacerts/12345678.0 root root</pre></div></div><br class="example-break"></div><div class="section" title="2.4.3.7. Change Properties"><div class="titlepage"><div><div><h4 class="title"><a name="idp406528"></a>2.4.3.7. Change Properties</h4></div></div></div><p>The <em class="firstterm">properties</em> change is used to change
+  symlink ca.pem /etc/openldap/cacerts/12345678.0 root root</pre></div></div><br class="example-break"></div><div class="section" title="2.4.3.7. Change Properties"><div class="titlepage"><div><div><h4 class="title"><a name="idp445360"></a>2.4.3.7. Change Properties</h4></div></div></div><p>The <em class="firstterm">properties</em> change is used to change
         the properties of an existing file.</p><div class="informaltable"><table border="1"><colgroup><col><col></colgroup><tbody><tr><td>Synopsis</td><td><code class="function">properties</code> [<code class="option">-ntT</code>]
                 <em class="parameter"><code>destination</code></em> <em class="parameter"><code>user</code></em>
                 <em class="parameter"><code>group</code></em> <em class="parameter"><code>mode</code></em>
@@ -566,14 +566,14 @@ sample:
         common parameters (see <a class="xref" href="#conf.chg.param" title="2.4.2. Parameters">Section 2.4.2, &#8220;Parameters&#8221;</a>).</p><p>The <em class="parameter"><code>user</code></em>, <em class="parameter"><code>group</code></em>,
         <em class="parameter"><code>mode</code></em> and <em class="parameter"><code>context</code></em> are
         individually compared to the destination file and set when
-        different.</p><div class="example"><a name="idp420288"></a><p class="title"><b>Example 2.8. Change Properties</b></p><div class="example-contents"><pre class="programlisting">sample:
+        different.</p><div class="example"><a name="idp459072"></a><p class="title"><b>Example 2.8. Change Properties</b></p><div class="example-contents"><pre class="programlisting">sample:
   properties /var/log/messages - - 644</pre></div></div><br class="example-break"></div><div class="section" title="2.4.3.8. Remove"><div class="titlepage"><div><div><h4 class="title"><a name="conf.chg.remove"></a>2.4.3.8. Remove</h4></div></div></div><p>The <em class="firstterm">remove</em> change is used to delete a
         file, directory, symbolic link, link or special file.</p><div class="informaltable"><table border="1"><colgroup><col><col></colgroup><tbody><tr><td>Synopsis</td><td><code class="function">remove</code> [<code class="option">-ntT</code>]
                 <em class="parameter"><code>destination</code></em></td></tr></tbody></table></div><p>The parameters <em class="parameter"><code>destination</code></em> is a common
         parameter (see <a class="xref" href="#conf.chg.param" title="2.4.2. Parameters">Section 2.4.2, &#8220;Parameters&#8221;</a>).</p><div class="important" title="Important" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Important</h3><p>It is currently not possible to recursively remove a directory
           with the <code class="function">remove</code> change. Run <span class="command"><strong>rm
           -rf</strong></span> using the <code class="function">execute</code> change instead
-          (see <a class="xref" href="#conf.chg.execute" title="2.4.3.9. Execute Shell Command Line">Section 2.4.3.9, &#8220;Execute Shell Command Line&#8221;</a>).</p></div><div class="example"><a name="idp432368"></a><p class="title"><b>Example 2.9. Remove</b></p><div class="example-contents"><pre class="programlisting">sample:
+          (see <a class="xref" href="#conf.chg.execute" title="2.4.3.9. Execute Shell Command Line">Section 2.4.3.9, &#8220;Execute Shell Command Line&#8221;</a>).</p></div><div class="example"><a name="idp470064"></a><p class="title"><b>Example 2.9. Remove</b></p><div class="example-contents"><pre class="programlisting">sample:
   remove /etc/openldap/cacerts/ca.pem
   remove /etc/openldap/cacerts/12345678.0
   remove /etc/openldap/cacerts</pre></div></div><br class="example-break"></div><div class="section" title="2.4.3.9. Execute Shell Command Line"><div class="titlepage"><div><div><h4 class="title"><a name="conf.chg.execute"></a>2.4.3.9. Execute Shell Command Line</h4></div></div></div><p>The <em class="firstterm">execute</em> change is used to execute a
@@ -584,8 +584,8 @@ sample:
         including classes are applied to the command line before executing it
         unless the <code class="option">-b</code> flag is used.</p><p>The execute change is always performed unless the
         <code class="option">-t</code> or <code class="option">-T</code> flag is used but no earlier
-        change triggers it.</p><div class="example"><a name="idp443808"></a><p class="title"><b>Example 2.10. Execute Shell Command Line</b></p><div class="example-contents"><pre class="programlisting">sample:
-  execute service sssd stop ; rm -f rm -f /var/lib/sss/db/* ; service sssd start</pre></div></div><br class="example-break"></div></div></div></div><div lang="en_US" class="chapter" title="Chapter 3. Configuration Application"><div class="titlepage"><div><div><h2 class="title"><a name="idp308800"></a>Chapter 3. Configuration Application</h2></div></div></div><p>Understanding how the configuration is applied to a system is
+        change triggers it.</p><div class="example"><a name="idp481472"></a><p class="title"><b>Example 2.10. Execute Shell Command Line</b></p><div class="example-contents"><pre class="programlisting">sample:
+  execute service sssd stop ; rm -f rm -f /var/lib/sss/db/* ; service sssd start</pre></div></div><br class="example-break"></div></div></div></div><div lang="en_US" class="chapter" title="Chapter 3. Configuration Application"><div class="titlepage"><div><div><h2 class="title"><a name="idp346816"></a>Chapter 3. Configuration Application</h2></div></div></div><p>Understanding how the configuration is applied to a system is
   essential and outlined in this chapter.</p><div class="section" title="3.1. Configuration Processing"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="app.proc"></a>3.1. Configuration Processing</h2></div></div></div><p>The information in the feature set is processed in a well defined
     order:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>All features are processed in alphabetical order.</p></li><li class="listitem"><p>Starting with the class that matches best in each feature (if
         there is any, see <a class="xref" href="#cust.class.match" title="2.3.2. Best Match">Section 2.3.2, &#8220;Best Match&#8221;</a>) the referenced
@@ -606,7 +606,7 @@ sample:
       default configuration defines the following two stages:</p><div class="informaltable"><table border="1"><colgroup><col><col><col></colgroup><thead><tr><th align="left">Stage</th><th align="left">Flag</th><th align="left">Description</th></tr></thead><tbody><tr><td><code class="constant">installation</code></td><td><code class="option">-I</code></td><td>System is being installed.</td></tr><tr><td><code class="constant">production</code></td><td><code class="option">-P</code></td><td>System is up and running (default).</td></tr></tbody></table></div><p>Individual changes can be selectively enabled for only some stages
       by specifying the stages as flags (see <a class="xref" href="#conf.changes.flags" title="2.4.1. Flags">Section 2.4.1, &#8220;Flags&#8221;</a>). If no stage is specified this means
       that the change is applied in any stage.</p><p>The stage can be set using the <code class="option">--set</code> command line
-      option of <span class="command"><strong>config5</strong></span>.</p></div></div><div class="section" title="3.3. Configuration Application"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp473312"></a>3.3. Configuration Application</h2></div></div></div><p>The configuration is applied after processing in a structured
+      option of <span class="command"><strong>config5</strong></span>.</p></div></div><div class="section" title="3.3. Configuration Application"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp510512"></a>3.3. Configuration Application</h2></div></div></div><p>The configuration is applied after processing in a structured
     manner.</p><div class="section" title="3.3.1. Passes"><div class="titlepage"><div><div><h3 class="title"><a name="app.passes"></a>3.3.1. Passes</h3></div></div></div><p>The configuration is applied in ten
       <span class="emphasis"><em><em class="firstterm">passes</em></em></span>. The pass in which a
       change is applied can be specified with the flags <code class="option">-0</code> to
@@ -647,7 +647,7 @@ sample:
       first check if there are modifications needed. Changes that require no
       modifications on the target system are not shown in the default
       verbosity level.</p><p>The following subsections describe how each change type is
-      applied.</p><div class="section" title="3.3.3.1. copy and truncate"><div class="titlepage"><div><div><h4 class="title"><a name="idp530240"></a>3.3.3.1. <code class="function">copy</code> and
+      applied.</p><div class="section" title="3.3.3.1. copy and truncate"><div class="titlepage"><div><div><h4 class="title"><a name="idp568032"></a>3.3.3.1. <code class="function">copy</code> and
         <code class="function">truncate</code></h4></div></div></div><p>When applying a <code class="function">copy</code> or
         <code class="function">truncate</code> change <span class="command"><strong>config5</strong></span> will
         do it with as few side effects as possible. A file is only replaced or
@@ -663,21 +663,21 @@ sample:
         following:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>If the file already exists but is not a plain file then it
             will be deleted first.</p></li><li class="listitem"><p>It will write the new content to the file.</p></li></ol></div><p>If the file is already present and the content is the same then
         only the properties such as user, group, mode or SELinux context (if
-        enabled) are modified if necessary.</p></div><div class="section" title="3.3.3.2. directory"><div class="titlepage"><div><div><h4 class="title"><a name="idp542464"></a>3.3.3.2. <code class="function">directory</code></h4></div></div></div><p>If a file exists with the same path as the directory it is
-        removed.</p></div><div class="section" title="3.3.3.3. execute"><div class="titlepage"><div><div><h4 class="title"><a name="idp544080"></a>3.3.3.3. <code class="function">execute</code></h4></div></div></div><p>The command line is executed by the default shell of the user
-        who is running <span class="command"><strong>config5</strong></span>.</p></div><div class="section" title="3.3.3.4. link"><div class="titlepage"><div><div><h4 class="title"><a name="idp545840"></a>3.3.3.4. <code class="function">link</code></h4></div></div></div><p>If the link is missing or does not have the same device and
+        enabled) are modified if necessary.</p></div><div class="section" title="3.3.3.2. directory"><div class="titlepage"><div><div><h4 class="title"><a name="idp580656"></a>3.3.3.2. <code class="function">directory</code></h4></div></div></div><p>If a file exists with the same path as the directory it is
+        removed.</p></div><div class="section" title="3.3.3.3. execute"><div class="titlepage"><div><div><h4 class="title"><a name="idp582112"></a>3.3.3.3. <code class="function">execute</code></h4></div></div></div><p>The command line is executed by the default shell of the user
+        who is running <span class="command"><strong>config5</strong></span>.</p></div><div class="section" title="3.3.3.4. link"><div class="titlepage"><div><div><h4 class="title"><a name="idp584176"></a>3.3.3.4. <code class="function">link</code></h4></div></div></div><p>If the link is missing or does not have the same device and
         inode number as the file it links to <span class="command"><strong>config5</strong></span> does
         the following:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>It will create a temporary link to the source file</p></li><li class="listitem"><p>The temporary link is renamed to the real file name which
-            also deletes the old link.</p></li></ol></div></div><div class="section" title="3.3.3.5. remove"><div class="titlepage"><div><div><h4 class="title"><a name="idp550304"></a>3.3.3.5. <code class="function">remove</code></h4></div></div></div><p>If the file or directory exists it will be removed.</p><div class="important" title="Important" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Important</h3><p>Recursively deleting directories is not supported at this
+            also deletes the old link.</p></li></ol></div></div><div class="section" title="3.3.3.5. remove"><div class="titlepage"><div><div><h4 class="title"><a name="idp588752"></a>3.3.3.5. <code class="function">remove</code></h4></div></div></div><p>If the file or directory exists it will be removed.</p><div class="important" title="Important" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Important</h3><p>Recursively deleting directories is not supported at this
           time. Use an <code class="function">execute</code> change to run
-          <span class="command"><strong>rm</strong></span> instead.</p></div></div><div class="section" title="3.3.3.6. symlink"><div class="titlepage"><div><div><h4 class="title"><a name="idp553648"></a>3.3.3.6. <code class="function">symlink</code></h4></div></div></div><p>If the symbolic link is missing or does not have the right
+          <span class="command"><strong>rm</strong></span> instead.</p></div></div><div class="section" title="3.3.3.6. symlink"><div class="titlepage"><div><div><h4 class="title"><a name="idp562848"></a>3.3.3.6. <code class="function">symlink</code></h4></div></div></div><p>If the symbolic link is missing or does not have the right
         content <span class="command"><strong>config5</strong></span> does the following:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>If the file already exists but is not a symbolic link then
             it will be deleted first.</p></li><li class="listitem"><p>It will create a temporary symbolic link with the new
             content and set all permissions as specified. If SELinux is
             enabled and no SELinux context is specified and the symbolic link
             is replaced then the context from the current symbolic link is
             copied to the temporary symbolic link.</p></li><li class="listitem"><p>The temporary symbolic link is renamed to the real file name
-            which also deletes the old symbolic link.</p></li></ol></div></div><div class="section" title="3.3.3.7. properties"><div class="titlepage"><div><div><h4 class="title"><a name="idp559424"></a>3.3.3.7. properties</h4></div></div></div><p>The file or directory must exist. The properties such as user,
+            which also deletes the old symbolic link.</p></li></ol></div></div><div class="section" title="3.3.3.7. properties"><div class="titlepage"><div><div><h4 class="title"><a name="idp597296"></a>3.3.3.7. properties</h4></div></div></div><p>The file or directory must exist. The properties such as user,
         group, mode or SELinux context (if enabled) are modified if
         necessary.</p></div></div><div class="section" title="3.3.4. Triggered Changes"><div class="titlepage"><div><div><h3 class="title"><a name="app.triggers"></a>3.3.4. Triggered Changes</h3></div></div></div><p>A simple mechanism exists to make the application of changes
       depend on the modifications of previous changes. The most common case
@@ -697,35 +697,35 @@ sample:
                 changed</td><td>Change of user, group or other properties</td></tr><tr><td align="left"><code class="function">truncate</code></td><td>File missing or not a plain file,content
                 changed</td><td>Change of user, group, mode or other properties</td></tr></tbody></table></div></div></div></div></div><div lang="en_US" class="chapter" title="Chapter 4. The config5 Script"><div class="titlepage"><div><div><h2 class="title"><a name="run"></a>Chapter 4. The <span class="command"><strong>config5 Script</strong></span></h2></div></div></div><p>This chapter describes the <span class="command"><strong>config5</strong></span> script and how
   to use it for configuration verification, application and various management
-  tasks.</p><div class="section" title="4.1. Requirements"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp595712"></a>4.1. Requirements</h2></div></div></div><p>The <span class="command"><strong>config5</strong></span> script is written in
+  tasks.</p><div class="section" title="4.1. Requirements"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp633200"></a>4.1. Requirements</h2></div></div></div><p>The <span class="command"><strong>config5</strong></span> script is written in
     <span class="productname">Perl</span> and therefore requires a
     <span class="productname">Perl</span> installation with the core modules as well
-    as a number of additional modules.</p><div class="section" title="4.1.1. Perl Modules"><div class="titlepage"><div><div><h3 class="title"><a name="idp598192"></a>4.1.1. Perl Modules</h3></div></div></div><p>The following non-core <span class="productname">Perl</span> modules are
+    as a number of additional modules.</p><div class="section" title="4.1.1. Perl Modules"><div class="titlepage"><div><div><h3 class="title"><a name="idp635744"></a>4.1.1. Perl Modules</h3></div></div></div><p>The following non-core <span class="productname">Perl</span> modules are
       required to run <span class="command"><strong>config5</strong></span>:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p><code class="systemitem">Module::Load</code></p></li><li class="listitem"><p><code class="systemitem">Module::Load::Conditional</code></p></li><li class="listitem"><p><code class="systemitem">Template</code></p></li></ul></div><p>The following modules are only required if a given feature is
       enabled:</p><div class="variablelist"><dl><dt><span class="term"><code class="systemitem">File::ExtAttr</code></span></dt><dd><p>Required for SELinux support (see <a class="xref" href="#cust.os" title="7.3.2. Operating System Settings">Section 7.3.2, &#8220;Operating System Settings&#8221;</a>).</p></dd><dt><span class="term"><code class="systemitem">Socket6</code></span></dt><dd><p>Required for IPv6 support if the IP6 address is a mandatory
-            system information item (see <a class="xref" href="#cust.sysinfo" title="7.3.3. System Information Settings">Section 7.3.3, &#8220;System Information Settings&#8221;</a>).</p></dd></dl></div></div><div class="section" title="4.1.2. Other Requirements"><div class="titlepage"><div><div><h3 class="title"><a name="idp612048"></a>4.1.2. Other Requirements</h3></div></div></div><p>These external programs are required if a given feature or
-      component of <span class="command"><strong>config5</strong></span> is used:</p><div class="variablelist"><dl><dt><span class="term"><span class="command"><strong>lsb_release</strong></span></span></dt><dd><p>Required for the LSB system information module.</p></dd></dl></div></div></div><div class="section" title="4.2. Running config5"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp616576"></a>4.2. Running <span class="command"><strong>config5</strong></span></h2></div></div></div><p>The <span class="command"><strong>config5</strong></span> script will determine its location
+            system information item (see <a class="xref" href="#cust.sysinfo" title="7.3.3. System Information Settings">Section 7.3.3, &#8220;System Information Settings&#8221;</a>).</p></dd></dl></div></div><div class="section" title="4.1.2. Other Requirements"><div class="titlepage"><div><div><h3 class="title"><a name="idp649600"></a>4.1.2. Other Requirements</h3></div></div></div><p>These external programs are required if a given feature or
+      component of <span class="command"><strong>config5</strong></span> is used:</p><div class="variablelist"><dl><dt><span class="term"><span class="command"><strong>lsb_release</strong></span></span></dt><dd><p>Required for the LSB system information module.</p></dd></dl></div></div></div><div class="section" title="4.2. Running config5"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp653712"></a>4.2. Running <span class="command"><strong>config5</strong></span></h2></div></div></div><p>The <span class="command"><strong>config5</strong></span> script will determine its location
     and automatically find settings, libraries and the feature set relative to
     its path.</p><p>The libraries and settings are expected to be found in the
     directories <code class="filename">../lib</code> and <code class="filename">../etc</code> respectively. The feature set is
     expected in <code class="filename">../features</code> unless the
     path of the feature set is explicitly set using the
-    <code class="option">--features</code> command line option.</p><div class="section" title="4.2.1. Arguments"><div class="titlepage"><div><div><h3 class="title"><a name="idp621904"></a>4.2.1. Arguments</h3></div></div></div><p>The arguments to <span class="command"><strong>config5</strong></span> are a list of
+    <code class="option">--features</code> command line option.</p><div class="section" title="4.2.1. Arguments"><div class="titlepage"><div><div><h3 class="title"><a name="idp659008"></a>4.2.1. Arguments</h3></div></div></div><p>The arguments to <span class="command"><strong>config5</strong></span> are a list of
       features. Only the features listed on the command line are processed in
       alphabetical order.</p><p>If no features are specified then all features of the feature set
-      are processed.</p></div></div><div class="section" title="4.3. Applying the Configuration"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp624320"></a>4.3. Applying the Configuration</h2></div></div></div><p>The configuration is applied by running the config5 script with the
+      are processed.</p></div></div><div class="section" title="4.3. Applying the Configuration"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp661312"></a>4.3. Applying the Configuration</h2></div></div></div><p>The configuration is applied by running the config5 script with the
     <code class="option">--apply</code> command line option.</p><pre class="screen"># /usr/config5/bin/config5 --apply</pre><p>This is also the default action (the other two are
     <code class="option">--check</code> and <code class="option">--report</code>) so the option can
     be omitted:</p><pre class="screen"># /usr/config5/bin/config5</pre><p>While the configuration is applied config5 will use a lock file to
     make sure that no other instance of config5 is running at the same time.
     The file is relative to the root directory system item (see <a class="xref" href="#sysinfo.items.root" title="6.2.3. Root">Section 6.2.3, &#8220;Root&#8221;</a>), the default path for the file is
-    <code class="filename">/var/lock/config5</code> but can be changed (see <a class="xref" href="#cust.general" title="7.3.1. General Settings">Section 7.3.1, &#8220;General Settings&#8221;</a>).</p><div class="section" title="4.3.1. Changing System Information Items"><div class="titlepage"><div><div><h3 class="title"><a name="idp630752"></a>4.3.1. Changing System Information Items</h3></div></div></div><p>The <code class="option">--set</code> command line options can be used to
+    <code class="filename">/var/lock/config5</code> but can be changed (see <a class="xref" href="#cust.general" title="7.3.1. General Settings">Section 7.3.1, &#8220;General Settings&#8221;</a>).</p><div class="section" title="4.3.1. Changing System Information Items"><div class="titlepage"><div><div><h3 class="title"><a name="idp667856"></a>4.3.1. Changing System Information Items</h3></div></div></div><p>The <code class="option">--set</code> command line options can be used to
       override the system information items that are automatically determined.
       The argument to <code class="option">--set</code> is of the form
       <code class="option">key=value</code> where <code class="option">key</code> is the identifier
       of the system information item and <code class="option">value</code> is the value
       to set:</p><pre class="screen"># /usr/config5/bin/config5 --set host=foobar</pre><p>The list of identifiers of all configured system information items
-      can be displayed using <code class="option">--report systemitems</code>.</p></div><div class="section" title="4.3.2. SELinux Support"><div class="titlepage"><div><div><h3 class="title"><a name="idp636144"></a>4.3.2. SELinux Support</h3></div></div></div><p>SELinux support is a built-in feature and typically configured via
+      can be displayed using <code class="option">--report systemitems</code>.</p></div><div class="section" title="4.3.2. SELinux Support"><div class="titlepage"><div><div><h3 class="title"><a name="idp673248"></a>4.3.2. SELinux Support</h3></div></div></div><p>SELinux support is a built-in feature and typically configured via
       the global configuration (see <a class="xref" href="#cust.os" title="7.3.2. Operating System Settings">Section 7.3.2, &#8220;Operating System Settings&#8221;</a>). In some
       situations, such as when running <span class="command"><strong>config5</strong></span> on diskless
       clients, it may be required to override this setting via command line.
@@ -733,7 +733,7 @@ sample:
       is not <code class="filename">/</code> but the command line options take
       precedence.</p><p>The <code class="option">--selinux</code> command line option enables SELinux
       support, the <code class="option">--no-selinux</code> command line option disables
-      it:</p><pre class="screen"># /usr/config5/bin/config5 --no-selinux</pre></div><div class="section" title="4.3.3. Dry Run"><div class="titlepage"><div><div><h3 class="title"><a name="idp641472"></a>4.3.3. Dry Run</h3></div></div></div><p>The <code class="option">--dummy</code> command line options will force
+      it:</p><pre class="screen"># /usr/config5/bin/config5 --no-selinux</pre></div><div class="section" title="4.3.3. Dry Run"><div class="titlepage"><div><div><h3 class="title"><a name="idp678576"></a>4.3.3. Dry Run</h3></div></div></div><p>The <code class="option">--dummy</code> command line options will force
       <span class="command"><strong>config5</strong></span> to simulate configuration application:</p><pre class="screen"># /usr/config5/bin/config5 --apply --dummy</pre><p>No changes to the system will be done. The changes that would be
       done are printed.</p><div class="important" title="Important" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Important</h3><p>The dry run uses the current system state for the simulation
         which may not be enough to reflect the changes that would really be
@@ -780,7 +780,7 @@ sample:
   <span class="productname">Config5</span> in your organization.</p><p>Deploying <span class="productname">Config5</span> to a system is done in
   two steps:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Distributing the <span class="productname">Config5</span> deployment kit
       including the configuration data on the system</p></li><li class="listitem"><p>Running the <span class="command"><strong>config5</strong></span> script</p></li></ol></div><p><span class="productname">Config5</span> is very flexible and allows for a
-  wide range of approaches for both.</p><div class="section" title="5.1. Distribution of the Configuration"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp701872"></a>5.1. Distribution of the Configuration</h2></div></div></div><p>The <span class="command"><strong>config5</strong></span> script along with its settings and
+  wide range of approaches for both.</p><div class="section" title="5.1. Distribution of the Configuration"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp739664"></a>5.1. Distribution of the Configuration</h2></div></div></div><p>The <span class="command"><strong>config5</strong></span> script along with its settings and
     libraries are typically distributed along with the feature set. This set
     comprises the deployment kit (the <code class="filename">deploy</code> folder in the distribution). Some
     options for distributing the deployment kit include:</p><div class="variablelist"><dl><dt><span class="term">Network File system</span></dt><dd><p>The files of the deployment kit are exported via CIFS or NFS
@@ -791,7 +791,7 @@ sample:
           of the deployment kit.</p></dd><dt><span class="term">Remote Copy</span></dt><dd><p>The deployment kit is pushed on a system via
           <span class="command"><strong>rsync</strong></span>, <span class="command"><strong>scp</strong></span> or any other tool
           that does the job.</p></dd></dl></div><p>The right choice of the deployment method largely depends on your
-    work flow, policies and security requirements.</p><div class="section" title="5.1.1. Integration with Subversion"><div class="titlepage"><div><div><h3 class="title"><a name="idp712752"></a>5.1.1. Integration with Subversion</h3></div></div></div><p><span class="productname">Config5</span> integrates well with
+    work flow, policies and security requirements.</p><div class="section" title="5.1.1. Integration with Subversion"><div class="titlepage"><div><div><h3 class="title"><a name="idp750512"></a>5.1.1. Integration with Subversion</h3></div></div></div><p><span class="productname">Config5</span> integrates well with
       <span class="productname">Subversion</span>. The configuration check function
       of <span class="command"><strong>config5</strong></span> (see <a class="xref" href="#run.verify" title="4.4. Verifying the Configuration">Section 4.4, &#8220;Verifying the Configuration&#8221;</a>) can
       easily be used in a pre-commit hook to guard against common errors such
@@ -827,7 +827,7 @@ do
       chmod 755 "$DIRECTORY/$path"
    fi
 done
-</pre><p>Both scripts can be found in the directory <code class="filename">examples/svn</code> in the distribution.</p></div></div><div class="section" title="5.2. Running config5"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp719952"></a>5.2. Running <span class="command"><strong>config5</strong></span></h2></div></div></div><p>Running the <span class="command"><strong>config5</strong></span> script at the right time is
+</pre><p>Both scripts can be found in the directory <code class="filename">examples/svn</code> in the distribution.</p></div></div><div class="section" title="5.2. Running config5"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp757616"></a>5.2. Running <span class="command"><strong>config5</strong></span></h2></div></div></div><p>Running the <span class="command"><strong>config5</strong></span> script at the right time is
     an important decision for a successful deployment and depends on several
     factors such as the operating system, work flows, policies, etc. Below is
     a non-conclusive list of possible places from where to run
@@ -845,7 +845,7 @@ done
           immediately afterward.</p></dd></dl></div><p>When <span class="command"><strong>config5</strong></span> is running it uses a lock file to
     make sure that only one instance of <span class="command"><strong>config5</strong></span> is running
     at a time. It is therefore save to run <span class="command"><strong>config5</strong></span> from
-    different places without additional synchronization means.</p><div class="section" title="5.2.1. Random Delay"><div class="titlepage"><div><div><h3 class="title"><a name="idp735744"></a>5.2.1. Random Delay</h3></div></div></div><p>If many system are likely to update their configuration at the
+    different places without additional synchronization means.</p><div class="section" title="5.2.1. Random Delay"><div class="titlepage"><div><div><h3 class="title"><a name="idp773248"></a>5.2.1. Random Delay</h3></div></div></div><p>If many system are likely to update their configuration at the
       same time, it may be meaningful to add a random delay before running
       <span class="command"><strong>config5</strong></span>. This is usually the case if
       <span class="command"><strong>config5</strong></span> is run via <span class="command"><strong>cron</strong></span> on managed
@@ -853,12 +853,12 @@ done
       managed systems will otherwise access the file server at the same time.
       Depending on the file server and file system this may cause all kinds of
       errors.</p><p>The following <span class="command"><strong>bash</strong></span> code will perform a random
-      five minute delay before running <span class="command"><strong>config5</strong></span>:</p><div class="example"><a name="idp740400"></a><p class="title"><b>Example 5.1. Random Delay with bash</b></p><div class="example-contents"><pre class="programlisting">RND=$RANDOM ; let "RND\%=300" ; sleep $RND; /usr/config5/bin/config5</pre></div></div><br class="example-break"><p>If the deployment kit is pulled from a central repository via
+      five minute delay before running <span class="command"><strong>config5</strong></span>:</p><div class="example"><a name="idp777664"></a><p class="title"><b>Example 5.1. Random Delay with bash</b></p><div class="example-contents"><pre class="programlisting">RND=$RANDOM ; let "RND\%=300" ; sleep $RND; /usr/config5/bin/config5</pre></div></div><br class="example-break"><p>If the deployment kit is pulled from a central repository via
       download or checkout the delay should be placed before the download or
       checkout commands for similar reasons.</p></div></div></div><div lang="en_US" class="chapter" title="Chapter 6. System Information"><div class="titlepage"><div><div><h2 class="title"><a name="sysinfo"></a>Chapter 6. System Information</h2></div></div></div><p><span class="productname">Config5</span> uses an approach where the
   configuration is selected on the system that is being configured. This
   chapter explains the mechanism by which <span class="command"><strong>config5</strong></span> discovers
-  information about the system it runs on.</p><div class="section" title="6.1. The System Information Module"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp745360"></a>6.1. The System Information Module</h2></div></div></div><p>The module used for gathering the system information is
+  information about the system it runs on.</p><div class="section" title="6.1. The System Information Module"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp779856"></a>6.1. The System Information Module</h2></div></div></div><p>The module used for gathering the system information is
     exchangeable. <span class="productname">Config5</span> ships with two modules
     for immediate productive use: <code class="systemitem">LSB</code>
     (the default) and <code class="systemitem">Hardwired</code>.</p><p>Custom modules can also be added. A sample module (the one that we
@@ -877,12 +877,12 @@ done
     module. No conversions are used in the default configuration. The
     following conversions are supported:</p><div class="variablelist"><dl><dt><span class="term">none</span></dt><dd><p>No conversion.</p></dd><dt><span class="term">toupper</span></dt><dd><p>Convert all characters to upper case.</p></dd><dt><span class="term">tolower</span></dt><dd><p>Convert all characters to lower case.</p></dd><dt><span class="term">nows</span></dt><dd><p>Strip all white space characters.</p></dd><dt><span class="term">wstounderscore</span></dt><dd><p>Convert all white space characters to underscore.</p></dd></dl></div><p>The available system information items are configured via settings
     (see <a class="xref" href="#cust.sysinfo" title="7.3.3. System Information Settings">Section 7.3.3, &#8220;System Information Settings&#8221;</a>). The following items are configured
-    by default:</p><div class="informaltable"><table border="1"><colgroup><col><col><col><col><col><col></colgroup><thead><tr><th align="left">Item</th><th align="left">Priority</th><th align="left">Mandatory</th><th align="left">Type</th><th align="left">Conversion</th><th align="left">Description</th></tr></thead><tbody><tr><td><code class="varname">date</code></td><td><code class="constant">10</code></td><td>no</td><td>scalar</td><td align="left">none</td><td>Architecture</td></tr><tr><td><code class="varname">host</code></td><td><code class="constant">20</code></td><td>yes</td><td>scalar</td><td align="left">none</td><td>Host name</td></tr><tr><td><code class="varname">arch</code></td><td><code class="constant">30</code></td><td>yes</td><td>scalar</td><td align="left">none</td><td>Architecture</td></tr><tr><td><code class="varname">os</code></td><td><code class="constant">40</code></td><td>yes</td><td>scalar</td><td>none</td><td>OS</td></tr><tr><td><code class="varname">release</code></td><td><code class="constant">50</code></td><td>yes</td><td>scalar</td><td align="left">none</td><td>Release</td></tr><tr><td><code class="varname">ip</code></td><td><code class="constant">60</code></td><td>no</td><td>scalar</td><td align="left">none</td><td>IP</td></tr><tr><td><code class="varname">ip6</code></td><td><code class="constant">70</code></td><td>no</td><td>scalar</td><td align="left">none</td><td>IP6</td></tr><tr><td><code class="varname">fqhn</code></td><td><code class="constant">80</code></td><td>no</td><td>scalar</td><td align="left">none</td><td>Fully qualified host name</td></tr><tr><td><code class="varname">fqdn</code></td><td><code class="constant">90</code></td><td>no</td><td>scalar</td><td align="left">none</td><td>Fully qualified domain name</td></tr><tr><td><code class="varname">properties</code></td><td><code class="constant">100</code></td><td>no</td><td>list</td><td align="left">none</td><td>Properties</td></tr><tr><td><code class="varname">root</code></td><td><code class="constant">110</code></td><td>yes</td><td>scalar</td><td align="left">none</td><td>Root directory</td></tr><tr><td><code class="varname">stage</code></td><td><code class="constant">120</code></td><td>yes</td><td>scalar</td><td align="left">none</td><td>Stage</td></tr></tbody></table></div><div class="section" title="6.2.1. Common System Information Items"><div class="titlepage"><div><div><h3 class="title"><a name="idp778144"></a>6.2.1. Common System Information Items</h3></div></div></div><p>The following system information items are determined independent
+    by default:</p><div class="informaltable"><table border="1"><colgroup><col><col><col><col><col><col></colgroup><thead><tr><th align="left">Item</th><th align="left">Priority</th><th align="left">Mandatory</th><th align="left">Type</th><th align="left">Conversion</th><th align="left">Description</th></tr></thead><tbody><tr><td><code class="varname">date</code></td><td><code class="constant">10</code></td><td>no</td><td>scalar</td><td align="left">none</td><td>Architecture</td></tr><tr><td><code class="varname">host</code></td><td><code class="constant">20</code></td><td>yes</td><td>scalar</td><td align="left">none</td><td>Host name</td></tr><tr><td><code class="varname">arch</code></td><td><code class="constant">30</code></td><td>yes</td><td>scalar</td><td align="left">none</td><td>Architecture</td></tr><tr><td><code class="varname">os</code></td><td><code class="constant">40</code></td><td>yes</td><td>scalar</td><td>none</td><td>OS</td></tr><tr><td><code class="varname">release</code></td><td><code class="constant">50</code></td><td>yes</td><td>scalar</td><td align="left">none</td><td>Release</td></tr><tr><td><code class="varname">ip</code></td><td><code class="constant">60</code></td><td>no</td><td>scalar</td><td align="left">none</td><td>IP</td></tr><tr><td><code class="varname">ip6</code></td><td><code class="constant">70</code></td><td>no</td><td>scalar</td><td align="left">none</td><td>IP6</td></tr><tr><td><code class="varname">fqhn</code></td><td><code class="constant">80</code></td><td>no</td><td>scalar</td><td align="left">none</td><td>Fully qualified host name</td></tr><tr><td><code class="varname">fqdn</code></td><td><code class="constant">90</code></td><td>no</td><td>scalar</td><td align="left">none</td><td>Fully qualified domain name</td></tr><tr><td><code class="varname">properties</code></td><td><code class="constant">100</code></td><td>no</td><td>list</td><td align="left">none</td><td>Properties</td></tr><tr><td><code class="varname">root</code></td><td><code class="constant">110</code></td><td>yes</td><td>scalar</td><td align="left">none</td><td>Root directory</td></tr><tr><td><code class="varname">stage</code></td><td><code class="constant">120</code></td><td>yes</td><td>scalar</td><td align="left">none</td><td>Stage</td></tr></tbody></table></div><div class="section" title="6.2.1. Common System Information Items"><div class="titlepage"><div><div><h3 class="title"><a name="idp815600"></a>6.2.1. Common System Information Items</h3></div></div></div><p>The following system information items are determined independent
       of the chosen module and are always available and are determined from
       the running operating system:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p><code class="varname">arch</code></p></li><li class="listitem"><p><code class="varname">host</code></p></li><li class="listitem"><p><code class="varname">ip</code> (if configured)</p></li><li class="listitem"><p><code class="varname">ip6</code> (if configured)</p></li><li class="listitem"><p><code class="varname">properties</code></p></li><li class="listitem"><p><code class="varname">root</code></p></li><li class="listitem"><p><code class="varname">stage</code></p></li></ul></div><p>If the root directory is changed (see <a class="xref" href="#app.root" title="3.2.1. Root Directory">Section 3.2.1, &#8220;Root Directory&#8221;</a>)
       then only the following items are determined.</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p><code class="varname">properties</code></p></li><li class="listitem"><p><code class="varname">root</code></p></li><li class="listitem"><p><code class="varname">stage</code></p></li></ul></div><p>The remaining mandatory modules must be provided by command line
       argument or by an alternative system information module such as the
-      <code class="systemitem">Hardwired</code> module (see <a class="xref" href="#sysinfo.mod.hardwired" title="6.3.2. Hardwired">Section 6.3.2, &#8220;Hardwired&#8221;</a>).</p></div><div class="section" title="6.2.2. Properties"><div class="titlepage"><div><div><h3 class="title"><a name="idp838320"></a>6.2.2. Properties</h3></div></div></div><p>The properties are read from a file that contains space- or
+      <code class="systemitem">Hardwired</code> module (see <a class="xref" href="#sysinfo.mod.hardwired" title="6.3.2. Hardwired">Section 6.3.2, &#8220;Hardwired&#8221;</a>).</p></div><div class="section" title="6.2.2. Properties"><div class="titlepage"><div><div><h3 class="title"><a name="idp876368"></a>6.2.2. Properties</h3></div></div></div><p>The properties are read from a file that contains space- or
       comma-separated words. This file can be provisioned during
       installation.</p></div><div class="section" title="6.2.3. Root"><div class="titlepage"><div><div><h3 class="title"><a name="sysinfo.items.root"></a>6.2.3. Root</h3></div></div></div><p>The root directory (see <a class="xref" href="#app.root" title="3.2.1. Root Directory">Section 3.2.1, &#8220;Root Directory&#8221;</a>) can be
       modified with the <code class="option">--set</code> command line option when
@@ -890,11 +890,11 @@ done
       makes sense when the configuration is applied to something other than
       the system where <span class="command"><strong>config5</strong></span> is run, for instance a
       diskless client image on the file server that serves it.</p><p>The default path of the root directory is taken from the
-      <code class="varname">$self-&gt;{os}-&gt;{root}</code> setting (see <a class="xref" href="#cust.os" title="7.3.2. Operating System Settings">Section 7.3.2, &#8220;Operating System Settings&#8221;</a>) and is typically <code class="filename">/</code>.</p></div><div class="section" title="6.2.4. Stage"><div class="titlepage"><div><div><h3 class="title"><a name="idp845632"></a>6.2.4. Stage</h3></div></div></div><p>The stage (see <a class="xref" href="#app.root" title="3.2.1. Root Directory">Section 3.2.1, &#8220;Root Directory&#8221;</a>) can be modified with
+      <code class="varname">$self-&gt;{os}-&gt;{root}</code> setting (see <a class="xref" href="#cust.os" title="7.3.2. Operating System Settings">Section 7.3.2, &#8220;Operating System Settings&#8221;</a>) and is typically <code class="filename">/</code>.</p></div><div class="section" title="6.2.4. Stage"><div class="titlepage"><div><div><h3 class="title"><a name="idp883376"></a>6.2.4. Stage</h3></div></div></div><p>The stage (see <a class="xref" href="#app.root" title="3.2.1. Root Directory">Section 3.2.1, &#8220;Root Directory&#8221;</a>) can be modified with
       the <code class="option">--set</code> command line option when running
       <span class="command"><strong>config5</strong></span>.</p><p>The default change can be changed with the following
-      setting:</p><div class="informaltable"><table border="1"><colgroup><col><col><col></colgroup><thead><tr><th align="left">Setting</th><th align="left">Default</th><th align="left">Description</th></tr></thead><tbody><tr><td><code class="varname">$self-&gt;{system}-&gt;{defaults}-&gt;{stage}</code></td><td><code class="filename">production</code></td><td>The default stage.</td></tr></tbody></table></div></div></div><div class="section" title="6.3. System Information Modules"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp750736"></a>6.3. System Information Modules</h2></div></div></div><p>The system information module to use can be changed in the settings
-    (see <a class="xref" href="#cust.sysinfo" title="7.3.3. System Information Settings">Section 7.3.3, &#8220;System Information Settings&#8221;</a>).</p><div class="section" title="6.3.1. LSB"><div class="titlepage"><div><div><h3 class="title"><a name="idp857392"></a>6.3.1. LSB</h3></div></div></div><p>The <code class="systemitem">LSB</code> module can
+      setting:</p><div class="informaltable"><table border="1"><colgroup><col><col><col></colgroup><thead><tr><th align="left">Setting</th><th align="left">Default</th><th align="left">Description</th></tr></thead><tbody><tr><td><code class="varname">$self-&gt;{system}-&gt;{defaults}-&gt;{stage}</code></td><td><code class="filename">production</code></td><td>The default stage.</td></tr></tbody></table></div></div></div><div class="section" title="6.3. System Information Modules"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp788160"></a>6.3. System Information Modules</h2></div></div></div><p>The system information module to use can be changed in the settings
+    (see <a class="xref" href="#cust.sysinfo" title="7.3.3. System Information Settings">Section 7.3.3, &#8220;System Information Settings&#8221;</a>).</p><div class="section" title="6.3.1. LSB"><div class="titlepage"><div><div><h3 class="title"><a name="idp895216"></a>6.3.1. LSB</h3></div></div></div><p>The <code class="systemitem">LSB</code> module can
       determine the OS name and release using
       <span class="command"><strong>lsb_release</strong></span>.</p><p>The following settings can be used to control the information
       gathering:</p><div class="informaltable"><table border="1"><colgroup><col><col><col></colgroup><thead><tr><th align="left">Setting</th><th align="left">Default</th><th align="left">Description</th></tr></thead><tbody><tr><td><code class="varname">$self-&gt;{system}-&gt;{lsb}-&gt;{append_code}</code></td><td><code class="constant">0</code></td><td>Append the OS code name to the OS id with an underscore
@@ -903,22 +903,22 @@ done
       <span class="productname">Config5</span> settings. Supplied constants overload
       the automatically determined information (architecture, host name,
       etc.):</p><div class="informaltable"><table border="1"><colgroup><col><col><col></colgroup><thead><tr><th align="left">Setting</th><th align="left">Default</th><th align="left">Description</th></tr></thead><tbody><tr><td><code class="varname">$self-&gt;{system}-&gt;{hardwired}-&gt;{<em class="replaceable"><code>item</code></em>}</code></td><td><code class="constant"><em class="replaceable"><code>undefined</code></em></code></td><td>Set the constant value for system information item
-              <em class="replaceable"><code>'item</code></em>'.</td></tr></tbody></table></div></div></div></div><div lang="en_US" class="chapter" title="Chapter 7. Customization"><div class="titlepage"><div><div><h2 class="title"><a name="idp878944"></a>Chapter 7. Customization</h2></div></div></div><p><span class="productname">Config5</span> ships with a reasonable set of
+              <em class="replaceable"><code>'item</code></em>'.</td></tr></tbody></table></div></div></div></div><div lang="en_US" class="chapter" title="Chapter 7. Customization"><div class="titlepage"><div><div><h2 class="title"><a name="idp916224"></a>Chapter 7. Customization</h2></div></div></div><p><span class="productname">Config5</span> ships with a reasonable set of
   default settings for the <span class="command"><strong>config5</strong></span> script for a normal
   deployment using the core features.</p><p>Systems administrators with special needs or policies can tweak many
   settings that affect the file system structure or behavior of
-  <span class="productname">Config5</span>.</p><div class="section" title="7.1. Files"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp882512"></a>7.1. Files</h2></div></div></div><p>All files are located under the directory <code class="filename">etc</code> next to the <code class="filename">bin</code>
+  <span class="productname">Config5</span>.</p><div class="section" title="7.1. Files"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp919216"></a>7.1. Files</h2></div></div></div><p>All files are located under the directory <code class="filename">etc</code> next to the <code class="filename">bin</code>
     directory containing the <span class="command"><strong>config5</strong></span> script. In the
     official distribution the files are in <code class="filename">deploy/etc</code>:</p><pre class="screen">$ ls deploy/etc
 custom.d  extensions.d  settings.pl</pre><p>All configuration files are basically perl code that modifies the
     settings data structure which is passed in <code class="varname">$_</code> by
-    reference.</p><div class="section" title="7.1.1. Order of Processing"><div class="titlepage"><div><div><h3 class="title"><a name="idp887888"></a>7.1.1. Order of Processing</h3></div></div></div><p>The various files are processed in the following order:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>The main settings file
+    reference.</p><div class="section" title="7.1.1. Order of Processing"><div class="titlepage"><div><div><h3 class="title"><a name="idp924736"></a>7.1.1. Order of Processing</h3></div></div></div><p>The various files are processed in the following order:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>The main settings file
           <code class="filename">settings.pl</code>.</p></li><li class="listitem"><p>All files ending in <code class="filename">.pl</code>
           in <code class="filename">extensions.d</code> in
           alphabetical order.</p></li><li class="listitem"><p>All files ending in <code class="filename">.pl</code>
           in <code class="filename">custom.d</code> in alphabetical
           order.</p></li></ol></div><p>Settings in one file can be removed, replaced or extended by files
-      that are loaded afterward.</p></div></div><div class="section" title="7.2. Custom Settings"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp896464"></a>7.2. Custom Settings</h2></div></div></div><p>Custom settings should be placed in a file ending in
+      that are loaded afterward.</p></div></div><div class="section" title="7.2. Custom Settings"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp933552"></a>7.2. Custom Settings</h2></div></div></div><p>Custom settings should be placed in a file ending in
     <code class="filename">.pl</code> in the directory <code class="filename">etc/custom.d</code>. A custom settings file should
     start with the following code:</p><pre class="programlisting">my $self = $_;</pre><p>This is not absolutely necessary but the other settings file all use
     <code class="varname">$self</code> and settings can be customized easier using
@@ -948,7 +948,7 @@ custom.d  extensions.d  settings.pl</pre><p>All configuration files are basicall
       changes.</p><div class="informaltable"><table border="1"><colgroup><col><col><col></colgroup><thead><tr><th align="left">Setting</th><th align="left">Default</th><th align="left">Description</th></tr></thead><tbody><tr><td><code class="varname">$self-&gt;{builtin}-&gt;{execute}-&gt;{allow_chroot}</code></td><td><code class="classname">0</code></td><td>Apply execute changes if root is not
               <code class="filename">/</code>.</td></tr></tbody></table></div></div><div class="section" title="7.3.5. Verbosity"><div class="titlepage"><div><div><h3 class="title"><a name="cust.output"></a>7.3.5. Verbosity</h3></div></div></div><p>The amount of information that is printed at which verbosity level
       can be configured by changing the following settings.</p><div class="informaltable"><table border="1"><colgroup><col><col><col></colgroup><thead><tr><th align="left">Setting</th><th align="left">Default</th><th align="left">Description</th></tr></thead><tbody><tr><td><code class="varname">$self-&gt;{display}-&gt;{entities}-&gt;{system}</code></td><td><code class="constant">1</code></td><td>Print the system information.</td></tr><tr><td><code class="varname">$self-&gt;{display}-&gt;{entities}-&gt;{pass}</code></td><td><code class="constant">1</code></td><td>Print the pass numbers.</td></tr><tr><td><code class="varname">$self-&gt;{display}-&gt;{entities}-&gt;{status}</code></td><td><code class="constant">1</code></td><td>print the status.</td></tr></tbody></table></div><p>The default verbosity level is <code class="constant">1</code> which means
-      that by default all three items are printed.</p></div><div class="section" title="7.3.6. Stages"><div class="titlepage"><div><div><h3 class="title"><a name="idp988864"></a>7.3.6. Stages</h3></div></div></div><p>The stages and the associated flags can be altered by defining
+      that by default all three items are printed.</p></div><div class="section" title="7.3.6. Stages"><div class="titlepage"><div><div><h3 class="title"><a name="idp1026624"></a>7.3.6. Stages</h3></div></div></div><p>The stages and the associated flags can be altered by defining
       <code class="varname">$self-&gt;{stage}-&gt;{stages}</code> like this:</p><pre class="programlisting"># Stages of the target system
 $self-&gt;{stage}-&gt;{stages} =
 {
@@ -956,7 +956,7 @@ $self-&gt;{stage}-&gt;{stages} =
    'startup' =&gt; 'S'
    'production' =&gt; 'P'
 };</pre><p>The flags defined for the stages must not conflict with the
-      regular flags (see <a class="xref" href="#conf.changes.flags" title="2.4.1. Flags">Section 2.4.1, &#8220;Flags&#8221;</a>).</p></div><div class="section" title="7.3.7. Change Keywords"><div class="titlepage"><div><div><h3 class="title"><a name="idp992400"></a>7.3.7. Change Keywords</h3></div></div></div><p>The keywords for changes can be altered by modifying
+      regular flags (see <a class="xref" href="#conf.changes.flags" title="2.4.1. Flags">Section 2.4.1, &#8220;Flags&#8221;</a>).</p></div><div class="section" title="7.3.7. Change Keywords"><div class="titlepage"><div><div><h3 class="title"><a name="idp1030160"></a>7.3.7. Change Keywords</h3></div></div></div><p>The keywords for changes can be altered by modifying
       <code class="varname">$self-&gt;{change}-&gt;{keywords}</code> like this:</p><pre class="programlisting"># Replace the keyword 'directory' by 'mkdir'
 delete $self-&gt;{change}-&gt;{keywords}-&gt;{directory};
 $self-&gt;{change}-&gt;{keywords}-&gt;{mkdir} = 'directory';
@@ -975,7 +975,7 @@ $self-&gt;{display}-&gt;{keywords}-&gt;{yum} = 'package';</pre><p>The names for 
       which are replaced by the value of the respective system information
       item.</p><p>The default search order is the following:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p><code class="classname">{host}_{os}_{release}_{arch}</code></p></li><li class="listitem"><p><code class="classname">{host}_{os}_{release}</code></p></li><li class="listitem"><p><code class="classname">{host}_{os}_{arch}</code></p></li><li class="listitem"><p><code class="classname">{host}_{os}</code></p></li><li class="listitem"><p><code class="classname">{host}_{arch}</code></p></li><li class="listitem"><p><code class="classname">{host}</code></p></li><li class="listitem"><p><code class="classname">{properties}_{os}_{release}_{arch}</code></p></li><li class="listitem"><p><code class="classname">{properties}_{os}_{release}</code></p></li><li class="listitem"><p><code class="classname">{properties}_{os}_{arch}</code></p></li><li class="listitem"><p><code class="classname">{properties}_{os}</code></p></li><li class="listitem"><p><code class="classname">{properties}_{arch}</code></p></li><li class="listitem"><p><code class="classname">{properties}</code></p></li><li class="listitem"><p><code class="classname">{os}_{release}_{arch}</code></p></li><li class="listitem"><p><code class="classname">{os}_{release}</code></p></li><li class="listitem"><p><code class="classname">{os}_{arch}</code></p></li><li class="listitem"><p><code class="classname">{os}</code></p></li></ol></div></div></div></div><div lang="en_US" class="appendix" title="Appendix A.  Man Pages"><div class="titlepage"><div><div><h2 class="title"><a name="app.man"></a>Appendix A. 
     Man Pages
-  </h2></div></div></div><div class="section" title="A.1. config5"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp1028496"></a>A.1. config5</h2></div></div></div><pre class="programlisting">NAME
+  </h2></div></div></div><div class="section" title="A.1. config5"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp1065632"></a>A.1. config5</h2></div></div></div><pre class="programlisting">NAME
     config5 - 5th Generation Unix Configuration Management Utility
 
 SYNOPSIS
@@ -1113,10 +1113,10 @@ EXAMPLES
         Report the matching class of features 'nfs' and 'cifs' for host
         'sample'.
 
-</pre></div></div><div lang="en_US" class="appendix" title="Appendix B. Error Messages"><div class="titlepage"><div><div><h2 class="title"><a name="app.err"></a>Appendix B. Error Messages</h2></div></div></div><div class="section" title="B.1. Runtime Errors"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp1035168"></a>B.1. Runtime Errors</h2></div></div></div><div class="variablelist"><dl><dt><span class="term">Disabled via '<em class="replaceable"><code>file</code></em>'</span></dt><dd><p>Configuration application is disabled because the named
+</pre></div></div><div lang="en_US" class="appendix" title="Appendix B. Error Messages"><div class="titlepage"><div><div><h2 class="title"><a name="app.err"></a>Appendix B. Error Messages</h2></div></div></div><div class="section" title="B.1. Runtime Errors"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp1072496"></a>B.1. Runtime Errors</h2></div></div></div><div class="variablelist"><dl><dt><span class="term">Disabled via '<em class="replaceable"><code>file</code></em>'</span></dt><dd><p>Configuration application is disabled because the named
           disable file is present (see <a class="xref" href="#run.disable" title="4.3.4. Disable Configuration Application">Section 4.3.4, &#8220;Disable Configuration Application&#8221;</a>).</p><p>Remove the file to enable configuration application.</p></dd><dt><span class="term">Unable to lock 'file'</span></dt><dd><p>A lock could not be obtained for the lock file.</p><p>Verify that the lock file can be created, is writable and on a
           local file system. Increase the wait time for obtaining the lock
-          (see <a class="xref" href="#cust.general" title="7.3.1. General Settings">Section 7.3.1, &#8220;General Settings&#8221;</a>).</p></dd></dl></div></div><div class="section" title="B.2. System Errors"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp1043200"></a>B.2. System Errors</h2></div></div></div><p>System errors are fatal, no changes will be done to the
+          (see <a class="xref" href="#cust.general" title="7.3.1. General Settings">Section 7.3.1, &#8220;General Settings&#8221;</a>).</p></dd></dl></div></div><div class="section" title="B.2. System Errors"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp1080704"></a>B.2. System Errors</h2></div></div></div><p>System errors are fatal, no changes will be done to the
     system.</p><div class="variablelist"><dl><dt><span class="term">Cannot run 'lsb_release -&#8230;' to determine &#8230;</span></dt><dd><p>The <span class="command"><strong>lsb_release</strong></span> command could not be
           run.</p><p>Install or deploy the package containing the
           <span class="command"><strong>lsb_release</strong></span> command on all systems where
@@ -1124,7 +1124,7 @@ EXAMPLES
         &#8230;</span></dt><dd><p>The named perl module is not installed but either generally
           required or required because of an optional functionality that is
           enabled.</p><p>Install or deploy the named module on all systems where
-          <span class="command"><strong>config5</strong></span> is run with the same settings.</p></dd></dl></div></div><div class="section" title="B.3. Setting Errors"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp1052080"></a>B.3. Setting Errors</h2></div></div></div><p>Setting errors are fatal, no changes will be done to the
+          <span class="command"><strong>config5</strong></span> is run with the same settings.</p></dd></dl></div></div><div class="section" title="B.3. Setting Errors"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp1089584"></a>B.3. Setting Errors</h2></div></div></div><p>Setting errors are fatal, no changes will be done to the
     system.</p><div class="variablelist"><dl><dt><span class="term">Cannot load module '<em class="replaceable"><code>module</code></em>' for
         keyword in &#8230;</span></dt><dd><p>The module of the handling class for the change failed to
           load.</p></dd><dt><span class="term">Cannot read feature list in
@@ -1134,7 +1134,7 @@ EXAMPLES
         &#8230;</span></dt><dd><p>The settings do not specify a class to handle changes with
           this keyword.</p></dd><dt><span class="term">Undefined system information item
         '<em class="replaceable"><code>item</code></em>'</span></dt><dd><p>An undefined system information item was used in the class
-          match list (see <a class="xref" href="#cust.classes" title="7.3.8. Class Match Order">Section 7.3.8, &#8220;Class Match Order&#8221;</a>.)</p></dd></dl></div></div><div class="section" title="B.4. Configuration Data Errors"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp1065120"></a>B.4. Configuration Data Errors</h2></div></div></div><p>Configuration data errors are fatal, no changes will be done to the
+          match list (see <a class="xref" href="#cust.classes" title="7.3.8. Class Match Order">Section 7.3.8, &#8220;Class Match Order&#8221;</a>.)</p></dd></dl></div></div><div class="section" title="B.4. Configuration Data Errors"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp1103984"></a>B.4. Configuration Data Errors</h2></div></div></div><p>Configuration data errors are fatal, no changes will be done to the
     system.</p><div class="variablelist"><dl><dt><span class="term">Change '<em class="replaceable"><code>change</code></em>' in feature
         '<em class="replaceable"><code>feature</code></em>' without class</span></dt><dd><p>A change was correctly parsed but no class was
           declared.</p></dd><dt><span class="term">Conflict for '<em class="replaceable"><code>file</code></em>' between &#8230;</span></dt><dd><p>The same file or directory is configured in different
@@ -1162,7 +1162,7 @@ EXAMPLES
         &#8230;</span></dt><dd><p>The change with this keyword is unknown.</p></dd><dt><span class="term">Unknown group '<em class="replaceable"><code>group</code></em>' in &#8230;</span></dt><dd><p>The group is unknown or invalid. See <a class="xref" href="#conf.chg.param" title="2.4.2. Parameters">Section 2.4.2, &#8220;Parameters&#8221;</a> for a description of the group
           parameter.</p></dd><dt><span class="term">Unknown user '<em class="replaceable"><code>user</code></em>' in &#8230;</span></dt><dd><p>The user is unknown or invalid. See <a class="xref" href="#conf.chg.param" title="2.4.2. Parameters">Section 2.4.2, &#8220;Parameters&#8221;</a> for a description of the user
           parameter.</p></dd><dt><span class="term">Unparsable line <em class="replaceable"><code>number</code></em> in '&#8230;' file
-        for feature '<em class="replaceable"><code>feature</code></em>': &#8230;</span></dt><dd><p>The line is not a valid class declaration or change.</p></dd></dl></div></div><div class="section" title="B.5. Configuration Application Errors"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp1067696"></a>B.5. Configuration Application Errors</h2></div></div></div><p>The following errors are reported for changes as they are applied
+        for feature '<em class="replaceable"><code>feature</code></em>': &#8230;</span></dt><dd><p>The line is not a valid class declaration or change.</p></dd></dl></div></div><div class="section" title="B.5. Configuration Application Errors"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp1105760"></a>B.5. Configuration Application Errors</h2></div></div></div><p>The following errors are reported for changes as they are applied
     but do not interrupt the application of other changes.</p><div class="variablelist"><dl><dt><span class="term">Command '<em class="replaceable"><code>command</code></em>' returned
         <em class="replaceable"><code>error</code></em> in &#8230;</span></dt><dd><p>The command returned a non-zero return value. Increase the
           verbosity level to see the output and error messages of the
@@ -1265,7 +1265,7 @@ EXAMPLES
   </p><p>
     The precise terms and conditions for copying, distribution and modification
     follow.
-  </p><h2><a name="idp1178400"></a>
+  </p><h2><a name="idp1215808"></a>
     TERMS AND CONDITIONS
   </h2><h2><a name="Definitions"></a>
     0. Definitions.
@@ -1806,7 +1806,7 @@ EXAMPLES
     waiver of all civil liability in connection with the Program, unless a
     warranty or assumption of liability accompanies a copy of the Program in
     return for a fee.
-  </p><h2><a name="idp1274112"></a>
+  </p><h2><a name="idp1311824"></a>
     END OF TERMS AND CONDITIONS
   </h2><h2><a name="HowToApply"></a>
     How to Apply These Terms to Your New Programs
@@ -2306,7 +2306,7 @@ being LIST, and with the Back-Cover Texts being LIST.</pre><p>
     recommend releasing these examples in parallel under your choice of free
     software license, such as the GNU General Public License, to permit their
     use in free software.
-  </p></div><div lang="en_US" class="glossary" title="Glossary"><div class="titlepage"><div><div><h2 class="title"><a name="idp1161392"></a>Glossary</h2></div></div></div><div class="glossdiv" title="Config5 Concepts"><h3 class="title"><span class="productname">Config5</span> Concepts</h3><dl><dt><a name="g.change"></a>Change</dt><dd><p>A change defines a single modification to the configuration.
+  </p></div><div lang="en_US" class="glossary" title="Glossary"><div class="titlepage"><div><div><h2 class="title"><a name="idp1199136"></a>Glossary</h2></div></div></div><div class="glossdiv" title="Config5 Concepts"><h3 class="title"><span class="productname">Config5</span> Concepts</h3><dl><dt><a name="g.change"></a>Change</dt><dd><p>A change defines a single modification to the configuration.
         Changes always belong to a class.</p><p>See Also <a class="glossseealso" href="#g.class">Class</a>.</p></dd><dt><a name="g.class"></a>Class</dt><dd><p>A class is part of a feature and defines a set of changes. When
         applying the configuration <span class="productname">Config5</span> searches
         for the best matching class in each feature.</p><p>A class can include other classes of the same feature.
@@ -2328,5 +2328,5 @@ being LIST, and with the Back-Cover Texts being LIST.</pre><p>
         the configuration is applied. Only the changes that are intended to be
         applied at this stage are applied.</p><p>See Also <a class="glossseealso" href="#g.change">Change</a>.</p></dd><dt><a name="g.substitution"></a>Substitution</dt><dd><p>Substitutions are keywords that are substituted by a value using
         <span class="productname">Template Toolkit</span>. They are specified in
-        class definitions and in changes that support it.</p><p>See Also <a class="glossseealso" href="#g.class">Class</a>, <a class="glossseealso" href="#g.change">Change</a>.</p></dd></dl></div></div><div lang="en_US" class="bibliography" title="Bibliography"><div class="titlepage"><div><div><h2 class="title"><a name="idp1404128"></a>Bibliography</h2></div></div></div><div class="bibliodiv" title="Web Resources"><h3 class="title"><a name="idp1405264"></a>Web Resources</h3><div class="biblioentry"><a name="bib.bcfg2"></a><p>[1] <span class="biblioset" title="Bcfg2 Project Website"><i><span class="productname">Bcfg2</span> Project Website</i>. </span><span class="biblioset" title="http://trac.mcs.anl.gov/projects/bcfg2"><i><a class="ulink" href="http://trac.mcs.anl.gov/projects/bcfg2" target="_top"><em class="citetitle">http://trac.mcs.anl.gov/projects/bcfg2</em></a></i>. </span></p></div><div class="biblioentry"><a name="bib.cfengine"></a><p>[2] <span class="biblioset" title="Cfengine Product Website"><i><span class="productname">Cfengine</span> Product Website</i>. </span><span class="biblioset" title="http://www.cfengine.org/"><i><a class="ulink" href="http://www.cfengine.org/" target="_top"><em class="citetitle">http://www.cfengine.org/</em></a></i>. </span></p></div><div class="biblioentry"><a name="bib.lcfg"></a><p>[3] <span class="biblioset" title="LCFG Product Website"><i><span class="productname">LCFG</span> Product Website</i>. </span><span class="biblioset" title="http://www.lcfg.org/"><i><a class="ulink" href="http://www.lcfg.org/" target="_top"><em class="citetitle">http://www.lcfg.org/</em></a></i>. </span></p></div><div class="biblioentry"><a name="bib.puppet"></a><p>[4] <span class="biblioset" title="Puppet Product Website"><i><span class="productname">Puppet</span> Product Website</i>. </span><span class="biblioset" title="http://www.puppetlabs.com/"><i><a class="ulink" href="http://www.puppetlabs.com/" target="_top"><em class="citetitle">http://www.puppetlabs.com/</em></a></i>. </span></p></div><div class="biblioentry"><a name="bib.templatetoolkit"></a><p>[5] <span class="biblioset" title="Template Toolkit Home Page"><i><span class="productname">Template Toolkit</span> Home Page</i>. </span><span class="biblioset" title="http://template-toolkit.org/"><i><a class="ulink" href="http://template-toolkit.org/" target="_top"><em class="citetitle">http://template-toolkit.org/</em></a></i>. </span></p></div></div><div class="bibliodiv" title="Papers"><h3 class="title"><a name="idp1425680"></a>Papers</h3><div class="biblioentry"><a name="bib.tetre2"></a><p>[6] <span class="biblioset" title="TemplateTree II: The Post-Installation Setup Tool"><i>TemplateTree II: The Post-Installation Setup Tool</i>. <span class="author"><span class="firstname">Tobias</span> <span class="surname">Oetiker</span>. </span><span class="copyright">Copyright © 2001. </span><span class="pagenums">179-185 of the Proceedings of LISA &#8217;01: Fifteenth Large
+        class definitions and in changes that support it.</p><p>See Also <a class="glossseealso" href="#g.class">Class</a>, <a class="glossseealso" href="#g.change">Change</a>.</p></dd></dl></div></div><div lang="en_US" class="bibliography" title="Bibliography"><div class="titlepage"><div><div><h2 class="title"><a name="idp1441936"></a>Bibliography</h2></div></div></div><div class="bibliodiv" title="Web Resources"><h3 class="title"><a name="idp1443072"></a>Web Resources</h3><div class="biblioentry"><a name="bib.bcfg2"></a><p>[1] <span class="biblioset" title="Bcfg2 Project Website"><i><span class="productname">Bcfg2</span> Project Website</i>. </span><span class="biblioset" title="http://trac.mcs.anl.gov/projects/bcfg2"><i><a class="ulink" href="http://trac.mcs.anl.gov/projects/bcfg2" target="_top"><em class="citetitle">http://trac.mcs.anl.gov/projects/bcfg2</em></a></i>. </span></p></div><div class="biblioentry"><a name="bib.cfengine"></a><p>[2] <span class="biblioset" title="Cfengine Product Website"><i><span class="productname">Cfengine</span> Product Website</i>. </span><span class="biblioset" title="http://www.cfengine.org/"><i><a class="ulink" href="http://www.cfengine.org/" target="_top"><em class="citetitle">http://www.cfengine.org/</em></a></i>. </span></p></div><div class="biblioentry"><a name="bib.lcfg"></a><p>[3] <span class="biblioset" title="LCFG Product Website"><i><span class="productname">LCFG</span> Product Website</i>. </span><span class="biblioset" title="http://www.lcfg.org/"><i><a class="ulink" href="http://www.lcfg.org/" target="_top"><em class="citetitle">http://www.lcfg.org/</em></a></i>. </span></p></div><div class="biblioentry"><a name="bib.puppet"></a><p>[4] <span class="biblioset" title="Puppet Product Website"><i><span class="productname">Puppet</span> Product Website</i>. </span><span class="biblioset" title="http://www.puppetlabs.com/"><i><a class="ulink" href="http://www.puppetlabs.com/" target="_top"><em class="citetitle">http://www.puppetlabs.com/</em></a></i>. </span></p></div><div class="biblioentry"><a name="bib.templatetoolkit"></a><p>[5] <span class="biblioset" title="Template Toolkit Home Page"><i><span class="productname">Template Toolkit</span> Home Page</i>. </span><span class="biblioset" title="http://template-toolkit.org/"><i><a class="ulink" href="http://template-toolkit.org/" target="_top"><em class="citetitle">http://template-toolkit.org/</em></a></i>. </span></p></div></div><div class="bibliodiv" title="Papers"><h3 class="title"><a name="idp1462432"></a>Papers</h3><div class="biblioentry"><a name="bib.tetre2"></a><p>[6] <span class="biblioset" title="TemplateTree II: The Post-Installation Setup Tool"><i>TemplateTree II: The Post-Installation Setup Tool</i>. <span class="author"><span class="firstname">Tobias</span> <span class="surname">Oetiker</span>. </span><span class="copyright">Copyright © 2001. </span><span class="pagenums">179-185 of the Proceedings of LISA &#8217;01: Fifteenth Large
         Installation Systems Administration Conference. </span></span></p></div></div></div></div></body></html>

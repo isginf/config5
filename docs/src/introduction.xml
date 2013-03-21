@@ -179,7 +179,7 @@ RedHatEnterpriseServer:
     <productname>Config5</productname> distribution:</para>
 
     <screen>$ cd /tmp
-$ wget https://github.com/isginf/config5/blob/master/releases/config5-latest.tgz
+$ wget https://github.com/isginf/config5/blob/master/releases/config5-latest.tgz?raw=true
 $ tar zxf config5-latest.tgz
 $ cd config5-?.?</screen>
 
