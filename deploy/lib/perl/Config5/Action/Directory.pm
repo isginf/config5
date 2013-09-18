@@ -38,7 +38,7 @@ sub progress($);
 
 sub new
 {
-   my ($perlclass, $change, $system, $class) = @_;
+   my ($perlclass, $change, $class, $system) = @_;
 
    my $self = $perlclass->SUPER::new($change, $class, $system);
    bless $self, $perlclass;
